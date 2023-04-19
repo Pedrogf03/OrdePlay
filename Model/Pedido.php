@@ -1,6 +1,6 @@
 <?php
 
-include_once "../Controller/Cliente.php";
+include_once "Cliente.php";
 
 class Pedido {
 
