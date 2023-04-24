@@ -8,3 +8,4 @@ define("DB_PASS", "");
 
 // Acción por defecto
 define("DEFAULT_ACTION", "web");
+define("DEFAULT_TITLE", "SocialGaming");

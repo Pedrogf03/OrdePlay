@@ -4,18 +4,24 @@ include_once 'config/config.php';
 
 class Controller {
 
-  private string $vista;
-  private string $titulo;
-  private string $css;
+  public string $vista;
+  public string $titulo;
+  public string $css;
 
   public function __construct(){
 
     $this->vista = constant("DEFAULT_ACTION"); // Por defecto, al iniciar, la vista será la predeterminada.
+    $this->css = constant("DEFAULT_ACTION"); // Por defecto, al iniciar, la vista será la predeterminada.
+    $this->titulo = constant("DEFAULT_TITLE"); // Por defecto, al iniciar, la vista será la predeterminada.
     
   }
 
-  public function getVista(){
-    return $this->vista;
+  public function web(){
+
+    $this->vista = "web";
+    $this->css = "web"; // Por defecto, al iniciar, la vista será la predeterminada.
+    $this->titulo = "SocialGaming"; // Por defecto, al iniciar, la vista será la predeterminada.
+
   }
 
 }

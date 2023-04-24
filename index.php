@@ -26,10 +26,10 @@ $controlador = new Controller();
 $datos = array();
 $datos = $controlador->{$_GET["action"]}(); // Llamada a las funciones del controlador, a través de la variable get action.
 
-/* Includes */
-include_once 'view/templates/header.php';
-include_once 'view/' . $controlador->getVista() . '.php'; // Incluye la vita concreta, necesaria en cada momento, dependiendo del atrubuto view del objeto noteController.
-include_once 'view/templates/footer.php';
+// Includes de la vista
+include_once 'view/template/header.php';
+include_once 'view/' . $controlador->vista . '.php'; // Incluye la vita concreta, necesaria en cada momento, dependiendo del atrubuto view del objeto noteController.
+include_once 'view/template/footer.php';
 
 
 ?>

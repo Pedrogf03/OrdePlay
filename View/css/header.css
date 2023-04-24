@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+header {
+  padding: 20px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+header div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logotipo de la página */
+header div:nth-child(1) img,
+header div:nth-child(3) img {
+  width: 50px;
+}
+
+/* Contenedor de las barras del menú hamburguesa */
+.contenedor_icono_burger {
+  display: block;
+  cursor: pointer;
+}
+/* Barras menú hamburguesa cuando no está desplegado */
+.icono_barras span {
+  display: block;
+  width: 30px;
+  height: 5px;
+  margin-bottom: 3px;
+  background: black;
+  border-radius: 3px;
+  transition: all 1s;
+}
+
+/* Barras menú hamburguesa cuando está desplegado (cruz) */
+.icono_cruz span {
+  display: block;
+  width: 30px;
+  height: 5px;
+  margin-bottom: 3px;
+  background: black;
+  border-radius: 3px;
+  transition: all 1s;
+}
+
+/* Transformación de cada barra para cambiar el icono */
+.icono_cruz span:nth-child(2) {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+.icono_cruz span:nth-child(1) {
+  border-radius: 3px;
+  transform: translateY(8px) rotateZ(45deg);
+}
+.icono_cruz span:nth-child(3) {
+  border-radius: 3px;
+  transform: translateY(-8px) rotateZ(-45deg);
+}
+.icono_cruz {
+  transition: all 1s;
+}
+
+/* Barra de navegación central */
+header div:nth-child(2) {
+  align-self: center;
+}
+header div:nth-child(2) ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  gap: 20px;
+}
+
+header div:nth-child(3) {
+  align-self: end;
+}
