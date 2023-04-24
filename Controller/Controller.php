@@ -14,6 +14,10 @@ class Controller {
     
   }
 
+  public function getVista(){
+    return $this->vista;
+  }
+
 }
 
 ?>

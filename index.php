@@ -28,7 +28,7 @@ $datos = $controlador->{$_GET["action"]}(); // Llamada a las funciones del contr
 
 /* Includes */
 include_once 'view/templates/header.php';
-include_once 'view/' . $controlador->vista . '.php'; // Incluye la vita concreta, necesaria en cada momento, dependiendo del atrubuto view del objeto noteController.
+include_once 'view/' . $controlador->getVista() . '.php'; // Incluye la vita concreta, necesaria en cada momento, dependiendo del atrubuto view del objeto noteController.
 include_once 'view/templates/footer.php';
 
 
