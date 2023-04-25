@@ -20,7 +20,7 @@ class Controller {
 
     $this->vista = "web";
     $this->css = "web"; // Por defecto, al iniciar, la vista será la predeterminada.
-    $this->titulo = "SocialGaming"; // Por defecto, al iniciar, la vista será la predeterminada.
+    $this->titulo = "OrdePlay"; // Por defecto, al iniciar, la vista será la predeterminada.
 
   }
 

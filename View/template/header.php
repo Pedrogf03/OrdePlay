@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="view/css/<?= $controlador->css; ?>.css" />
     <!-- Este css es para la cabecera de la página -->
     <link rel="stylesheet" href="view/css/header.css" />
+    <!-- Icono de la página -->
     <link rel="icon" href="img/logo.png" />
+    <!-- Conexión con ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Conexión con Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Conexión con FontAwesome -->
     <script src="https://kit.fontawesome.com/3915de76d4.js" crossorigin="anonymous"></script>
   </head>
   
