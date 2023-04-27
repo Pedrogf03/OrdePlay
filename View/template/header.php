@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- El título y el css se cargan dependiendo de la vista -->
     <title><?= $controlador->titulo; ?></title>
-    <link rel="stylesheet" href="view/css/<?= $controlador->css; ?>.css" />
+    <link rel="stylesheet" href="./View/css/<?= $controlador->css; ?>.css" />
     <!-- Este css es para la cabecera de la página -->
-    <link rel="stylesheet" href="view/css/header.css" />
+    <link rel="stylesheet" href="./View/css/header.css" />
     <!-- Icono de la página -->
-    <link rel="icon" href="img/logo.png" />
+    <link rel="icon" href="./img/logo.png" />
     <!-- Conexión con ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Conexión con Google Fonts -->
