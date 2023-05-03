@@ -1,13 +1,13 @@
-<div class="container">
-  <div class="juegos">
+<div class="container"> <!-- Div que contiene toda la vista. -->
+  <div class="juegos"> <!-- Div que almacena todos los juegos. -->
   <?php
-  foreach($datos as $juego){
+  foreach($datos as $juego){ // Por cada juego.
   ?>
 
-    <div class="juego">
-      <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego">
+    <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
+      <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego"> 
       <?php
-      switch ($juego->getIdPlataforma()){
+      switch ($juego->getIdPlataforma()){ // Dependiendo del idPortada del juego, se muestra un icono u otro.
         case 1:
           ?>
           <i class="fa-brands fa-playstation"></i>
