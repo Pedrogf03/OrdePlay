@@ -1,16 +1,57 @@
 .container {
-  padding: 13vh 2vw 0 2vw;
+  padding: 13vh 2vw 0vh 2vw;
 }
 .juegos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 10%;
-  row-gap: 1%;
+  grid-template-columns: repeat(auto-fill, 550px);
+  justify-content: space-around;
+  column-gap: 3vw;
+}
+.juegos a {
+  text-decoration: none;
+  padding-bottom: 3vh;
 }
 .juego div {
   display: flex;
   justify-content: space-between;
+  padding: 0 1vw;
+}
+.juego {
+  position: relative;
+  color: #000;
+}
+.juego div.plataforma {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(0.5vw) translatey(1vh);
+  background-color: var(--color1);
+  border-radius: 50%;
+  padding: 10px;
 }
 .juego .portada {
   width: 100%;
+  border-radius: 20px;
+}
+.juego:hover .portada {
+  box-shadow: 2px 2px 2px var(--color1), -2px 2px 2px var(--color1), 2px -2px 2px var(--color1), -2px -2px 2px var(--color1);
+}
+.juego .info {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.juego:hover .info p:first-child {
+  text-decoration: underline;
+  text-decoration-color: #fff;
+}
+.juego .info p:first-child {
+  font-size: 1.2em;
+  text-decoration: none;
+}
+.juego .info p:last-child {
+  font-weight: 600;
+  font-size: 1.5em;
 }

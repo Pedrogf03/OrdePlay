@@ -22,7 +22,12 @@ class OrdePlay{
     // Función que devuelve una array con todos los videojuegos de la base de datos.
     public function getVideojuegos() {
 
-      $sql = "SELECT * FROM Videojuego"; // Consulta
+      if(func_num_args() == 0) {
+        $sql = "SELECT * FROM Videojuego"; // Consulta
+      } else {
+        $sql = "SELECT * FROM Videojuego WHERE idPlataforma = ". func_get_args()[0] ."";
+      }
+
       $result = $this->connection->query($sql);
 
       if ($result->num_rows > 0) {

@@ -30,15 +30,15 @@
           <span class=""></span>
           <span class=""></span>
         </div>
-        <img src="img/logo.png" alt="Logotipo de la página.">
+        <a class="inicio" href="index.php?action=web"><img src="img/logo.png" alt="Logotipo de la página."></a>
       </div>
       <div>
         <nav>
           <ul>
-            <li class="pc"><i class="fa-solid fa-desktop"></i>&nbsp;PC</li>
-            <li class="ps"><i class="fa-brands fa-playstation"></i>&nbsp;PlayStation</li>
-            <li class="xbox"><i class="fa-brands fa-xbox"></i>&nbsp;Xbox</li>
-            <li class="nintendo"><img class="nintendoIcon" src="img/icons/nintendo.svg">&nbsp;Nintendo</li>
+            <a href="index.php?action=webPC"><li class="pc"><i class="fa-solid fa-desktop"></i>&nbsp;PC</li></a>
+            <a href="index.php?action=webPlay"><li class="ps"><i class="fa-brands fa-playstation"></i>&nbsp;PlayStation</li></a>
+            <a href="index.php?action=webXbox"><li class="xbox"><i class="fa-brands fa-xbox"></i>&nbsp;Xbox</li></a>
+            <a href="index.php?action=webNintendo"><li class="nintendo"><img class="nintendoIcon" src="img/icons/nintendo.svg">&nbsp;Nintendo</li></a>
           </ul>
         </nav>
       </div>

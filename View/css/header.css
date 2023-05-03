@@ -9,8 +9,12 @@
 /* Colores de la página */
 :root {
   --color1: #fc9d0f;
-  --color2: #d9f9a5;
-  --color3: #81726a;
+  --color2: #252525;
+  --color3: #aa1155;
+}
+
+body {
+  background-color: var(--color2);
 }
 
 /* Cabecera */
@@ -20,10 +24,11 @@ header {
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
+  height: 10vh;
   background-color: var(--color1);
   position: fixed;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
 }
 header div {
   display: flex;
@@ -80,6 +85,9 @@ header div:nth-child(1) img {
 .icono_cruz {
   transition: all 1s;
 }
+header div .inicio:hover img {
+  transform: scale(1.1);
+}
 
 /* Segunda sección de la cabecera, barra de navegación central */
 header div:nth-child(2) {
@@ -117,10 +125,14 @@ header div:nth-child(3) i {
   font-size: 2em;
 }
 header div:nth-child(3) .profilePicture {
-  border: 2px solid black;
+  border: 2px solid var(--color2);
   width: 40px;
   aspect-ratio: 1;
   border-radius: 50%;
+}
+header div a {
+  color: #000;
+  text-decoration: none;
 }
 
 /* Menú desplegable */
@@ -131,11 +143,12 @@ div.desplegable {
   height: 100vh;
   background-color: var(--color1);
   padding: 10vh 1vw 0 1vw;
+  z-index: 2;
 }
 
 /* Clases que muestran u ocultan el menú desplegable */
 .off {
-  transform: translateX(-20vw);
+  transform: translateX(-100vw);
   transition: all 1s;
 }
 .on {
@@ -161,4 +174,18 @@ div.config {
   font-size: 1.3em;
   position: absolute;
   bottom: 20px;
+}
+
+/* Estilo de la barra de navegación */
+::-webkit-scrollbar {
+  width: 0.5vw;
+}
+/* Estilo del fondo de la barra de navegación */
+::-webkit-scrollbar-track {
+  background: var(--color2);
+}
+/* Estilo del recorrido de la barra de navegación */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color1);
+  border-radius: 20px;
 }

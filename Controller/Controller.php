@@ -20,6 +20,7 @@ class Controller {
     
   }
 
+  // Función que devuelve todos los juegos de la base de datos.
   public function web(){
 
     $this->vista = "web";
@@ -27,6 +28,50 @@ class Controller {
     $this->titulo = "OrdePlay"; 
 
     return $this->OrdePlay->getVideojuegos();
+
+  }
+
+  // Función que devuelve todos los juegos de PlayStation de la base de datos.
+  public function webPlay(){
+
+    $this->vista = "web";
+    $this->css = "web"; 
+    $this->titulo = "OrdePlay"; 
+
+    return $this->OrdePlay->getVideojuegos(1);
+
+  }
+
+  // Función que devuelve todos los juegos de Xbox de la base de datos.
+  public function webXbox(){
+
+    $this->vista = "web";
+    $this->css = "web"; 
+    $this->titulo = "OrdePlay"; 
+
+    return $this->OrdePlay->getVideojuegos(2);
+
+  }
+
+  // Función que devuelve todos los juegos de PC de la base de datos.
+  public function webPC(){
+
+    $this->vista = "web";
+    $this->css = "web"; 
+    $this->titulo = "OrdePlay"; 
+
+    return $this->OrdePlay->getVideojuegos(3);
+
+  }
+
+  // Función que devuelve todos los juegos de Nintendo de la base de datos.
+  public function webNintendo(){
+
+    $this->vista = "web";
+    $this->css = "web"; 
+    $this->titulo = "OrdePlay"; 
+
+    return $this->OrdePlay->getVideojuegos(4);
 
   }
 
