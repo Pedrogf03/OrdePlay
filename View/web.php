@@ -2,11 +2,10 @@
   <div class="juegos">
   <?php
   foreach($datos as $juego){
-    echo $juego->getImg();
   ?>
 
     <div class="juego">
-      <img src="<?=$juego->getImg()?>" alt="Portada del juego">
+      <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego">
       <?php
       switch ($juego->getIdPlataforma()){
         case 1:

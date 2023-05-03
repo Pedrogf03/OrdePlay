@@ -126,11 +126,11 @@ header div:nth-child(3) .profilePicture {
 /* Menú desplegable */
 div.desplegable {
   position: fixed;
-  top: 100px;
+  top: 0vh;
   width: 20vw;
-  height: calc(100vh - 100px);
+  height: 100vh;
   background-color: var(--color1);
-  padding: 20px;
+  padding: 10vh 1vw 0 1vw;
 }
 
 /* Clases que muestran u ocultan el menú desplegable */
