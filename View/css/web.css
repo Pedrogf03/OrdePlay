@@ -1,0 +1,13 @@
+.container {
+  padding: 13vh 2vw 0 2vw;
+}
+.juegos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10%;
+  row-gap: 1%;
+}
+.juego div {
+  display: flex;
+  justify-content: space-between;
+}

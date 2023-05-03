@@ -6,7 +6,7 @@ class Db {
 	private $db;
 	private $user;
 	private $pass;
-	public $conection;
+	public $connection;
 
 	public function __construct(){
 
@@ -15,10 +15,10 @@ class Db {
 		$this->user = constant('DB_USER');
 		$this->pass = constant('DB_PASS');
 
-		$this->conection = new mysqli($this->host, $this->user, $this->pass, $this->db);
+		$this->connection = new mysqli($this->host, $this->user, $this->pass, $this->db);
 
-		if ($this->conection->connect_error) {
-			die("Fallo en la conexión " . $this->conection->connect_error);
+		if ($this->connection->connect_error) {
+			die("Fallo en la conexión " . $this->connection->connect_error);
 		}
 	}
   

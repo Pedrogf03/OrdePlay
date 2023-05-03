@@ -19,11 +19,10 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 100vw;
   background-color: var(--color1);
   position: fixed;
   align-items: center;
-  height: 100px;
   z-index: 1;
 }
 header div {
@@ -104,7 +103,7 @@ header div:nth-child(2) nav ul li:hover {
   flex-direction: row;
   align-items: center;
 }
-.nintendo .nintendoIcon {
+.nintendoIcon {
   width: 19px;
 }
 
