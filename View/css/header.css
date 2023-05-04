@@ -124,11 +124,8 @@ header div:nth-child(3) {
 header div:nth-child(3) i {
   font-size: 2em;
 }
-header div:nth-child(3) .profilePicture {
-  border: 2px solid var(--color2);
-  width: 40px;
-  aspect-ratio: 1;
-  border-radius: 50%;
+header div:nth-child(3) i:hover {
+  transform: scale(1.1);
 }
 header div a {
   color: #000;
@@ -188,4 +185,8 @@ div.config {
 ::-webkit-scrollbar-thumb {
   background-color: var(--color1);
   border-radius: 20px;
+}
+
+.container {
+  padding: 13vh 2vw 0vh 2vw;
 }

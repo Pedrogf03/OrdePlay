@@ -44,7 +44,13 @@
       </div>
       <div>
         <i class="fa-solid fa-cart-shopping"></i>
-        <div class="profilePicture"></div>
+          <?php
+          if(isset($_SESSION['user'])){
+            echo "<a href='index.php?action=webPC'><button>Editar perfil</button></a>";
+          } else {
+            echo "<a href='index.php?action=logIn'><i class='fa-regular fa-circle-user'></i></a>";
+          }
+          ?>
       </div>
     </header>
     <div class="desplegable off">

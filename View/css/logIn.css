@@ -1,0 +1,76 @@
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: var(--color1);
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.form h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: var(--color2);
+  text-align: center;
+}
+
+.form .campo {
+  position: relative;
+}
+
+.form .campo input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--color2);
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var(--color2);
+  outline: none;
+  background: transparent;
+}
+.form .campo label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--color2);
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.form .campo input:focus ~ label,
+.form .campo input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #fff;
+  font-size: 12px;
+}
+
+.loginButton {
+  text-align: center;
+}
+.loginButton button {
+  background-color: var(--color2);
+  padding: 1vh 2vw;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+}
+.loginButton button:hover {
+  transform: scale(1.1);
+}
+.loginButton button:focus {
+  box-shadow: 2px 2px 2px var(--color2);
+}
+
+.loginButton a {
+  color: var(--color2);
+}
+.loginButton a:hover {
+  letter-spacing: 1px;
+}
