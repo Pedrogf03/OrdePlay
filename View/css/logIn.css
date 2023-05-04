@@ -80,3 +80,9 @@
 .loginButton a:hover {
   letter-spacing: 1px;
 }
+
+#mensaje {
+  text-align: center;
+  color: var(--color3);
+  margin-bottom: 2vh;
+}

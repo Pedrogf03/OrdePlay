@@ -38,36 +38,6 @@
 
     var datos = new FormData(miFormulario);
 
-    // Validación de los datos
-    var email = datos.get('email');
-    var user = datos.get('user');
-    var passwd = datos.get('passwd');
-    var passwd2 = datos.get('passwd2');
-
-    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let regexUser = /^[a-zA-Z0-9._]{5,20}$/;
-    let regexPasswd = /^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|\\;:'",.<>/?]{6,50}$/;
-
-    if (!regexEmail.test(email)) {
-      alert('El email no es válido.');
-      return;
-    }
-
-    if (!regexUser.test(user)) {
-      alert('El usuario no es válido.');
-      return;
-    }
-
-    if (!regexPasswd.test(passwd)) {
-      alert('La contraseña no es válida.');
-      return;
-    }
-
-    if (passwd != passwd2) {
-      alert('Las contraseñas no coinciden.');
-      return;
-    }
-
     // Envío de los datos al servidor
     fetch(miFormulario.getAttribute('action'), {
       method: miFormulario.getAttribute('method'),
@@ -76,8 +46,20 @@
     .then(function(respuesta) {
     return respuesta.json();
     })
+    // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
-      console.log(datos);
+
+      if(datos.exito){
+        window.location.href = "https://ordeplay.cifpceuta.com";
+      } else {
+        if(!document.getElementById('mensaje')){
+          let msg = document.createElement('p');
+          msg.innerText = datos.mensaje;
+          msg.id = 'mensaje';
+          document.getElementById('lastCampo').appendChild(msg);
+        }
+      }
+
     })
     .catch(function(error) {
       console.log(error);

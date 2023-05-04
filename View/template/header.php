@@ -45,8 +45,12 @@
       <div>
         <i class="fa-solid fa-cart-shopping"></i>
           <?php
-          if(isset($_SESSION['user'])){
-            echo "<a href='index.php?action=webPC'><button>Editar perfil</button></a>";
+          if($_SESSION['idCliente'] != NULL){
+            if($_SESSION['picture'] == NULL){
+              echo "<a href='index.php?action=editarUsuario'><i class='fa-solid fa-circle-user'></i></i></a>";
+            } else {
+              echo "<a href='index.php?action=editarUsuario'><img src='". $_SESSION['picture'] ."'></a>";
+            }
           } else {
             echo "<a href='index.php?action=logIn'><i class='fa-regular fa-circle-user'></i></a>";
           }
@@ -64,5 +68,6 @@
           <i class="fa-solid fa-circle-plus"></i>
           <p>Crear lista</p>
         </div>
+        <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
         <div class="config"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</div>
     </div>

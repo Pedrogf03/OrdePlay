@@ -83,8 +83,12 @@ class Controller {
   // Vista de inicio de sesión del usuario.
   public function logIn(){
 
-    $this->vista = "logIn";
-    $this->css = "logIn"; 
+    if(isset($_SESSION['cliente'])) {
+      return $this->web();
+    } else {
+      $this->vista = "logIn";
+      $this->css = "logIn"; 
+    }
 
   }
 
@@ -126,12 +130,17 @@ class Controller {
   // Vista de creación del usuario.
   public function crearUser(){
     
-    $this->vista = "crearUser";
-    $this->css = "crearUser"; 
+    if(isset($_SESSION['cliente'])) {
+      return $this->web();
+    } else {
+      $this->vista = "crearUser";
+      $this->css = "crearUser"; 
+    }
+
   
   }
 
-  // Función que loguea al usuario.
+  // Función que inserta en base de datos al usuario.
   public function doCrearUser(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -178,6 +187,22 @@ class Controller {
       exit;
     }
   
+  }
+
+  public function cerrarSesion() {
+    $_SESSION['idCliente'] = "";
+    $_SESSION['usuario'] = "";
+    $_SESSION['email'] = "";
+    $_SESSION['passwd'] = "";
+    $_SESSION['picture'] = "";
+    session_destroy();
+    return $this->web();
+  }
+
+  public function getClienteById($id){
+
+    return $this->OrdePlay->getClienteById($id);
+
   }
 
 }

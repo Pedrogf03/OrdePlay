@@ -167,6 +167,19 @@ div.listas p {
   align-self: center;
 }
 
+div.closeSession {
+  font-size: 1.3em;
+  position: absolute;
+  bottom: 60px;
+}
+div.closeSession a {
+  color: #000;
+  text-decoration: none;
+}
+div.closeSession a:hover {
+  text-decoration: underline black;
+}
+
 div.config {
   font-size: 1.3em;
   position: absolute;

@@ -6,7 +6,7 @@
         <input type="text" name="email" required id="email">
         <label>Email</label>
       </div>
-      <div class="campo">
+      <div class="campo" id="lastCampo">
         <input type="password" name="passwd" required id="passwd">
         <label>Contraseña</label>
         <i class="fa-regular fa-eye" id="eyeIcon"></i>
@@ -21,29 +21,13 @@
   </div>
 </div>
 <script>
-  var miFormulario = document.getElementById('miFormulario');
 
+  // Validación y envío de datos del formulario con respuesta del servidor.
+  var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {
     ev.preventDefault();
 
     var datos = new FormData(miFormulario);
-
-    // Validación de los datos
-    var email = datos.get('email');
-    var passwd = datos.get('passwd');
-
-    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let regexPasswd = /^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|\\;:'",.<>/?]{6,50}$/;
-
-    if (!regexEmail.test(email)) {
-      alert('El email no es válido.');
-      return;
-    }
-
-    if (!regexPasswd.test(passwd)) {
-      alert('La contraseña no es válida.');
-      return;
-    }
 
     // Envío de los datos al servidor
     fetch(miFormulario.getAttribute('action'), {
@@ -53,18 +37,35 @@
     .then(function(respuesta) {
     return respuesta.json();
     })
+    // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
       console.log(datos);
+
+      if(datos.exito){
+        window.location.href = "https://ordeplay.cifpceuta.com";
+      } else {
+        if(!document.getElementById('mensaje')){
+          let msg = document.createElement('p');
+          msg.innerText = datos.mensaje;
+          msg.id = 'mensaje';
+          document.getElementById('lastCampo').appendChild(msg);
+        }
+      }
+
     })
     .catch(function(error) {
       console.log(error);
     });
-});
+  });
 
+  // Ver contraseña
   document.getElementById('eyeIcon').addEventListener("mousedown", function() {
     document.getElementById('passwd').setAttribute('type', "text");
   })
   document.getElementById('eyeIcon').addEventListener("mouseup", function() {
     document.getElementById('passwd').setAttribute('type', "password");
   })
+
+
+
 </script>

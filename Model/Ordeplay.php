@@ -63,8 +63,9 @@ class OrdePlay{
 
   }
 
+  // Función que comprueba si un usuario existe o no en la base de datos.
   public function comprobarUser($email, $passwd){
-    $sql = "SELECT email, passwd FROM Cliente WHERE email = '".$email."'"; // Consulta.
+    $sql = "SELECT * FROM Cliente WHERE email = '".$email."'"; // Consulta.
   
     $result = $this->connection->query($sql);
   
@@ -74,6 +75,11 @@ class OrdePlay{
       // Si devuelve algo, se comprueba que el email sea correcto y la contraseña, ecnriptada, coincida con la que hay en la base de datos.
       $row = $result->fetch_assoc();
       if($row['email'] == $email && password_verify($passwd, $row['passwd'])) {
+        $_SESSION['idCliente'] = $row['idCliente'];
+        $_SESSION['usuario'] = $row['usuario'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['passwd'] = $row['passwd'];
+        $_SESSION['picture'] = $row['picture'];
         return true;
       } else {
         return false;
@@ -82,6 +88,7 @@ class OrdePlay{
   }
   
 
+  // Función que inserta un usuario en la base de datos.
   public function insertUser($email, $user, $passwd){
     $sql = "SELECT email FROM Cliente WHERE email = '".$email."'"; // Consulta.
     $result = $this->connection->query($sql);
@@ -92,7 +99,16 @@ class OrdePlay{
       $sql = "INSERT INTO Cliente (email, usuario, passwd) VALUES ('$email', '$user', '$passwd_hash')"; // Consulta.
   
       if ($this->connection->query($sql)) {
-        $_SESSION['cliente'] = $this->connection->insert_id; // Se guarda en una variable de sesion el id del cliente.
+
+        $sql = "SELECT * FROM Cliente WHERE email = '".$email."'"; // Consulta.
+        $result = $this->connection->query($sql);
+        $row = $result->fetch_assoc();
+        $_SESSION['idCliente'] = $row['idCliente'];
+        $_SESSION['usuario'] = $row['usuario'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['passwd'] = $row['passwd'];
+        $_SESSION['picture'] = $row['picture'];
+
         return true;
       } else {
         return false;
@@ -102,6 +118,16 @@ class OrdePlay{
     }
   }
   
+  public function getClienteById($id){
+
+    $sql = "SELECT * FROM Cliente WHERE idCliente = '". $id ."'"; // Consulta.
+    $result = $this->connection->query($sql);
+
+    $row = $result->fetch_assoc();
+
+    return new Cliente($row['idCliente'], $row['usuario'], $row['email'], $row['password'], $row['picture']);
+
+  }
 
 }
 
