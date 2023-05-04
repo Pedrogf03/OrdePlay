@@ -1,4 +1,10 @@
 <div class="container"> <!-- Div que contiene toda la vista. -->
+  <div class="buscador">
+    <form action="index.php?action=buscaJuegos" method="post">
+      <input type="text" name="filtro" pattern="[A-Za-zÁÉÍÓÚáéíóuäëïöüÄËÏÖÜ0-9ÑñÇç ]+" placeholder="Buscar..."/>
+      <button><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
   <div class="juegos"> <!-- Div que almacena todos los juegos. -->
   <?php
   foreach($datos as $juego){ // Por cada juego.

@@ -75,6 +75,16 @@ class Controller {
 
   }
 
+  public function buscaJuegos(){
+
+    $this->vista = "web";
+    $this->css = "web"; 
+    $this->titulo = "OrdePlay"; 
+
+    return $this->OrdePlay->buscaJuegos($_POST['filtro']);
+
+  }
+
 }
 
 ?>

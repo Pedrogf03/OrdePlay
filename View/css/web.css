@@ -1,9 +1,32 @@
 .container {
   padding: 13vh 2vw 0vh 2vw;
 }
+
+.buscador {
+  margin-bottom: 5vh;
+}
+.buscador form {
+  text-align: center;
+}
+.buscador form input {
+  height: 4vh;
+  width: 450px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border: 2px solid var(--color1);
+  padding-left: 1vw;
+}
+.buscador form button {
+  height: 4vh;
+  aspect-ratio: 1;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border: 2px solid var(--color1);
+}
+
 .juegos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 550px);
+  grid-template-columns: repeat(auto-fill, 450px);
   justify-content: space-around;
   column-gap: 3vw;
 }

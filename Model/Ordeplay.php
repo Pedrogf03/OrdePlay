@@ -43,6 +43,25 @@ class OrdePlay{
 
   }
 
+  public function buscaJuegos($filtro) {
+    
+    $sql = "SELECT * FROM Videojuego WHERE nombre LIKE '%". $filtro ."%'"; // Consulta
+
+    $result = $this->connection->query($sql);
+
+    if ($result->num_rows > 0) {
+      $i = 0; // Variable para recorrer el array.
+
+      while ($row = $result->fetch_assoc()) { // Se recorre cada fila de la tabla.
+        $this->videojuegos[$i] = new Videojuego($row['idVideojuego'], $row['nombre'], $row['descripcion'], $row['genero'], $row['precio'], $row['desarrollador'], $row['fechaLanzamiento'], $row['idPlataforma'], $row['img']); 
+        $i++; 
+      }
+
+      return $this->videojuegos; // Devuelve el array con todos los videojuegos.
+    }
+
+  }
+
 }
 
 ?>

@@ -24,7 +24,7 @@ $controlador = new Controller();
 // Se crea un array que conenga todos los datos necesarios para cada acción.
 $datos = array();
 $datos = $controlador->{$_GET["action"]}(); // Llamada a las funciones del controlador, a través de la variable get action.
-
+echo $_POST['filtro'];
 // Includes de la vista
 require_once './View/template/header.php';
 require_once './View/' . $controlador->vista . '.php'; // Incluye la vita concreta, necesaria en cada momento, dependiendo del atrubuto view del objeto noteController.
