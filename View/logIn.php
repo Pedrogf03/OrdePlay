@@ -7,8 +7,9 @@
         <label>Email</label>
       </div>
       <div class="campo">
-        <input type="text" name="passwd" required id="passwd">
+        <input type="password" name="passwd" required id="passwd">
         <label>Contraseña</label>
+        <i class="fa-regular fa-eye" id="eyeIcon"></i>
       </div>
       <div class="loginButton">
         <button id="enviar">Iniciar Sesión</button>
@@ -34,12 +35,12 @@
     let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let regexPasswd = /^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|\\;:'",.<>/?]{6,50}$/;
 
-    if (regexUser.test(email)) {
+    if (!regexEmail.test(email)) {
       alert('El email no es válido.');
       return;
     }
 
-    if (regexUser.test(passwd)) {
+    if (!regexPasswd.test(passwd)) {
       alert('La contraseña no es válida.');
       return;
     }
@@ -59,4 +60,11 @@
       console.log(error);
     });
 });
+
+  document.getElementById('eyeIcon').addEventListener("mousedown", function() {
+    document.getElementById('passwd').setAttribute('type', "text");
+  })
+  document.getElementById('eyeIcon').addEventListener("mouseup", function() {
+    document.getElementById('passwd').setAttribute('type', "password");
+  })
 </script>

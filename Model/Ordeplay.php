@@ -64,26 +64,44 @@ class OrdePlay{
   }
 
   public function comprobarUser($email, $passwd){
-
-    $sql = "SELECT email, passwd FROM Cliente WHERE email = ".$email.""; // Consulta.
-
+    $sql = "SELECT email, passwd FROM Cliente WHERE email = '".$email."'"; // Consulta.
+  
     $result = $this->connection->query($sql);
-
+  
     if ($result->num_rows == 0) {
       return false; // Si no devuelve nada, es que no existe el email en la base de datos.
     } else {
-
       // Si devuelve algo, se comprueba que el email sea correcto y la contraseña, ecnriptada, coincida con la que hay en la base de datos.
       $row = $result->fetch_assoc();
-      if($row['email'] == $email && !password_verify($passwd, $row['passwd'])) {
+      if($row['email'] == $email && password_verify($passwd, $row['passwd'])) {
         return true;
       } else {
         return false;
       }
-
     }
-
   }
+  
+
+  public function insertUser($email, $user, $passwd){
+    $sql = "SELECT email FROM Cliente WHERE email = '".$email."'"; // Consulta.
+    $result = $this->connection->query($sql);
+  
+    if ($result->num_rows == 0) { // Si no devuelve nada, es que no existe el email en la base de datos.
+      $passwd_hash = password_hash($passwd, PASSWORD_DEFAULT); // Se encripta la contraseña.
+  
+      $sql = "INSERT INTO Cliente (email, usuario, passwd) VALUES ('$email', '$user', '$passwd_hash')"; // Consulta.
+  
+      if ($this->connection->query($sql)) {
+        $_SESSION['cliente'] = $this->connection->insert_id; // Se guarda en una variable de sesion el id del cliente.
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  
 
 }
 
