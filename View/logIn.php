@@ -39,8 +39,6 @@
     })
     // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
-      console.log(datos);
-
       if(datos.exito){
         window.location.href = "https://ordeplay.cifpceuta.com";
       } else {
