@@ -124,7 +124,14 @@ header div:nth-child(3) {
 header div:nth-child(3) i {
   font-size: 2em;
 }
+header div:nth-child(3) img {
+  width: 2.5vw;
+  border-radius: 50%;
+}
 header div:nth-child(3) i:hover {
+  transform: scale(1.1);
+}
+header div:nth-child(3) img:hover {
   transform: scale(1.1);
 }
 header div a {
@@ -155,16 +162,23 @@ div.desplegable {
 
 /* Alineación del texto e iconos mediante una cuadrícula grid */
 div.listas {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3em;
+}
+div.listas a {
   display: grid;
   grid-template-columns: 25px 1fr;
   column-gap: 7px;
-  font-size: 1.3em;
+  color: #000;
+  text-decoration: none;
 }
-div.listas i {
+div.listas a i {
   justify-self: center;
 }
-div.listas p {
-  align-self: center;
+div.listas a p:hover {
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 div.closeSession {
@@ -177,13 +191,20 @@ div.closeSession a {
   text-decoration: none;
 }
 div.closeSession a:hover {
-  text-decoration: underline black;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
-div.config {
+div.config a {
   font-size: 1.3em;
   position: absolute;
   bottom: 20px;
+  color: #000;
+  text-decoration: none;
+}
+div.config a:hover {
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 /* Estilo de la barra de navegación */

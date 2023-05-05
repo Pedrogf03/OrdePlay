@@ -47,9 +47,9 @@
           <?php
           if($_SESSION['idCliente'] != NULL){
             if($_SESSION['picture'] == NULL){
-              echo "<a href='index.php?action=editarUsuario'><i class='fa-solid fa-circle-user'></i></i></a>";
+              echo "<a href='index.php?action=editarUser'><i class='fa-solid fa-circle-user'></i></i></a>";
             } else {
-              echo "<a href='index.php?action=editarUsuario'><img src='". $_SESSION['picture'] ."'></a>";
+              echo "<a href='index.php?action=editarUser'><img src='". $_SESSION['picture'] ."'></a>";
             }
           } else {
             echo "<a href='index.php?action=logIn'><i class='fa-regular fa-circle-user'></i></a>";
@@ -59,15 +59,26 @@
     </header>
     <div class="desplegable off">
         <div class="listas">
-          <i class="fa-solid fa-bookmark"></i>
-          <p>Biblioteca</p>
-          <i class="fa-solid fa-heart"></i>
-          <p>Favoritos</p>
-          <i class="fa-solid fa-cloud"></i>
-          <p>Deseados</p>
-          <i class="fa-solid fa-circle-plus"></i>
-          <p>Crear lista</p>
+          <?php
+            $enlace = $_SESSION['idCliente'] != NULL ? "index.php" : "index.php?action=logIn";
+          ?>
+          <a href="<?=$enlace?>">
+            <i class="fa-solid fa-bookmark"></i>
+            <p>Biblioteca</p>
+          </a>
+          <a href="<?=$enlace?>">
+            <i class="fa-solid fa-heart"></i>
+            <p>Favoritos</p>
+          </a>
+          <a href="<?=$enlace?>">
+            <i class="fa-solid fa-cloud"></i>
+            <p>Deseados</p>
+          </a>
+          <a href="<?=$enlace?>">
+            <i class="fa-solid fa-circle-plus"></i>
+            <p>Crear lista</p>
+          </a>
         </div>
         <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
-        <div class="config"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</div>
+        <div class="config"><a href="index.php?action=editarUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>
     </div>

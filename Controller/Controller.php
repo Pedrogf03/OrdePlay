@@ -92,27 +92,27 @@ class Controller {
 
   }
 
-  // Función que loguea al usuario.
+  // Función que recibe los datos de inicio de sesión, verifica que cumplan los requisitos y devuelve una respuesta.
   public function doLogIn(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $email = trim($_POST['email']); // Quitar espacios al principio y al final.
       $passwd = trim($_POST['passwd']); // Quitar espacios al principio y al final.
     
-      // Validación de los datos
+      // Validación de los datos.
       if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
         $respuesta = array('exito' => false, 'mensaje' => 'El email no es válido.');
         echo json_encode($respuesta);
         exit;
       }
-    
+
       if (!preg_match("/^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|\\;:'\",.<>\/?]{6,50}$/", $passwd)) {
         $respuesta = array('exito' => false, 'mensaje' => 'La contraseña no es válida.');
         echo json_encode($respuesta);
         exit;
       }
     
-      // Procesamiento de los datos
+      // Procesamiento de los datos.
       if(!$this->OrdePlay->comprobarUser($email, $passwd)){
         $respuesta = array('exito' => false, 'mensaje' => 'Email o contraseña incorrectos.');
         echo json_encode($respuesta);
@@ -130,17 +130,16 @@ class Controller {
   // Vista de creación del usuario.
   public function crearUser(){
     
-    if(isset($_SESSION['cliente'])) {
+    if(isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
       $this->vista = "crearUser";
       $this->css = "crearUser"; 
     }
 
-  
   }
 
-  // Función que inserta en base de datos al usuario.
+  // Función que recibe los datos de creación de usuario, verifica que cumplan los requisitos y devuelve una respuesta.
   public function doCrearUser(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -149,7 +148,7 @@ class Controller {
       $passwd = trim($_POST['passwd']); // Quitar espacios al principio y al final.
       $passwd2 = trim($_POST['passwd2']); // Quitar espacios al principio y al final.
       
-      // Validación de los datos
+      // Validación de los datos.
       if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
         $respuesta = array('exito' => false, 'mensaje' => 'El email no es válido.');
         echo json_encode($respuesta);
@@ -174,7 +173,7 @@ class Controller {
         exit;
       }
       
-      // Procesamiento de los datos
+      // Procesamiento de los datos.
       if(!$this->OrdePlay->insertUser($email, $user, $passwd)){
         $respuesta = array('exito' => false, 'mensaje' => 'Ese email ya existe.');
         echo json_encode($respuesta);
@@ -189,6 +188,7 @@ class Controller {
   
   }
 
+  // Función que borra las variables de sesión y la cierra.
   public function cerrarSesion() {
     $_SESSION['idCliente'] = "";
     $_SESSION['usuario'] = "";
@@ -199,11 +199,17 @@ class Controller {
     return $this->web();
   }
 
-  public function getClienteById($id){
-
-    return $this->OrdePlay->getClienteById($id);
-
-  }
+    // Vista de edición del usuario.
+    public function editarUser(){
+    
+      if(!isset($_SESSION['idCliente'])) {
+        return $this->logIn();
+      } else {
+        $this->vista = "editarUser";
+        $this->css = "editarUser"; 
+      }
+  
+    }
 
 }
 

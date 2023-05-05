@@ -46,19 +46,19 @@ class OrdePlay{
   // Función que devuelve una array con todos los videojuegos de la base de datos que cumplan con el filtro.
   public function buscaJuegos($filtro) {
     
-    $sql = "SELECT * FROM Videojuego WHERE nombre LIKE '%". $filtro ."%'"; // Consulta
+    $sql = "SELECT * FROM Videojuego WHERE nombre LIKE '%". $filtro ."%'"; // Consulta.
 
     $result = $this->connection->query($sql);
 
     if ($result->num_rows > 0) {
       $i = 0; // Variable para recorrer el array.
 
-      while ($row = $result->fetch_assoc()) { // Se recorre cada fila de la tabla.
+      while ($row = $result->fetch_assoc()) { 
         $this->videojuegos[$i] = new Videojuego($row['idVideojuego'], $row['nombre'], $row['descripcion'], $row['genero'], $row['precio'], $row['desarrollador'], $row['fechaLanzamiento'], $row['idPlataforma'], $row['img']); 
         $i++; 
       }
 
-      return $this->videojuegos; // Devuelve el array con todos los videojuegos.
+      return $this->videojuegos; 
     }
 
   }
@@ -103,6 +103,7 @@ class OrdePlay{
         $sql = "SELECT * FROM Cliente WHERE email = '".$email."'"; // Consulta.
         $result = $this->connection->query($sql);
         $row = $result->fetch_assoc();
+        // Se crean variables de sesión con los datos del usuario.
         $_SESSION['idCliente'] = $row['idCliente'];
         $_SESSION['usuario'] = $row['usuario'];
         $_SESSION['email'] = $row['email'];
@@ -116,17 +117,6 @@ class OrdePlay{
     } else {
       return false;
     }
-  }
-  
-  public function getClienteById($id){
-
-    $sql = "SELECT * FROM Cliente WHERE idCliente = '". $id ."'"; // Consulta.
-    $result = $this->connection->query($sql);
-
-    $row = $result->fetch_assoc();
-
-    return new Cliente($row['idCliente'], $row['usuario'], $row['email'], $row['password'], $row['picture']);
-
   }
 
 }
