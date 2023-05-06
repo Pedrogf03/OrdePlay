@@ -200,15 +200,55 @@ class Controller {
   }
 
     // Vista de edición del usuario.
-    public function editarUser(){
+    public function configUser(){
     
       if(!isset($_SESSION['idCliente'])) {
         return $this->logIn();
       } else {
-        $this->vista = "editarUser";
-        $this->css = "editarUser"; 
+        $this->vista = "configUser";
+        $this->css = "configUser"; 
       }
   
+    }
+
+    public function cambiarEmail() {
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $oldEmail = trim($_POST['oldEmail']); // Quitar espacios al principio y al final.
+        $newEmail = trim($_POST['newEmail']); // Quitar espacios al principio y al final.
+        $repeatEmail = trim($_POST['repeatEmail']); // Quitar espacios al principio y al final.
+        
+        // Validación de los datos.
+        if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $newEmail)) {
+          $respuesta = array('exito' => false, 'mensaje' => 'El nuevo email no es válido.');
+          echo json_encode($respuesta);
+          exit;
+        }
+
+        if($newEmail != $repeatEmail){
+          $respuesta = array('exito' => false, 'mensaje' => 'Los emails no coinciden.');
+          echo json_encode($respuesta);
+          exit;
+        }
+  
+        if(!$this->OrdePlay->validarEmail($oldEmail)){
+          $respuesta = array('exito' => false, 'mensaje' => 'Email incorrecto.');
+          echo json_encode($respuesta);
+          exit;
+        }
+
+        if(!$this->OrdePlay->cambiarEmail($newEmail, $oldEmail)){
+          $respuesta = array('exito' => false, 'mensaje' => 'Ese correo ya existe.');
+          echo json_encode($respuesta);
+          exit;
+        }
+        
+        // Respuesta
+        $respuesta = array('exito' => true, 'mensaje' => 'Email cambiado con éxito.');
+        echo json_encode($respuesta);
+        exit;
+      }
+
     }
 
 }

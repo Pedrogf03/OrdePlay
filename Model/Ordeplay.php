@@ -119,6 +119,41 @@ class OrdePlay{
     }
   }
 
+  public function validarEmail($email) {
+
+    $sql = "SELECT idCliente, email FROM Cliente WHERE email = '$email'"; // Consulta.
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows != 1){
+      return false;
+    } else {
+      $row = $result->fetch_assoc();
+      if($row['idCliente'] != $_SESSION['idCliente']) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+  }
+
+  public function cambiarEmail($new, $old) {
+
+    $sql = "SELECT email FROM Cliente WHERE email = '$new'";
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows == 0){
+      $sql = "UPDATE Cliente SET email = '$new' WHERE email = '$old'";
+      if($this->connection->query($sql)){
+        $_SESSION['email'] = $new;
+        return true;
+      }
+    } else {
+      return false;
+    }
+
+  }
+
 }
 
 ?>

@@ -17,7 +17,7 @@
         <br/>
         <a href="index.php?action=crearUser">Crear cuenta</a>
       </div>
-      </form>
+    </form>
   </div>
 </div>
 <script>
@@ -49,7 +49,6 @@
           document.getElementById('lastCampo').appendChild(msg);
         }
       }
-
     })
     .catch(function(error) {
       console.log(error);

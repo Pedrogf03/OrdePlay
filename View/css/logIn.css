@@ -6,7 +6,6 @@
   padding: 40px;
   transform: translate(-50%, -50%);
   background: var(--color1);
-  box-sizing: border-box;
   border-radius: 10px;
 }
 
@@ -49,12 +48,6 @@
   left: 0;
   color: #fff;
   font-size: 12px;
-}
-
-.form .campo i {
-  position: absolute;
-  top: 1vh;
-  right: 0.3vw;
 }
 
 .loginButton {
