@@ -78,7 +78,6 @@ class OrdePlay{
         $_SESSION['idCliente'] = $row['idCliente'];
         $_SESSION['usuario'] = $row['usuario'];
         $_SESSION['email'] = $row['email'];
-        $_SESSION['passwd'] = $row['passwd'];
         $_SESSION['picture'] = $row['picture'];
         return true;
       } else {
@@ -107,7 +106,6 @@ class OrdePlay{
         $_SESSION['idCliente'] = $row['idCliente'];
         $_SESSION['usuario'] = $row['usuario'];
         $_SESSION['email'] = $row['email'];
-        $_SESSION['passwd'] = $row['passwd'];
         $_SESSION['picture'] = $row['picture'];
 
         return true;
@@ -137,6 +135,7 @@ class OrdePlay{
 
   }
 
+  // Función que verifica si el nuevo email existe y actualiza la base de datos.
   public function cambiarEmail($new, $old) {
 
     $sql = "SELECT email FROM Cliente WHERE email = '$new'";
@@ -152,6 +151,38 @@ class OrdePlay{
       return false;
     }
 
+  }
+
+  // Función que comprueba que la contraseña sea correcta y actualiza la base de datos.
+  public function cambiarPasswd($new, $old) {
+
+    $sql = "SELECT passwd FROM Cliente WHERE idCliente = '". $_SESSION['idCliente'] ."'";
+    $result = $this->connection->query($sql);
+    $row = $result->fetch_assoc();
+
+    if(password_verify($old, $row['passwd'])) {
+      $passwd_hash = password_hash($new, PASSWORD_DEFAULT);
+      $sql = "UPDATE Cliente SET passwd = '$passwd_hash' WHERE idCliente = '". $_SESSION['idCliente'] ."'";
+      if($this->connection->query($sql)){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+  }
+
+  // Función que cambia el usuario.
+  public function cambiarUser($user) {
+    $sql = "UPDATE Cliente SET usuario = '$user' WHERE idCliente = '". $_SESSION['idCliente'] ."'";
+    if($this->connection->query($sql)){
+      $_SESSION['usuario'] = $user;
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

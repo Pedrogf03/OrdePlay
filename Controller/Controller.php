@@ -199,57 +199,156 @@ class Controller {
     return $this->web();
   }
 
-    // Vista de edición del usuario.
-    public function configUser(){
-    
-      if(!isset($_SESSION['idCliente'])) {
-        return $this->logIn();
-      } else {
-        $this->vista = "configUser";
-        $this->css = "configUser"; 
-      }
-  
+  // Vista de edición del usuario.
+  public function configUser(){
+
+    if(!isset($_SESSION['idCliente'])) {
+      return $this->logIn();
+    } else {
+      $this->vista = "configUser";
+      $this->css = "configUser"; 
     }
-
-    public function cambiarEmail() {
-
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $oldEmail = trim($_POST['oldEmail']); // Quitar espacios al principio y al final.
-        $newEmail = trim($_POST['newEmail']); // Quitar espacios al principio y al final.
-        $repeatEmail = trim($_POST['repeatEmail']); // Quitar espacios al principio y al final.
-        
-        // Validación de los datos.
-        if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $newEmail)) {
-          $respuesta = array('exito' => false, 'mensaje' => 'El nuevo email no es válido.');
-          echo json_encode($respuesta);
-          exit;
-        }
-
-        if($newEmail != $repeatEmail){
-          $respuesta = array('exito' => false, 'mensaje' => 'Los emails no coinciden.');
-          echo json_encode($respuesta);
-          exit;
-        }
   
-        if(!$this->OrdePlay->validarEmail($oldEmail)){
-          $respuesta = array('exito' => false, 'mensaje' => 'Email incorrecto.');
-          echo json_encode($respuesta);
-          exit;
-        }
+  }
 
-        if(!$this->OrdePlay->cambiarEmail($newEmail, $oldEmail)){
-          $respuesta = array('exito' => false, 'mensaje' => 'Ese correo ya existe.');
-          echo json_encode($respuesta);
-          exit;
-        }
+  // Función que valida el cambio del email del usuario y envía una respuesta.
+  public function cambiarEmail() {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $oldEmail = trim($_POST['oldEmail']); // Quitar espacios al principio y al final.
+      $newEmail = trim($_POST['newEmail']); // Quitar espacios al principio y al final.
+      $repeatEmail = trim($_POST['repeatEmail']); // Quitar espacios al principio y al final.
         
-        // Respuesta
-        $respuesta = array('exito' => true, 'mensaje' => 'Email cambiado con éxito.');
+      // Validación de los datos.
+      if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $newEmail)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'El nuevo email no es válido.');
         echo json_encode($respuesta);
         exit;
       }
 
+      if($newEmail != $repeatEmail){
+        $respuesta = array('exito' => false, 'mensaje' => 'Los emails no coinciden.');
+        echo json_encode($respuesta);
+        exit;
+      }
+  
+      if(!$this->OrdePlay->validarEmail($oldEmail)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Email incorrecto.');
+        echo json_encode($respuesta);
+        exit;
+      }
+
+      if(!$this->OrdePlay->cambiarEmail($newEmail, $oldEmail)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Ese correo ya existe.');
+        echo json_encode($respuesta);
+        exit;
+      }
+        
+      // Respuesta
+      $respuesta = array('exito' => true, 'mensaje' => 'Email cambiado con éxito.');
+      echo json_encode($respuesta);
+      exit;
     }
+
+  }
+
+  // Función que valida el cambio de la contraseña del usuario y envía una respuesta.
+  public function cambiarPasswd() {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $oldPasswd = trim($_POST['oldPasswd']); // Quitar espacios al principio y al final.
+      $newPasswd = trim($_POST['newPasswd']); // Quitar espacios al principio y al final.
+      $repeatPasswd = trim($_POST['repeatPasswd']); // Quitar espacios al principio y al final.
+      
+      // Validación de los datos.
+      if (!preg_match("/^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|\\;:'\",.<>\/?]{6,50}$/", $newPasswd)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'La nueva contraseña no es válida.');
+        echo json_encode($respuesta);
+        exit;
+      }
+
+      if($newPasswd != $repeatPasswd){
+        $respuesta = array('exito' => false, 'mensaje' => 'Las contraseñas no coinciden.');
+        echo json_encode($respuesta);
+        exit;
+      }
+
+      if(!$this->OrdePlay->cambiarPasswd($newPasswd, $oldPasswd)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Contraseña incorrecta.');
+        echo json_encode($respuesta);
+        exit;
+      }
+      
+      // Respuesta
+      $respuesta = array('exito' => true, 'mensaje' => 'Contraseña cambiada con éxito.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+  }
+
+  // Función que valida el cambio de usuario del usuario y envía una respuesta.
+  public function cambiarUser() {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $user = trim($_POST['user']); // Quitar espacios al principio y al final.
+          
+      // Validación de los datos.
+      if (!preg_match("/^[a-zA-Z0-9._]{5,20}$/", $user)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Usuario no válido.');
+        echo json_encode($respuesta);
+        exit;
+      }
+    
+      if(!$this->OrdePlay->cambiarUser($user)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Error inesperado.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta
+      $respuesta = array('exito' => true, 'mensaje' => 'Usuario cambiado con éxito.');
+      echo json_encode($respuesta);
+      exit;
+    }
+    
+  }
+
+  public function cambiarFoto(){
+
+    $destino = "./img/userIcons/";
+    $archivo = $destino . "iconUser" . $_SESSION['idCliente'];
+
+    // Obtener la extensión del archivo subido
+    $extension = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
+
+    // Verificar si la extensión es válida
+    $allowedExtensions = array("jpg", "jpeg", "png");
+    if (!in_array($extension, $allowedExtensions)) {
+      $respuesta = array('exito' => false, 'mensaje' => 'Solo se permiten archivos PNG, JPG y JPEG.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+    // Sobrescribir el archivo si ya existe
+    if (file_exists($archivo)) {
+      unlink($archivo);
+    }
+
+    // Mover el archivo subido a la carpeta de destino
+    $archivo = $archivo . "." . $extension;
+    if (!move_uploaded_file($_FILES["picture"]["tmp_name"], $archivo)) {
+      $respuesta = array('exito' => false, 'mensaje' => 'Error al subir el archivo.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+    // Respuesta
+    $respuesta = array('exito' => true, 'mensaje' => 'Usuario cambiado con éxito.');
+    echo json_encode($respuesta);
+    exit;
+
+  }
 
 }
 

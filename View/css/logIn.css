@@ -42,6 +42,12 @@
   transition: 0.5s;
 }
 
+.form .campo i {
+  position: absolute;
+  top: 1vh;
+  right: 0.3vw;
+}
+
 .form .campo input:focus ~ label,
 .form .campo input:valid ~ label {
   top: -20px;
