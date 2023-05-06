@@ -185,6 +185,18 @@ class OrdePlay{
     }
   }
 
+  public function cambiarFoto($foto){
+
+    $sql = "UPDATE Cliente SET picture = '$foto' WHERE idCliente = '". $_SESSION['idCliente'] ."'";
+    if($this->connection->query($sql)){
+      $_SESSION['picture'] = $foto;
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
 }
 
 ?>

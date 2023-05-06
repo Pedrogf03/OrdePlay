@@ -332,7 +332,9 @@ class Controller {
 
     // Sobrescribir el archivo si ya existe
     if (file_exists($archivo)) {
-      unlink($archivo);
+      unlink($archivo .".png");
+      unlink($archivo .".jpg");
+      unlink($archivo .".jpeg");
     }
 
     // Mover el archivo subido a la carpeta de destino
@@ -342,6 +344,8 @@ class Controller {
       echo json_encode($respuesta);
       exit;
     }
+
+    $this->OrdePlay->cambiarFoto($archivo);
 
     // Respuesta
     $respuesta = array('exito' => true, 'mensaje' => 'Usuario cambiado con éxito.');
