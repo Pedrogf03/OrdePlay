@@ -3,7 +3,7 @@ div.info {
   gap: 2vw;
 }
 div.info div.img {
-  width: 20vw;
+  width: 10vw;
   border-radius: 50%;
   aspect-ratio: 1;
   position: relative;

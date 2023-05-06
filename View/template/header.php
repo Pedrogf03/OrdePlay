@@ -59,22 +59,19 @@
     </header>
     <div class="desplegable off">
         <div class="listas">
-          <?php
-            $enlace = $_SESSION['idCliente'] != NULL ? "index.php" : "index.php?action=logIn";
-          ?>
-          <a href="<?=$enlace?>">
+          <a href="">
             <i class="fa-solid fa-bookmark"></i>
             <p>Biblioteca</p>
           </a>
-          <a href="<?=$enlace?>">
+          <a href="">
             <i class="fa-solid fa-heart"></i>
             <p>Favoritos</p>
           </a>
-          <a href="<?=$enlace?>">
+          <a href="">
             <i class="fa-solid fa-cloud"></i>
             <p>Deseados</p>
           </a>
-          <a href="<?=$enlace?>">
+          <a href="">
             <i class="fa-solid fa-circle-plus"></i>
             <p>Crear lista</p>
           </a>
