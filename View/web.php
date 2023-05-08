@@ -10,7 +10,7 @@
   foreach($datos as $juego){ // Por cada juego.
   ?>
 
-    <a href="">
+    <a href="index.php?action=verJuego">
     <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
       <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego"> 
       <?php

@@ -354,6 +354,13 @@ class Controller {
 
   }
 
+  public function verJuego() {
+
+    $this->vista = "verJuego";
+    $this->css = "verJuego";
+
+  }
+
 }
 
 ?>
