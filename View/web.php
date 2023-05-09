@@ -10,11 +10,11 @@
   foreach($datos as $juego){ // Por cada juego.
   ?>
 
-    <a href="index.php?action=verJuego">
+    <a href="index.php?action=verJuego&idJuego=<?=$juego->getIdVideojuego()?>">
     <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
       <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego"> 
       <?php
-      switch ($juego->getIdPlataforma()){ // Dependiendo del idPortada del juego, se muestra un icono u otro.
+      switch ($juego->getIdPlataforma()){ // Dependiendo del idPlataforma del juego, se muestra un icono u otro.
         case 1:
           ?>
           <div class="plataforma"><i class="fa-brands fa-playstation"></i></div>

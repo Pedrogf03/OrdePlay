@@ -354,10 +354,12 @@ class Controller {
 
   }
 
-  public function verJuego() {
+  public function verJuego(){
 
     $this->vista = "verJuego";
-    $this->css = "verJuego";
+    $this->css = "verJuego"; 
+
+    return $this->OrdePlay->getVideojuegoById($_GET['idJuego']);
 
   }
 

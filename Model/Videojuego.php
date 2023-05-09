@@ -13,7 +13,6 @@ class Videojuego{
   private $fechaLanzamiento;
   private $idPlataforma;
   private $img;
-  private $connection;
 
   public function __construct($idVideojuego, $nombre, $descripcion, $genero, $precio, $desarrollador, $fechaLanzamiento, $idPlataforma, $img){
     

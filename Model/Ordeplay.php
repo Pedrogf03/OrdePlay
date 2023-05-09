@@ -197,6 +197,20 @@ class OrdePlay{
 
   }
 
+  public function getVideojuegoById($id){
+
+    $sql = "SELECT * FROM Videojuego WHERE idVideojuego = ". $id;
+    $result = $this->connection->query($sql);
+
+    if ($result->num_rows == 1) {
+
+      $row = $result->fetch_assoc();
+      return new Videojuego($row['idVideojuego'], $row['nombre'], $row['descripcion'], $row['genero'], $row['precio'], $row['desarrollador'], $row['fechaLanzamiento'], $row['idPlataforma'], $row['img']); 
+
+    }
+
+  }
+
 }
 
 ?>
