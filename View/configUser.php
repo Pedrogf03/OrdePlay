@@ -15,13 +15,13 @@
   </div>
   <div class="nav">
     <nav>
-      <button class="perfil">Perfil</button>
-      <button class="pago">Métodos de pago</button>
-      <button class="pedidos">Pedidos</button>
-      <button class="reviews">Reseñas</button>
+      <button class="botonPerfil">Perfil</button>
+      <button class="botonPagos">Métodos de pago</button>
+      <button class="botonPedidos">Pedidos</button>
+      <button class="botonReviews">Reseñas</button>
     </nav>
   </div>
-  <section class="lienzoperfil visible">
+  <section class="lienzoPerfil visible">
     <div>
       <div class="form">
         <h2>Cambiar correo electrónico</h2>
@@ -77,6 +77,47 @@
           </div>
         </form>
       </div>
+    </div>
+  </section>
+  <section class="lienzoPagos invisible">
+    <div>
+      <table>
+        <?php
+        $cliente = new Cliente($_SESSION['idCliente'], $_SESSION['usuario'], $_SESSION['email'], null, $_SESSION['picture']);
+        if($cliente->getMetodosPago() == 0){
+        ?>
+        <tr>
+          <td>
+            <h3>Actualmente no tienes métodos de pago activos.</h3>
+          </td>
+        </tr>
+        <?php
+        } else {
+        ?>
+        <tr>
+          <th>Titular</th>
+          <th>Número</th>
+          <th>Fecha de Expiración</th>
+          <th>Borrar</th>
+        </tr>
+        <?php
+        for($i = 0; $i < count($cliente->getMetodosPago()); $i++){
+        ?>
+        <tr>
+          <td><?=$cliente->getMetodosPago()[$i]->getTitular()?></td>
+          <td><?=$cliente->getMetodosPago()[$i]->getNumTarjeta()?></td>
+          <td><?=$cliente->getMetodosPago()[$i]->getFechaExp()?></td>
+          <td><a href="index.php?action=borrarTarjeta"><button><i class="fa-regular fa-circle-xmark"></i></button></a></td>
+        </tr>
+        <?php
+        }
+
+        }
+        ?>
+        <tr>
+          <td colspan="4"><a href="index.php?action=addTarjeta"><button>Añadir tarjeta</button></a></td>
+        </tr>
+      </table>
     </div>
   </section>
 </div>
@@ -238,5 +279,55 @@
   document.getElementById('eyeIcon2').addEventListener("mouseup", function() {
     document.getElementById('newPasswd').setAttribute('type', "password");
   })
+
+  $(document).ready(function () {
+        $('.botonPerfil').on('click', function () {
+          $(this).parents().find('.lienzoPerfil').removeClass('invisible');
+          $(this).parents().find('.lienzoPagos').removeClass('visible');
+          $(this).parents().find('.lienzoPedidos').removeClass('visible');
+          $(this).parents().find('.lienzoReviews').removeClass('visible');
+
+          $(this).parents().find('.lienzoPerfil').addClass('visible');
+          $(this).parents().find('.lienzoPagos').addClass('invisible');
+          $(this).parents().find('.lienzoPedidos').addClass('invisible');
+          $(this).parents().find('.lienzoReviews').addClass('invisible');
+        });
+
+        $('.botonPagos').on('click', function () {
+          $(this).parents().find('.lienzoPerfil').removeClass('visible');
+          $(this).parents().find('.lienzoPagos').removeClass('invisible');
+          $(this).parents().find('.lienzoPedidos').removeClass('visible');
+          $(this).parents().find('.lienzoReviews').removeClass('visible');
+
+          $(this).parents().find('.lienzoPerfil').addClass('invisible');
+          $(this).parents().find('.lienzoPagos').addClass('visible');
+          $(this).parents().find('.lienzoPedidos').addClass('invisible');
+          $(this).parents().find('.lienzoReviews').addClass('invisible');
+        });
+
+        $('.botonPedidos').on('click', function () {
+          $(this).parents().find('.lienzoPerfil').removeClass('visible');
+          $(this).parents().find('.lienzoPagos').removeClass('visible');
+          $(this).parents().find('.lienzoPedidos').removeClass('invisible');
+          $(this).parents().find('.lienzoReviews').removeClass('visible');
+
+          $(this).parents().find('.lienzoPerfil').addClass('invisible');
+          $(this).parents().find('.lienzoPagos').addClass('invisible');
+          $(this).parents().find('.lienzoPedidos').addClass('visible');
+          $(this).parents().find('.lienzoReviews').addClass('invisible');
+        });
+
+        $('.botonReviews').on('click', function () {
+          $(this).parents().find('.lienzoPerfil').removeClass('visible');
+          $(this).parents().find('.lienzoPagos').removeClass('visible');
+          $(this).parents().find('.lienzoPedidos').removeClass('visible');
+          $(this).parents().find('.lienzoReviews').removeClass('invisible');
+
+          $(this).parents().find('.lienzoPerfil').addClass('invisible');
+          $(this).parents().find('.lienzoPagos').addClass('invisible');
+          $(this).parents().find('.lienzoPedidos').addClass('invisible');
+          $(this).parents().find('.lienzoReviews').addClass('visible');
+        });
+      });
 
 </script>
