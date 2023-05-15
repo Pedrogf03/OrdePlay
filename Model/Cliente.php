@@ -26,7 +26,6 @@ class Cliente {
   }
 
   // Getters
-
   public function getIdCliente(){
     return $this->idCliente;
   }
@@ -39,7 +38,6 @@ class Cliente {
   public function getPassword(){
     return $this->password;
   }
-
   public function getPicture(){
     return $this->picture;
   }

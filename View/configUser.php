@@ -43,9 +43,9 @@
           </div>
         </form>
       </div>
-      <div class="form">
-        <h2>Cambiar usuario</h2>
+      <div class="form formUser">
         <form action="https://ordeplay.cifpceuta.com/index.php?action=cambiarUser" method="post" id="miFormularioUser">
+          <h2>Cambiar usuario</h2>
           <div class="campo" id="lastCampoUser">
             <input type="text" name="user" required id="user">
             <label>Nuevo usuario</label>

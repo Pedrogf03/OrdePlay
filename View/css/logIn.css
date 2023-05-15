@@ -46,6 +46,11 @@
   position: absolute;
   top: 1vh;
   right: 0.3vw;
+  transition: all 0.5s;
+}
+.form .campo i:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .form .campo input:focus ~ label,
@@ -65,9 +70,11 @@
   border-radius: 10px;
   border: none;
   color: #fff;
+  transition: all 0.5s;
 }
 .loginButton button:hover {
   transform: scale(1.1);
+  cursor: pointer;
 }
 .loginButton button:focus {
   box-shadow: 2px 2px 2px var(--color2);
@@ -75,6 +82,7 @@
 
 .loginButton a {
   color: var(--color2);
+  transition: all 0.5s;
 }
 .loginButton a:hover {
   letter-spacing: 1px;
@@ -84,4 +92,5 @@
   text-align: center;
   color: var(--color3);
   margin-bottom: 2vh;
+  font-weight: 600;
 }

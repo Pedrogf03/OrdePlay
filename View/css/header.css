@@ -10,7 +10,7 @@
 :root {
   --color1: #fc9d0f;
   --color2: #252525;
-  --color3: #aa1155;
+  --color3: #e80a2b;
 }
 
 body {
@@ -85,7 +85,10 @@ header div:nth-child(1) img {
 .icono_cruz {
   transition: all 1s;
 }
-header div .inicio:hover img {
+header div .inicio img {
+  transition: all 0.5s;
+}
+header div .inicio img:hover {
   transform: scale(1.1);
 }
 
@@ -100,6 +103,9 @@ header div:nth-child(2) nav ul {
   gap: 20px;
   font-weight: 700;
   font-size: 1.4em;
+}
+header div:nth-child(2) nav ul li {
+  transition: all 0.5s;
 }
 header div:nth-child(2) nav ul li:hover {
   text-decoration: underline;
@@ -123,13 +129,15 @@ header div:nth-child(3) {
 }
 header div:nth-child(3) i {
   font-size: 2em;
+  transition: all 0.5s;
+}
+header div:nth-child(3) i:hover {
+  transform: scale(1.1);
 }
 header div:nth-child(3) img {
   width: 2.5vw;
   border-radius: 50%;
-}
-header div:nth-child(3) i:hover {
-  transform: scale(1.1);
+  transition: all 0.5s;
 }
 header div:nth-child(3) img:hover {
   transform: scale(1.1);
@@ -152,12 +160,12 @@ div.desplegable {
 
 /* Clases que muestran u ocultan el menú desplegable */
 .off {
-  transform: translateX(-100vw);
-  transition: all 1s;
+  transform: translateX(-20vw);
+  transition: all 0.5s;
 }
 .on {
   transform: translateX(0vw);
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 /* Alineación del texto e iconos mediante una cuadrícula grid */
@@ -176,6 +184,9 @@ div.listas a {
 div.listas a i {
   justify-self: center;
 }
+div.listas a p {
+  transition: all 0.5s;
+}
 div.listas a p:hover {
   letter-spacing: 1px;
   font-weight: 600;
@@ -189,6 +200,7 @@ div.closeSession {
 div.closeSession a {
   color: #000;
   text-decoration: none;
+  transition: all 0.5s;
 }
 div.closeSession a:hover {
   letter-spacing: 1px;
@@ -201,6 +213,7 @@ div.config a {
   bottom: 20px;
   color: #000;
   text-decoration: none;
+  transition: all 0.5s;
 }
 div.config a:hover {
   letter-spacing: 1px;
