@@ -390,6 +390,87 @@ class Controller {
 
   }
 
+  public function borrarTarjeta() {
+
+    $this->OrdePlay->borrarTarjeta($_GET['idTarjeta']);
+
+    return $this->configUser();
+
+  }
+
+  public function addTarjeta(){
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de loggin.
+      return $this->logIn();
+    } else {
+      // Si si la hay, te lleva a la página de configuración de usuario.
+      $this->vista = "addTarjeta";
+      $this->css = "addTarjeta"; 
+    }
+
+  }
+
+  public function saveTarjeta(){
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $numTarjeta = trim($_POST['numTarjeta']); // Quitar espacios al principio y al final.
+      $fechaExp = trim($_POST['fechaExp']); // Quitar espacios al principio y al final.
+      $cvc = trim($_POST['cvc']); // Quitar espacios al principio y al final.
+      $nombreTit = trim($_POST['nombreTit']); // Quitar espacios al principio y al final.
+          
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^\d{4}-\d{4}-\d{4}-\d{4}$/", $numTarjeta)) {
+        if (!preg_match("/^\d{4} \d{4} \d{4} \d{4}$/", $numTarjeta)) {
+          if (!preg_match("/^\d{16}$/", $numTarjeta)) {
+            $respuesta = array('exito' => false, 'mensaje' => 'Número de la tarjeta no válido.');
+            echo json_encode($respuesta);
+            exit;
+          }
+        } else {
+          $numTarjeta = str_replace(' ', '', $numTarjeta);
+        }
+      } else {
+        $numTarjeta = str_replace('-', '', $numTarjeta);
+      }
+    
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $fechaExp)) {
+        $respuesta = array('exito' => false, 'mensaje' => $fechaExp);
+        echo json_encode($respuesta);
+        exit;
+      }
+
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^\d{3,4}$/", $cvc)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'CVC no válido.');
+        echo json_encode($respuesta);
+        exit;
+      }  
+      
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^[a-zA-Zá-úÁ-Úä-üÄ-Ü]+(?:\s[a-zA-Zá-úÁ-Úä-üÄ-Ü]+)+$/u", $nombreTit)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Titualar no válido.');
+        echo json_encode($respuesta);
+        exit;
+      }     
+      
+      // Se guarda la tarjeta en base de datos.
+      if(!$this->OrdePlay->guardarTarjeta($_SESSION['idCliente'], $numTarjeta, $fechaExp, $cvc, $nombreTit)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Error inesperado.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta de éxito en formato json.
+      $respuesta = array('exito' => true, 'mensaje' => 'Se ha guardado correctamente.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+  }
+
   // Función que lleva a la vista que muestra información del juego.
   public function verJuego(){
 

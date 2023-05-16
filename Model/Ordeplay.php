@@ -218,6 +218,29 @@ class OrdePlay{
 
   }
 
+  public function borrarTarjeta($id){
+
+    $sql = "DELETE FROM Tarjeta WHERE idTarjeta = $id";
+
+    if($this->connection->query($sql)){
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+  public function guardarTarjeta($idCliente, $numero, $fechaExp, $cvc, $nombreTit) {
+
+    $sql = "INSERT INTO Tarjeta (idCliente, numero, fechaExp, cvc, titular) VALUES ('$idCliente', '$numero', '$fechaExp', '$cvc', '$nombreTit')";
+    if ($this->connection->query($sql)) {
+        return true;
+    } else {
+        return false;
+    }
+
+  }
+
   // Función que, dado un idVideojuego, devuelve toda la iformación del mismo.
   public function getVideojuegoById($id){
 
