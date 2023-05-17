@@ -125,6 +125,9 @@ class OrdePlay{
         $_SESSION['email'] = $row['email'];
         $_SESSION['picture'] = $row['picture'];
 
+        $sql = "INSERT INTO Lista (idCliente, nombre, descripcion) VALUES ('".$row['idCliente']."', 'Favoritos', 'Los juegos que más me gustan.'), ('".$row['idCliente']."', 'Desados', 'Los juegos que quiero comprar.')"; 
+        $result = $this->connection->query($sql);
+
         return true;
       } else {
         return false;
@@ -253,6 +256,58 @@ class OrdePlay{
       return new Videojuego($row['idVideojuego'], $row['nombre'], $row['descripcion'], $row['genero'], $row['precio'], $row['desarrollador'], $row['fechaLanzamiento'], $row['idPlataforma'], $row['img']); 
 
     }
+
+  }
+
+  public function addJuegoToLista($id, $nombre) {
+
+    $sql = "SELECT idLista FROM Lista WHERE idCliente = '". $_SESSION['idCliente'] ."' AND nombre = '$nombre'";
+    $result = $this->connection->query($sql);
+
+    if ($result->num_rows == 1) {
+        
+      $row = $result->fetch_assoc();
+      $sql = "INSERT INTO ListaJuego (idVideojuego, idLista) VALUES ('$id', '". $row['idLista'] ."')";
+
+      try{
+        if ($this->connection->query($sql)) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch(Exception $e) {
+        return false;
+      }
+
+    }
+
+    return false;
+
+  }
+
+  public function removeJuegoFromLista($id, $nombre) {
+
+    $sql = "SELECT idLista FROM Lista WHERE idCliente = '". $_SESSION['idCliente'] ."' AND nombre = '$nombre'";
+    $result = $this->connection->query($sql);
+
+    if ($result->num_rows == 1) {
+        
+      $row = $result->fetch_assoc();
+      $sql = "DELETE FROM ListaJuego WHERE idVideojuego = $id AND idLista = ". $row['idLista'];
+
+      try{
+        if ($this->connection->query($sql)) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch(Exception $e) {
+        return false;
+      }
+
+    }
+
+    return false;
 
   }
 

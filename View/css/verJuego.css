@@ -1,34 +1,21 @@
-.container .infoJuego {
+.container .juego {
   width: 70%;
   margin: 2vh auto;
   background-color: var(--color1);
   padding: 3vh 2vw;
   border-radius: 20px;
   display: flex;
-  flex-direction: row;
-}
-
-.left {
-  width: 30vw;
-  position: relative;
-}
-.left img {
-  width: 100%;
-  border-radius: 20px;
-  border: 5px solid var(--color2);
-}
-.left div {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
 }
-.left i {
-  font-size: 2em;
+.container .juego div.juegoImg {
+  width: 49%;
+  position: relative;
 }
-.left p {
-  text-align: justify;
+.container .juego div.juegoImg img {
+  border-radius: 20px;
+  width: 100%;
 }
-.left div.plataforma {
+.container .juego div.juegoImg div.plataforma {
   position: absolute;
   top: 0;
   left: 0;
@@ -37,32 +24,38 @@
   border-radius: 50%;
   padding: 10px;
 }
-.left div.plataforma .nintendoIcon {
-  border: none;
+.container .juego .infoJuego {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
-.right {
-  padding-top: 20vh;
-  margin-left: 2vw;
+.container .juego .infoJuego > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.right p {
-  font-weight: 600;
-  font-size: 2em;
-  margin-bottom: 3vh;
+.container .juego .infoJuego > div i {
+  font-size: 1.2em;
+  margin-left: 1vw;
+  color: black;
 }
-.right button {
+.container .juego .infoJuego > div i:hover {
+  transform: scale(1.2);
+  transition: all 0.5s;
+}
+.container .juego .infoJuego button {
   background-color: var(--color2);
-  color: #fff;
   border: none;
+  color: #fff;
   padding: 1vh 2vw;
   border-radius: 5px;
   transition: all 0.5s;
-  width: 25vw;
-  height: 7vh;
   font-size: 1.2em;
 }
-.right button:hover {
-  transform: scale(1.1);
+.container .juego .infoJuego button:hover {
+  transform: scale(1.03);
+  box-shadow: 2px 2px 2px #fff;
 }
 
 .container .reviews {
@@ -71,6 +64,9 @@
   background-color: var(--color1);
   padding: 3vh 2vw;
   border-radius: 20px;
+}
+.container .reviews p {
+  text-align: center;
 }
 .container .reviews .review {
   width: 100%;

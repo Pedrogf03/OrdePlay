@@ -86,6 +86,20 @@ class Videojuego{
     }
   }
 
+  public function isInLista($nombreLista){
+
+    $sql = "SELECT * FROM ListaJuego lj JOIN Lista l ON lj.idLista = l.idLista WHERE lj.idVideojuego = '". $this->getIdVideojuego() ."' AND l.nombre = '$nombreLista' AND l.idCliente = '". $_SESSION['idCliente'] ."'";
+
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows == 1) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
 }
 
 ?>

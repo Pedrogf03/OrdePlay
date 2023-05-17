@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="infoJuego">
-    <div class="left">
+  <div class="juego">
+    <div class="juegoImg">
       <img src="<?=$datos->getImg()?>" />
       <?php
       switch ($datos->getIdPlataforma()){ // Dependiendo del idPlataforma del juego, se muestra un icono u otro.
@@ -26,11 +26,33 @@
           break;
       }
       ?>
-      <div><h2><?=$datos->getNombre()?></h2><span><i class="fa-regular fa-heart"></i>&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-plus"></i></span></div>
-      <p><?=$datos->getDescripcion()?></p>
     </div>
-    <div class="right">
-      <p><?=$datos->getPrecio()?>€</p>
+    <div class="infoJuego">
+      <h1><?=$datos->getNombre()?></h1>
+      <p><?=$datos->getDescripcion()?></p>
+      <div>
+        <h2><?=$datos->getPrecio()?>€</h2>
+        <span>
+          <i class="fa-solid fa-plus"></i>
+          <?php
+          if(isset($_SESSION['idCliente'])){
+            if($datos->isInLista('Favoritos')){
+              ?>
+              <a href="index.php?action=removeJuegoFromLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-solid fa-heart"></i></a>
+              <?php
+            } else {
+              ?>
+              <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-regular fa-heart"></i></a>
+              <?php
+            }
+          } else {
+            ?>
+            <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-regular fa-heart"></i></a>
+            <?php
+          }
+          ?>
+        </span>
+      </div>
       <button>Añadir al carrito</button>
     </div>
   </div>
@@ -84,6 +106,8 @@
         </div>
         <?php
       }
+    } else {
+      echo "<p>Aún no hay reseñas de este juego.</p>";
     }
     ?>
   </div>

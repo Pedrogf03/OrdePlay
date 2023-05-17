@@ -481,6 +481,26 @@ class Controller {
 
   }
 
+  public function addJuegoToLista() {
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de loggin.
+      return $this->logIn();
+    } else {
+      $this->OrdePlay->addJuegoToLista($_GET['idJuego'], $_GET['nombreLista']);
+      return $this->verJuego();
+    }
+    
+  }
+
+  public function removeJuegoFromLista() {
+
+    $this->OrdePlay->removeJuegoFromLista($_GET['idJuego'], $_GET['nombreLista']);
+    return $this->verJuego();
+    
+  }
+
 }
 
 ?>
