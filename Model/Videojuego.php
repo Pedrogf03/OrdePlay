@@ -13,6 +13,8 @@ class Videojuego{
   private $fechaLanzamiento;
   private $idPlataforma;
   private $img;
+  private $reviews;
+  private $connection;
 
   public function __construct($idVideojuego, $nombre, $descripcion, $genero, $precio, $desarrollador, $fechaLanzamiento, $idPlataforma, $img){
     
@@ -25,6 +27,11 @@ class Videojuego{
     $this->fechaLanzamiento = $fechaLanzamiento;
     $this->idPlataforma = $idPlataforma;
     $this->img = $img;
+    
+    $this->reviews = array();
+
+    $dbObj = new Db(); // Crea un objeto Base de datos.
+		$this->connection = $dbObj->connection; // Almacena el objeto en una propiedad de este objeto.
 
   }
 
@@ -57,6 +64,27 @@ class Videojuego{
     return $this->img;
   }
 
+  public function getReviews(){
+    $sql = "SELECT * FROM Review WHERE idVideojuego = " . $this->getIdVideojuego();
+    $result = $this->connection->query($sql);
+  
+    if ($result->num_rows > 0) {
+      $i = 0;
+      while ($row = $result->fetch_assoc()) {
+        $sql2 = "SELECT * FROM Cliente WHERE idCliente = " . $row['idCliente'];
+        $result2 = $this->connection->query($sql2);
+        $row2 = $result2->fetch_assoc();
+  
+        $cliente = new Cliente($row2['idCliente'], $row2['usuario'], $row2['email'], null, $row2['picture']);
+
+        $this->reviews[$i] = new Review($cliente, $row['idVideojuego'], $row['nota'], $row['opinion']);
+        $i++;
+      }
+      return $this->reviews;
+    } else {
+      return false;
+    }
+  }
 
 }
 

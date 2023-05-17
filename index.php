@@ -12,7 +12,8 @@ require_once './Model/Pedido.php';
 require_once './Model/Plataforma.php';
 require_once './Model/Tarjeta.php';
 require_once './Model/Videojuego.php';
-require_once './Model/VideojuegoPlataforma.php';
+require_once './Model/Videojuego.php';
+require_once './Model/Review.php';
 require_once './Controller/Controller.php';
 
 // Si no hay definida una acción, se pone la por defecto, definida en config/config.php
