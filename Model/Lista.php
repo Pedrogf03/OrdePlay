@@ -2,16 +2,32 @@
 
 class Lista{
 
-  private int $idLista;
-  private string $nombre;
-  private string $descipcion;
+  private $idLista;
+  private $idCliente;
+  private $nombre;
+  private $descripcion;
 
-  public function __construct($idLista, $nombre, $descipcion){
+  public function __construct($idLista, $idCliente, $nombre, $descripcion){
     
     $this->idLista = $idLista;
+    $this->idCliente = $idCliente;
     $this->nombre = $nombre;
-    $this->descipcion = $descipcion;
+    $this->descripcion = $descripcion;
 
+  }
+
+  // Getters
+  public function getIdLista(){
+    return $this->idLista;
+  }
+  public function getIdCliente(){
+    return $this->idCliente;
+  }
+  public function getNombre(){
+    return $this->nombre;
+  }
+  public function getDescripcion(){
+    return $this->descripcion;
   }
   
 }

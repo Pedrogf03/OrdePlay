@@ -20,7 +20,11 @@
     <!-- Conexión con FontAwesome -->
     <script src="https://kit.fontawesome.com/3915de76d4.js" crossorigin="anonymous"></script>
   </head>
-  
+  <?php
+    if($_SESSION['idCliente'] != NULL){
+      $cliente = new Cliente($_SESSION['idCliente'], $_SESSION['usuario'], $_SESSION['email'], $_SESSION['picture']);
+    }
+  ?>
   <body>
     <!-- Cabecera de la página -->
     <header>
@@ -58,24 +62,25 @@
       </div>
     </header>
     <div class="desplegable off">
-        <div class="listas">
-          <a href="">
-            <i class="fa-solid fa-bookmark"></i>
-            <p>Biblioteca</p>
-          </a>
-          <a href="">
-            <i class="fa-solid fa-heart"></i>
-            <p>Favoritos</p>
-          </a>
-          <a href="">
-            <i class="fa-solid fa-cloud"></i>
-            <p>Deseados</p>
-          </a>
-          <a href="">
-            <i class="fa-solid fa-circle-plus"></i>
-            <p>Crear lista</p>
-          </a>
-        </div>
-        <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
-        <div class="config"><a href="index.php?action=configUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>
+      <div class="listas">
+        <a href="">
+          <p>Biblioteca</p>
+        </a>
+        <?php
+        if($_SESSION['idCliente'] != NULL){
+          for($m = 0; $m < count($cliente->getListas()); $m++){
+            ?>
+            <a href="">
+              <p><?=$cliente->getListas()[$m]->getNombre()?></p>
+            </a>
+            <?php
+          }
+        }
+        ?>
+        <a href="">
+          <p>Crear lista</p>
+        </a>
+      </div>
+      <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
+      <div class="config"><a href="index.php?action=configUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>
     </div>

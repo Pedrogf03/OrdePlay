@@ -168,21 +168,14 @@ div.desplegable {
   transition: all 0.5s;
 }
 
-/* Alineación del texto e iconos mediante una cuadrícula grid */
 div.listas {
   display: flex;
   flex-direction: column;
   font-size: 1.3em;
 }
 div.listas a {
-  display: grid;
-  grid-template-columns: 25px 1fr;
-  column-gap: 7px;
   color: #000;
   text-decoration: none;
-}
-div.listas a i {
-  justify-self: center;
 }
 div.listas a p {
   transition: all 0.5s;

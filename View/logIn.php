@@ -22,6 +22,29 @@
 </div>
 <script>
 
+  // Mostrar valor de las cookies en los inputs
+  var valorCookie1 = document.cookie
+    .split(";")
+    .map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith("email="));
+
+  if (valorCookie1) {
+    var valor = valorCookie1.split("=")[1];
+    document.getElementById("email").value = valor;
+  }
+
+  var valorCookie2 = document.cookie
+    .split(";")
+    .map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith("passwd="));
+
+  if (valorCookie2) {
+    var valor = valorCookie2.split("=")[1];
+    document.getElementById("passwd").value = valor;
+  }
+
+  console.log(document.cookie);
+
   // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {
@@ -40,6 +63,13 @@
     // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
       if(datos.exito){
+        // Se guardan las cookies de inicio de sesión.
+        let hoy = new Date();
+        let caducidadMs = hoy.getTime() + 1000 * 60 * 60 * 24 * 7;
+        let caducidad = new Date (caducidadMs);
+        document.cookie = `email = ${document.getElementById('email').value}; expires = ${caducidad.toUTCString()}`;
+        document.cookie = `passwd = ${document.getElementById('passwd').value}; expires = ${caducidad.toUTCString()}`;
+        // Se dirige a la pantalla de inicio
         window.location.href = "https://ordeplay.cifpceuta.com";
       } else {
         if(!document.getElementById('mensaje')){
@@ -62,7 +92,5 @@
   document.getElementById('eyeIcon').addEventListener("mouseup", function() {
     document.getElementById('passwd').setAttribute('type', "password");
   })
-
-
 
 </script>

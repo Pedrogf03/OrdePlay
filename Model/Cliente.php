@@ -8,6 +8,7 @@ class Cliente {
   private $password;
   private $picture;
   private $metodosPago;
+  private $listas;
   private $connection;
 
   public function __construct($idCliente, $usuario, $email, $password, $picture = NULL){
@@ -19,6 +20,7 @@ class Cliente {
     $this->picture = $picture;
 
     $this->metodosPago = array();
+    $this->listas = array();
 
     $dbObj = new Db(); // Crea un objeto Base de datos.
 		$this->connection = $dbObj->connection; // Almacena el objeto en una propiedad de este objeto.
@@ -57,6 +59,25 @@ class Cliente {
         $i++;
       }
       return $this->metodosPago;
+    }
+
+  }
+
+  public function getListas() {
+
+    $sql = "SELECT * FROM Lista WHERE idCliente = ". $_SESSION['idCliente'];
+
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows == 0){
+      return 0;
+    } else {
+      $i = 0;
+      while($row = $result->fetch_assoc()){
+        $this->listas[$i] = new Lista($row['idLista'], $row['idCliente'], $row['nombre'], $row['descripcion']);
+        $i++;
+      }
+      return $this->listas;
     }
 
   }
