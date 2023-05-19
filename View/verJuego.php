@@ -38,16 +38,16 @@
           if(isset($_SESSION['idCliente'])){
             if($datos->isInLista('Favoritos')){
               ?>
-              <a href="index.php?action=removeJuegoFromLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-solid fa-heart"></i></a>
+              <a href="index.php?action=removeJuegoFromLista&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-solid fa-heart"></i></a>
               <?php
             } else {
               ?>
-              <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-regular fa-heart"></i></a>
+              <a href="index.php?action=addJuegoToFav&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
               <?php
             }
           } else {
             ?>
-            <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>&nombreLista=Favoritos"><i class="fa-regular fa-heart"></i></a>
+            <a href="index.php?action=addJuegoToFav&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
             <?php
           }
           ?>

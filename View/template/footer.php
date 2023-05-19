@@ -1,3 +1,16 @@
+    <?php
+    if($controlador->getVista() != "logIn" && $controlador->getVista() != "crearUser"){
+    ?>
+    <footer>
+      <div>
+        <img src="img/logo.png" alt="Logotipo de la página.">
+        <p>OrdePlay</p>
+      </div>
+      <a href="https://github.com/Pedrogf23"><p>Pedro González Fernández - 2ºDAW - C.I.F.P. Nº1, Ceuta</p></a>
+    </footer>
+    <?php
+    }
+    ?>
     <script>
       // jQuery para cambiar entre clases
       $('.contenedor_icono_burger').on('click', function () {

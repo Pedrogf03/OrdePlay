@@ -1,0 +1,67 @@
+.lista {
+  width: 60%;
+  margin: 0 auto;
+  background-color: var(--color1);
+  padding: 2vh 2vw;
+  border-radius: 20px;
+}
+.lista h1 {
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  text-shadow: 3px 3px 3px var(--color2), -3px 3px 3px var(--color2), -3px 3px 3px var(--color2), -3px -3px 3px var(--color2);
+}
+.lista hr {
+  border: 2px solid var(--color2);
+  margin: 2vh 0 2vh 0;
+}
+.lista .juegos {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+.lista .juegos .juego a {
+  text-decoration: none;
+  color: black;
+}
+.lista .juegos .juego a {
+  display: flex;
+  justify-content: space-between;
+}
+.lista .juegos .juego {
+  display: flex;
+  justify-content: space-between;
+}
+.lista .juegos .juego:hover img {
+  transform: scale(1.1);
+}
+.lista .juegos .juego:hover h3 {
+  text-decoration: underline;
+}
+.lista .juegos .juego img {
+  width: 20%;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+.lista .juegos .juego .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  width: 70%;
+}
+.lista .juegos .juego .info img.nintendoIcon {
+  width: 20px;
+  transform: translateY(4px);
+}
+.lista .juegos .juego .borrar {
+  color: var(--color3);
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.5s;
+}
+.lista .juegos .juego:hover .borrar {
+  opacity: 1;
+}
+.lista .juegos .juego .borrar:hover {
+  transform: scale(1.5) translateY(45px);
+}

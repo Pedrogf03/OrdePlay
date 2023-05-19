@@ -228,5 +228,39 @@ div.config a:hover {
 }
 
 .container {
-  padding: 13vh 2vw 0vh 2vw;
+  padding: 13vh 2vw 13vh 2vw;
+}
+
+footer {
+  margin-top: 2vw;
+  background-color: var(--color1);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+}
+footer div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  left: 10px;
+}
+footer div img {
+  width: 3vw;
+}
+footer div p {
+  font-family: 'Press Start 2P', cursive;
+}
+footer a {
+  color: black;
+  transition: all 0.5s;
+}
+footer a:hover {
+  letter-spacing: 0.5px;
 }

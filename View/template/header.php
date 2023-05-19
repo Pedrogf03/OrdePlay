@@ -70,7 +70,7 @@
         if($_SESSION['idCliente'] != NULL){
           for($m = 0; $m < count($cliente->getListas()); $m++){
             ?>
-            <a href="">
+            <a href="index.php?action=verLista&idLista=<?=$cliente->getListas()[$m]->getIdLista()?>">
               <p><?=$cliente->getListas()[$m]->getNombre()?></p>
             </a>
             <?php

@@ -20,6 +20,12 @@ class Controller {
     
   }
 
+  public function getVista(){
+
+    return $this->vista;
+
+  }
+
   // Vista que muestra todos los juegos de la base de datos.
   public function web(){
 
@@ -481,14 +487,14 @@ class Controller {
 
   }
 
-  public function addJuegoToLista() {
+  public function addJuegoToFav() {
 
     // Se comprueba si hay una sesión iniciada.
     if(!isset($_SESSION['idCliente'])) {
       // Si no, te lleva a la vista de loggin.
       return $this->logIn();
     } else {
-      $this->OrdePlay->addJuegoToLista($_GET['idJuego'], $_GET['nombreLista']);
+      $this->OrdePlay->addJuegoToFav($_GET['idJuego'], 'Favoritos');
       return $this->verJuego();
     }
     
@@ -496,9 +502,38 @@ class Controller {
 
   public function removeJuegoFromLista() {
 
-    $this->OrdePlay->removeJuegoFromLista($_GET['idJuego'], $_GET['nombreLista']);
-    return $this->verJuego();
+    if(!isset($_GET['idLista'])){
+
+      $this->OrdePlay->removeJuegoFromLista($_GET['idJuego']);
+      return $this->verJuego();
+
+    } else {
+
+      $this->OrdePlay->removeJuegoFromLista($_GET['idJuego'], $_GET['idLista']);
+      return $this->verLista();
+
+    }
     
+  }
+
+  public function verLista(){
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de login.
+      return $this->logIn();
+    } else {
+      $this->vista = "verLista";
+      $this->css = "verLista"; 
+      return $this->OrdePlay->verLista($_GET['idLista']);
+    }
+
+  }
+
+  public function getListaById($idLista){
+
+    return $this->OrdePlay->getListaById($idLista);
+
   }
 
 }
