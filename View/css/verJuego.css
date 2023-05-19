@@ -87,6 +87,10 @@
   text-align: justify;
   width: 65%;
 }
+.container .reviews .review .infoReview p {
+  text-align: justify;
+  margin-top: 1vh;
+}
 .container .reviews .review .nota {
   margin-left: auto;
 }
