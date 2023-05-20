@@ -172,6 +172,30 @@ div.listas {
   display: flex;
   flex-direction: column;
   font-size: 1.3em;
+  height: 80%;
+  overflow: auto;
+}
+div.listas::-webkit-scrollbar {
+  width: 0.2vw;
+}
+div.listas::-webkit-scrollbar-track {
+  background: var(--color1);
+}
+div.listas::-webkit-scrollbar-thumb {
+  background-color: var(--color2);
+}
+div.listas .lista {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1vh 0;
+}
+div.listas .lista i {
+  opacity: 0;
+  transition: all 0.5s;
+}
+div.listas .lista:hover i {
+  opacity: 1;
 }
 div.listas a {
   color: #000;
@@ -180,7 +204,7 @@ div.listas a {
 div.listas a p {
   transition: all 0.5s;
 }
-div.listas a p:hover {
+div.listas .lista:hover p {
   letter-spacing: 1px;
   font-weight: 600;
 }
@@ -188,7 +212,7 @@ div.listas a p:hover {
 div.closeSession {
   font-size: 1.3em;
   position: absolute;
-  bottom: 60px;
+  bottom: 10vh;
 }
 div.closeSession a {
   color: #000;
@@ -203,7 +227,7 @@ div.closeSession a:hover {
 div.config a {
   font-size: 1.3em;
   position: absolute;
-  bottom: 20px;
+  bottom: 6vh;
   color: #000;
   text-decoration: none;
   transition: all 0.5s;

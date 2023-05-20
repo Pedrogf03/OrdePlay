@@ -33,7 +33,7 @@
       <div>
         <h2><?=$datos->getPrecio()?>€</h2>
         <span>
-          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-plus" id="addToLista"></i>
           <?php
           if(isset($_SESSION['idCliente'])){
             if($datos->isInLista('Favoritos')){
@@ -42,12 +42,12 @@
               <?php
             } else {
               ?>
-              <a href="index.php?action=addJuegoToFav&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
+              <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
               <?php
             }
           } else {
             ?>
-            <a href="index.php?action=addJuegoToFav&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
+            <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>"><i class="fa-regular fa-heart"></i></a>
             <?php
           }
           ?>
@@ -112,3 +112,43 @@
     ?>
   </div>
 </div>
+<?php
+if(isset($_SESSION['idCliente'])){
+?>
+<div class="addToLista" id="divToAdd">
+<?php
+for($i = 0; $i < count($cliente->getListas()); $i++){
+  ?>
+  <div class="lista">
+    <a href="index.php?action=addJuegoToLista&idJuego=<?=$datos->getIdVideojuego()?>&idLista=<?=$cliente->getListas()[$i]->getIdLista()?>">
+      <p><?=$cliente->getListas()[$i]->getNombre()?></p>
+    </a>
+  </div>
+  <?php
+} 
+?>
+</div>
+<?php
+}
+?>
+<script>
+
+  function addDiv(){
+
+  }
+
+  document.getElementById('addToLista').addEventListener('click', function(ev){
+    coordenadas = document.getElementById('addToLista').getBoundingClientRect();
+
+    document.getElementById('divToAdd').style.display = 'block';
+    document.getElementById('divToAdd').style.top = coordenadas.top + "px";
+    document.getElementById('divToAdd').style.left = coordenadas.left + "px";
+
+    document.getElementById('divToAdd').addEventListener('mouseleave', function(ev){
+    document.getElementById('divToAdd').style.display = 'none';
+    });
+
+  });
+
+
+</script>

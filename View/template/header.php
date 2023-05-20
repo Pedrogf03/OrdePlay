@@ -63,23 +63,38 @@
     </header>
     <div class="desplegable off">
       <div class="listas">
-        <a href="">
-          <p>Biblioteca</p>
-        </a>
+        <div class="lista">
+          <a href="index.php?action=crearLista">
+            <p>Crear lista</p>
+          </a>
+        </div>
+        <div class="lista">
+          <a href="">
+            <p>Biblioteca</p>
+          </a>
+        </div>
         <?php
         if($_SESSION['idCliente'] != NULL){
           for($m = 0; $m < count($cliente->getListas()); $m++){
             ?>
-            <a href="index.php?action=verLista&idLista=<?=$cliente->getListas()[$m]->getIdLista()?>">
-              <p><?=$cliente->getListas()[$m]->getNombre()?></p>
-            </a>
+            <div class="lista">
+              <a href="index.php?action=verLista&idLista=<?=$cliente->getListas()[$m]->getIdLista()?>">
+                <p><?=$cliente->getListas()[$m]->getNombre()?></p>
+              </a>
+              <?php
+              if($cliente->getListas()[$m]->getNombre() != 'Favoritos' AND $cliente->getListas()[$m]->getNombre() != 'Deseados'){
+                ?>
+                <a href="index.php?action=borrarLista&idLista=<?=$cliente->getListas()[$m]->getIdLista()?>">
+                  <i class="fa-solid fa-xmark"></i>
+                </a>
+                <?php
+              }
+              ?>
+            </div>
             <?php
           }
         }
         ?>
-        <a href="index.php?action=crearLista">
-          <p>Crear lista</p>
-        </a>
       </div>
       <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
       <div class="config"><a href="index.php?action=configUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>

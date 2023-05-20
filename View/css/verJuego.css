@@ -94,3 +94,25 @@
 .container .reviews .review .nota {
   margin-left: auto;
 }
+
+.addToLista {
+  background-color: var(--color2);
+  border: 3px solid var(--color1);
+  border-radius: 20px;
+  position: absolute;
+  padding: 2vh 1vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  align-items: center;
+  display: none;
+  z-index: 3;
+}
+.addToLista a {
+  color: var(--color1);
+  text-decoration: none;
+}
+.addToLista a:hover {
+  color: var(--color1);
+  text-decoration: underline;
+}

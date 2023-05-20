@@ -259,29 +259,35 @@ class OrdePlay{
 
   }
 
-  public function addJuegoToFav($id, $nombre) {
+  public function addJuegoToLista($idJuego, $idLista = NULL) {
 
-    $sql = "SELECT idLista FROM Lista WHERE idCliente = '". $_SESSION['idCliente'] ."' AND nombre = '$nombre'";
-    $result = $this->connection->query($sql);
+    if($idLista == NULL){
+      $sql = "SELECT idLista FROM Lista WHERE idCliente = '". $_SESSION['idCliente'] ."' AND nombre = 'Favoritos'";
+      $result = $this->connection->query($sql);
 
-    if ($result->num_rows == 1) {
-        
-      $row = $result->fetch_assoc();
-      $sql = "INSERT INTO ListaJuego (idVideojuego, idLista) VALUES ('$id', '". $row['idLista'] ."')";
+      if ($result->num_rows == 1) {
+          
+        $row = $result->fetch_assoc();
+        $sql = "INSERT INTO ListaJuego (idVideojuego, idLista) VALUES ('$idJuego', '". $row['idLista'] ."')";
 
-      try{
-        if ($this->connection->query($sql)) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch(Exception $e) {
+      } else {
         return false;
       }
+    } else {
+
+      $sql = "INSERT INTO ListaJuego (idVideojuego, idLista) VALUES ('$idJuego', '". $idLista ."')";
 
     }
 
-    return false;
+    try{
+      if ($this->connection->query($sql)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(Exception $e) {
+      return false;
+    }
 
   }
 
@@ -381,7 +387,18 @@ class OrdePlay{
     } else {
       return false;
     }
-    
+
+  }
+
+  public function borrarLista($idLista){
+
+    $sql = "DELETE FROM Lista WHERE idLista = ". $idLista;
+
+    if($this->connection->query($sql)){
+      return true;
+    } else {
+      return false;
+    }
 
   }
 

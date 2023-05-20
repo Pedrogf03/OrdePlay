@@ -487,15 +487,20 @@ class Controller {
 
   }
 
-  public function addJuegoToFav() {
+  public function addJuegoToLista() {
 
     // Se comprueba si hay una sesión iniciada.
     if(!isset($_SESSION['idCliente'])) {
       // Si no, te lleva a la vista de loggin.
       return $this->logIn();
     } else {
-      $this->OrdePlay->addJuegoToFav($_GET['idJuego'], 'Favoritos');
-      return $this->verJuego();
+      if(!isset($_GET['idLista'])){
+        $this->OrdePlay->addJuegoToLista($_GET['idJuego']);
+        return $this->verJuego();
+      } else {
+        $this->OrdePlay->addJuegoToLista($_GET['idJuego'], $_GET['idLista']);
+        return $this->verJuego();
+      }
     }
     
   }
@@ -581,6 +586,13 @@ class Controller {
       echo json_encode($respuesta);
       exit;
     }
+
+  }
+
+  public function borrarLista(){
+
+    $this->OrdePlay->borrarLista($_GET['idLista']);
+    return $this->web();
 
   }
 
