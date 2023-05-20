@@ -364,6 +364,27 @@ class OrdePlay{
 
   }
 
+  public function crearLista($nombre, $descripcion){
+
+    $sql = "SELECT * FROM Lista WHERE nombre = '$nombre' AND idCliente = " . $_SESSION['idCliente'];
+    $result = $this->connection->query($sql);
+    
+    if ($result->num_rows == 0) {
+    
+      $sql = "INSERT INTO Lista (idCliente, nombre, descripcion) VALUES (" . $_SESSION['idCliente'] . ", '$nombre', '$descripcion')";
+    
+      if ($this->connection->query($sql)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+    
+
+  }
+
 }
 
 ?>

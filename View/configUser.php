@@ -175,13 +175,11 @@
       } else {
         if(!document.getElementById('mensaje')){
           let msg = document.createElement('p');
-          msg.id = 'mensaje';
           msg.innerText = datos.mensaje;
-          msg.classList.toggle('false', !datos.exito);
-          document.getElementById('lastCampoEmail').appendChild(msg);
+          msg.id = 'mensaje';
+          document.getElementById('lastCampo').appendChild(msg);
         } else {
           document.getElementById('mensaje').innerText = datos.mensaje;
-          document.getElementById('mensaje').classList.toggle('false', !datos.exito);
         }
       }
     })

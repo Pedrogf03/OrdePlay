@@ -443,7 +443,7 @@ class Controller {
     
       // Validación de los datos mediante expresiones regulares.
       if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $fechaExp)) {
-        $respuesta = array('exito' => false, 'mensaje' => $fechaExp);
+        $respuesta = array('exito' => false, 'mensaje' => 'La fecha no es válida.');
         echo json_encode($respuesta);
         exit;
       }
@@ -533,6 +533,54 @@ class Controller {
   public function getListaById($idLista){
 
     return $this->OrdePlay->getListaById($idLista);
+
+  }
+
+  public function crearLista(){
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de login.
+      return $this->logIn();
+    } else {
+      $this->vista = "crearLista";
+      $this->css = "crearLista"; 
+    }
+
+  }
+
+  public function doCrearLista(){
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $nombreLista = trim($_POST['nombreLista']); // Quitar espacios al principio y al final.
+      $descripcion = trim($_POST['descripcion']); // Quitar espacios al principio y al final.
+          
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^[a-zA-Z0-9 ]{1,50}$/", $nombreLista)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Nombre de lista inválido.');
+        echo json_encode($respuesta);
+        exit;
+      }
+    
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^[a-zA-Z0-9 ]{1,100}$/", $descripcion)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Descripción inválida.');
+        echo json_encode($respuesta);
+        exit;
+      }   
+      
+      // Se guarda la lista en base de datos.
+      if(!$this->OrdePlay->crearLista($nombreLista, $descripcion)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Ya tienes una lista con ese nombre.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta de éxito en formato json.
+      $respuesta = array('exito' => true, 'mensaje' => 'Lista creada con éxito.');
+      echo json_encode($respuesta);
+      exit;
+    }
 
   }
 

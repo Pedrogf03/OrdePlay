@@ -77,7 +77,7 @@
           }
         }
         ?>
-        <a href="">
+        <a href="index.php?action=crearLista">
           <p>Crear lista</p>
         </a>
       </div>

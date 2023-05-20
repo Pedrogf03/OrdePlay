@@ -1,38 +1,24 @@
 <div class="container">
   <div class="form">
-    <h2>Crear cuenta</h2>
-    <form action="https://ordeplay.cifpceuta.com/index.php?action=doCrearUser" method="post" id="miFormulario">
+    <h2>Crear lista nueva</h2>
+    <form action="https://ordeplay.cifpceuta.com/index.php?action=doCrearLista" method="post" id="miFormulario">
       <div class="campo">
-        <input type="email" name="email" required id="email">
-        <label>Email</label>
+        <input type="text" name="nombreLista" required id="email">
+        <label>Nombre</label>
       </div>
-      <div class="campo">
-        <input type="text" name="user" required id="user">
-        <label>Nombre de usuario</label>
-      </div>
-      <div class="campo">
-        <input type="password" name="passwd" required id="passwd">
-        <label>Contraseña</label>
-        <i class="fa-regular fa-eye" id="eyeIcon"></i>
-      </div>
-      
-      <div class="campo">
-        <input type="password" name="passwd2" required id="passwd2">
-        <label>Repetir contraseña</label>
+      <div class="campo" id="lastCampo">
+        <label>Descripción</label>
+        <textarea name="descripcion"></textarea>
       </div>
       <div class="loginButton">
-        <button id="enviar">Crear cuenta</button>
-        <br/>
-        <br/>
-        <a href="index.php?action=logIn">Iniciar Sesión</a>
+        <button id="enviar">Crear</button>
       </div>
-      </form>
+    </form>
   </div>
 </div>
 <script>
-
+  // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
-
   miFormulario.addEventListener('submit', function(ev) {
     ev.preventDefault();
 
@@ -48,8 +34,8 @@
     })
     // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
-
       if(datos.exito){
+        // Se dirige a la pantalla de inicio
         window.location.href = "https://ordeplay.cifpceuta.com";
       } else {
         if(!document.getElementById('mensaje')){
@@ -61,18 +47,9 @@
           document.getElementById('mensaje').innerText = datos.mensaje;
         }
       }
-
     })
     .catch(function(error) {
       console.log(error);
     });
-
   });
-
-  document.getElementById('eyeIcon').addEventListener("mousedown", function() {
-    document.getElementById('passwd').setAttribute('type', "text");
-  })
-  document.getElementById('eyeIcon').addEventListener("mouseup", function() {
-    document.getElementById('passwd').setAttribute('type', "password");
-  })
 </script>

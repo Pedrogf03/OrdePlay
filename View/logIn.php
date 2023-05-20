@@ -43,8 +43,6 @@
     document.getElementById("passwd").value = valor;
   }
 
-  console.log(document.cookie);
-
   // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {
@@ -77,6 +75,8 @@
           msg.innerText = datos.mensaje;
           msg.id = 'mensaje';
           document.getElementById('lastCampo').appendChild(msg);
+        } else {
+          document.getElementById('mensaje').innerText = datos.mensaje;
         }
       }
     })
