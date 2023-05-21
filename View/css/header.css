@@ -188,14 +188,18 @@ div.listas .lista {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 1vh 0;
+  padding: 1vh 1vw 0 0;
 }
 div.listas .lista i {
   opacity: 0;
   transition: all 0.5s;
+  color: var(--color3);
 }
 div.listas .lista:hover i {
   opacity: 1;
+}
+div.listas .lista i:hover {
+  transform: scale(1.3);
 }
 div.listas a {
   color: #000;
