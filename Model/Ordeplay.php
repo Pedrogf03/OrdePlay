@@ -402,6 +402,28 @@ class OrdePlay{
 
   }
 
+  public function crearPedido($precioTotal, $idCliente) {
+    $sql = "INSERT INTO Pedido (fecha, precioTotal, idCliente) VALUES (NOW(), $precioTotal, $idCliente)";
+
+    if ($this->connection->query($sql)) {
+        return $this->connection->insert_id;
+    } else {
+        return 0;
+    }
+}
+
+  public function crearLineaPed($idVideojuego, $idPedido, $cantidad, $precioUnidad){
+
+    $sql = "INSERT INTO LineaPedido (idVideojuego, idPedido, cantidad, precioUnidad) VALUES ($idVideojuego, $idPedido, $cantidad, $precioUnidad)";
+
+    if($this->connection->query($sql)){
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
 }
 
 ?>

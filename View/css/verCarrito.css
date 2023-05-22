@@ -13,6 +13,8 @@
 .infoCarrito .carrito .juego {
   margin-bottom: 2vh;
   display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 .infoCarrito .carrito .juego > img {
   width: 25%;
@@ -52,18 +54,70 @@
   text-decoration: none;
   transition: all 0.5s;
 }
-.infoCarrito .carrito .juego .infoJuego > div a i {
+.infoCarrito .carrito .juego .infoJuego > div i {
   transition: all 0.5s;
   color: var(--color3);
 }
-.infoCarrito .carrito .juego .infoJuego > div a:hover i {
+.infoCarrito .carrito .juego .infoJuego > div i:hover {
   transform: scale(1.3);
 }
 .infoCarrito .carrito .juego .infoJuego > div a:hover {
   transform: scale(1.05);
 }
+.infoCarrito .carrito .juego .precioCantidad {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.infoCarrito .carrito h2 {
+  text-align: center;
+}
+
 .infoCarrito .comprar {
   background-color: var(--color1);
   border-radius: 20px;
   padding: 4vh 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-self: flex-start;
+}
+.infoCarrito .comprar > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.infoCarrito .comprar > div p:nth-child(2) {
+  font-weight: 600;
+  font-size: 2em;
+}
+.infoCarrito .comprar button {
+  width: 100%;
+  background-color: var(--color2);
+  border: none;
+  color: #fff;
+  padding: 1vh 2vw;
+  border-radius: 5px;
+  transition: all 0.5s;
+  font-size: 1.2em;
+}
+.infoCarrito .comprar button:hover {
+  transform: scale(1.03);
+  box-shadow: 2px 2px 2px #fff;
+}
+.infoCarrito .comprar hr {
+  border: 1px solid var(--color2);
+  opacity: 0.5;
+}
+.infoCarrito .comprar a {
+  text-align: center;
+  color: var(--color2);
+  transition: all 0.5s;
+}
+.infoCarrito .comprar a:hover {
+  text-decoration: none;
+  letter-spacing: 1px;
 }

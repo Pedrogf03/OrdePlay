@@ -51,3 +51,23 @@ function setCookie(name, value, days) {
 
   document.cookie = name + '=' + value + expires + '; path=/';
 }
+
+// Función para eliminar elementos del carrito
+function eliminarDelCarrito(idVideojuego) {
+  // Comprobar si la cookie "carrito" existe
+  var cartCookie = getCookie('carrito');
+  var cartItems = [];
+
+  if (cartCookie) {
+    // Si la cookie existe, obtener los elementos del carrito actual
+    cartItems = JSON.parse(cartCookie);
+  }
+
+  if (cartItems.indexOf(idVideojuego) != -1) {
+    cartItems.splice(cartItems.indexOf(idVideojuego), 1);
+  }
+
+  setCookie('carrito', JSON.stringify(cartItems), 365); // Guardar la cookie por 1 año.
+
+  location.reload(true);
+}
