@@ -1,3 +1,4 @@
+<script src="./View/js/carrito.js"></script>
 <div class="container">
   <div class="juego">
     <div class="juegoImg">
@@ -53,7 +54,7 @@
           ?>
         </span>
       </div>
-      <button>Añadir al carrito</button>
+      <button onclick="addToCart('<?=$datos->getIdVideojuego()?>')">Añadir al carrito</button>
     </div>
   </div>
   <div class="reviews">

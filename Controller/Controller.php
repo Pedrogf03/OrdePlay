@@ -596,6 +596,13 @@ class Controller {
 
   }
 
+  public function verCarrito(){
+
+    $this->vista = "verCarrito";
+    $this->css = "verCarrito"; 
+
+  }
+
 }
 
 ?>

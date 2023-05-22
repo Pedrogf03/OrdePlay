@@ -47,7 +47,7 @@
         </nav>
       </div>
       <div>
-        <i class="fa-solid fa-cart-shopping"></i>
+        <a href="index.php?action=verCarrito"><i class="fa-solid fa-cart-shopping"></i></a>
           <?php
           if($_SESSION['idCliente'] != NULL){
             if($_SESSION['picture'] == NULL){
