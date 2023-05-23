@@ -424,6 +424,26 @@ class OrdePlay{
 
   }
 
+  public function comprobarCVC($idTarjeta, $cvc){
+
+    $sql = "SELECT * FROM Tarjeta WHERE idTarjeta = $idTarjeta";
+    $result = $this->connection->query($sql);
+    
+    if ($result->num_rows == 0) {
+      return false;
+    } else {
+      $row = $result->fetch_assoc();
+
+      if($row['cvc'] == $cvc) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+
+  }
+
 }
 
 ?>

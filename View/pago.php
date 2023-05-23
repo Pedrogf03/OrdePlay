@@ -1,6 +1,5 @@
 <div class="container">
   <div class="form">
-    <form action="https://ordeplay.cifpceuta.com/index.php?action=saveTarjeta" method="post" id="miFormulario">
     <?php
     if($cliente->getMetodosPago() != 0){
       if(isset($_POST['escogerTarjeta'])){
@@ -8,7 +7,8 @@
       } else {
         $num = 0;
       }
-      ?>
+    ?>
+    <form action="https://ordeplay.cifpceuta.com/index.php?action=comprobarCVC&idTarjeta=<?=$cliente->getMetodosPago()[$num]->getIdTarjeta()?>" method="post" id="miFormulario">
       <div class="tarjeta">
         <h2>Tarjeta de crédito / débito</h2>
         <div class="infoTarjeta">
@@ -20,7 +20,7 @@
             <label>Fecha de expiración</label>
             <input type="date" name="FechaExp" value="<?=$cliente->getMetodosPago()[$num]->getFechaExp()?>">
           </div>
-          <div class="campo3">
+          <div class="campo3" id="lastCampo">
             <label>CVC</label>
             <input type="text" name="cvc" maxlength="3">
           </div>
@@ -30,6 +30,7 @@
       <?php
     } else {
     ?>
+    <form action="https://ordeplay.cifpceuta.com/index.php?action=saveTarjeta" method="post" id="miFormulario">
       <div class="tarjeta">
       <h2>Tarjeta de crédito / débito</h2>
         <div class="campo">

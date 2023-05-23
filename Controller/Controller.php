@@ -483,6 +483,32 @@ class Controller {
 
   }
 
+  public function comprobarCVC(){
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $cvc = trim($_POST['cvc']); // Quitar espacios al principio y al final.
+
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^\d{3,4}$/", $cvc)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'CVC no válido.');
+        echo json_encode($respuesta);
+        exit;
+      }       
+      
+      if(!$this->OrdePlay->comprobarCVC($_GET['idTarjeta'], $cvc)){
+        $respuesta = array('exito' => false, 'mensaje' => 'CVC incorrecto.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta de éxito en formato json.
+      $respuesta = array('exito' => true, 'mensaje' => 'Se ha guardado correctamente.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+  }
+
   // Función que lleva a la vista que muestra información del juego.
   public function verJuego(){
 
