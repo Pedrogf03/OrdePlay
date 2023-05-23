@@ -1,26 +1,40 @@
 <div class="container">
   <div class="form">
-    <h2>Añadir tarjeta de crédito</h2>
     <form action="https://ordeplay.cifpceuta.com/index.php?action=saveTarjeta" method="post" id="miFormulario">
-      <div class="campo">
-        <input type="text" name="numTarjeta" required id="numTarjeta">
-        <label>Número de la Tarjeta</label>
+    <?php
+    if($cliente->getMetodosPago() != 0){
+
+    } else {
+    ?>
+      <div class="addTarjeta">
+      <h2>Tarjeta de crédito / débito</h2>
+        <div class="campo">
+          <input type="text" name="numTarjeta" required id="numTarjeta">
+          <label>Número de la Tarjeta</label>
+        </div>
+        <div class="campo">
+          <input type="text" name="nombreTit" required id="nombreTit">
+          <label>Nombre del Titular</label>
+        </div>
+        <div class="campo">
+          <input type="date" name="fechaExp" required id="fechaExp">
+        </div>
+        <div class="campo">
+          <input type="text" name="cvc" required id="cvc">
+          <label>CVC</label>
+        </div>
+        <div class="saveTarjeta" id="lastCampo">
+          <label>Gurdar tarjeta para futuras compras</label>
+          <input type="checkbox" name="guardar" />
+        </div>
       </div>
-      <div class="campo">
-        <input type="text" name="nombreTit" required id="nombreTit">
-        <label>Nombre del Titular</label>
+      <div class="comprar">
+        <div><p>Precio total</p> <p><?=$datos?>€</p></div>
+        <button>Pagar</button>
       </div>
-      <div class="campo">
-        <input type="date" name="fechaExp" required id="fechaExp">
-      </div>
-      <div class="campo" id="lastCampo">
-        <input type="text" name="cvc" required id="cvc">
-        <label>CVC</label>
-      </div>
-      <input type="hidden" name="guardar" value="on" />
-      <div class="loginButton">
-        <button id="enviar">Guardar Tarjeta</button>
-      </div>
+    <?php
+    }
+    ?>
     </form>
   </div>
 </div>
@@ -43,7 +57,7 @@
     // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
       if(datos.exito){
-        window.location.href = "https://ordeplay.cifpceuta.com?action=configUser";
+        window.location.href = "https://ordeplay.cifpceuta.com";
       } else {
         if(!document.getElementById('mensaje')){
           let msg = document.createElement('p');

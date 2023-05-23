@@ -425,6 +425,9 @@ class Controller {
       $fechaExp = trim($_POST['fechaExp']); // Quitar espacios al principio y al final.
       $cvc = trim($_POST['cvc']); // Quitar espacios al principio y al final.
       $nombreTit = trim($_POST['nombreTit']); // Quitar espacios al principio y al final.
+      if($_POST['guardar'] == "on"){
+        $guardar = true;
+      }
           
       // Validación de los datos mediante expresiones regulares.
       if (!preg_match("/^\d{4}-\d{4}-\d{4}-\d{4}$/", $numTarjeta)) {
@@ -462,11 +465,14 @@ class Controller {
         exit;
       }     
       
-      // Se guarda la tarjeta en base de datos.
-      if(!$this->OrdePlay->guardarTarjeta($_SESSION['idCliente'], $numTarjeta, $fechaExp, $cvc, $nombreTit)){
-        $respuesta = array('exito' => false, 'mensaje' => 'Error inesperado.');
-        echo json_encode($respuesta);
-        exit;
+      // Si la variable es true, es decir, el usuario quiere guardar la tarjeta, se guarda en base de datos.
+      if($guardar) {
+        // Se guarda la tarjeta en base de datos.
+        if(!$this->OrdePlay->guardarTarjeta($_SESSION['idCliente'], $numTarjeta, $fechaExp, $cvc, $nombreTit)){
+          $respuesta = array('exito' => false, 'mensaje' => 'Error inesperado.');
+          echo json_encode($respuesta);
+          exit;
+        }
       }
           
       // Respuesta de éxito en formato json.
@@ -606,48 +612,32 @@ class Controller {
   public function pagarCarrito(){
 
     if(isset($_SESSION['idCliente'])) {
-      if($_COOKIE['carrito'] != "[]"){
+
+      if($_COOKIE['carrito'] != "[]") {
 
         $carrito = $_COOKIE['carrito'];
-  
+
         // Decodificar el string JSON en un arreglo de PHP
         $arrayCarrito = json_decode($carrito, true);
-        
-        // Crear un arreglo asociativo para contar las repeticiones de cada idVideojuego
-        $contador = array();
-  
+
         // Crear una variable que va sumando el precio de cada juego para sacar el total.
         $precioTotal = 0;
-  
-        // Recorrer el arreglo y realizar una acción para cada idVideojuego
+
+        // Recorrer el array y realizar una acción para cada idVideojuego
         foreach ($arrayCarrito as $idVideojuego) {
-          // Incrementar el contador para el idVideojuego actual
-          if (isset($contador[$idVideojuego])) {
-              $contador[$idVideojuego]++;
-          } else {
-              $contador[$idVideojuego] = 1;
-          }
-  
+
+          // Se obtiene un objeto juego a traves del id
           $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
+          // Se va sumando el precio hasta tener el total.
           $precioTotal += $juego->getPrecio();
-  
-        }
-  
-        $idPed = $this->OrdePlay->crearPedido($precioTotal, $_SESSION['idCliente']);
-  
-        // Mostrar los idVideojuegos y el recuento, mostrando solo uno cuando se repiten tres veces
-        foreach ($contador as $idVideojuego => $cantidad) {
-        
-          $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
-  
-          $this->OrdePlay->crearLineaPed($juego->getIdVideojuego(), $idPed, $cantidad, $juego->getPrecio());
-          
+
         }
 
-        // Llevar a vista de pago
-  
-      } else {
-        return $this->verCarrito();
+        $this->vista = "pago";
+        $this->css = "pago";
+
+        return $precioTotal;
+
       }
   
     } else {
