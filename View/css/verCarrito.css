@@ -9,6 +9,7 @@
   background-color: var(--color1);
   border-radius: 20px;
   padding: 4vh 2vw;
+  box-shadow: 5px 5px 5px var(--color4);
 }
 .infoCarrito .carrito .juego {
   margin-bottom: 2vh;
@@ -84,6 +85,7 @@
   flex-direction: column;
   gap: 2vh;
   align-self: flex-start;
+  box-shadow: 5px 5px 5px var(--color4);
 }
 .infoCarrito .comprar > div {
   display: flex;

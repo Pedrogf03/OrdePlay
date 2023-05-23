@@ -7,12 +7,12 @@
   transform: translate(-50%, -50%);
   background: var(--color1);
   border-radius: 10px;
+  box-shadow: 5px 5px 5px var(--color4);
 }
 
 .form h2 {
   margin: 0 0 30px;
   padding: 0;
-  color: var(--color2);
   text-align: center;
 }
 

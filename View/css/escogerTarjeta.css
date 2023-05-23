@@ -1,0 +1,43 @@
+div.tarjetas {
+  background-color: var(--color1);
+  width: 50%;
+  margin: 0 auto;
+  padding: 1vh 1vw;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px var(--color4);
+}
+div.tarjetas h2 {
+  text-align: center;
+  margin-bottom: 5vh;
+  border-bottom: 2px solid var(--color2);
+}
+div.tarjetas .tarjeta {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.3em;
+  margin-bottom: 5vh;
+}
+div.tarjetas .tarjeta div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+div.tarjetas .tarjeta div p:nth-child(odd) {
+  font-weight: 600;
+}
+div.tarjetas .tarjeta input {
+  width: 1vw;
+}
+div.tarjetas .elegir {
+  width: 100%;
+  background-color: var(--color2);
+  border: none;
+  color: #fff;
+  padding: 1vh 2vw;
+  border-radius: 5px;
+  transition: all 0.5s;
+  font-size: 1.2em;
+}
+div.tarjetas .elegir:hover {
+  transform: scale(1.03);
+  box-shadow: 2px 2px 2px #fff;
+}

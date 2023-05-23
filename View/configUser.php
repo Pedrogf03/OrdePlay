@@ -105,7 +105,7 @@
         ?>
         <tr>
           <td><?=$cliente->getMetodosPago()[$i]->getTitular()?></td>
-          <td><?=$cliente->getMetodosPago()[$i]->getNumTarjeta()?></td>
+          <td><?=$cliente->getMetodosPago()[$i]->getNumTarjetaOcult()?></td>
           <td><?=$cliente->getMetodosPago()[$i]->getFechaExp()?></td>
           <td><a href="index.php?action=borrarTarjeta&idTarjeta=<?=$cliente->getMetodosPago()[$i]->getIdTarjeta()?>"><button><i class="fa-regular fa-circle-xmark"></i></button></a></td>
         </tr>

@@ -3,10 +3,34 @@
     <form action="https://ordeplay.cifpceuta.com/index.php?action=saveTarjeta" method="post" id="miFormulario">
     <?php
     if($cliente->getMetodosPago() != 0){
-
+      if(isset($_POST['escogerTarjeta'])){
+        $num = $_POST['escogerTarjeta'];
+      } else {
+        $num = 0;
+      }
+      ?>
+      <div class="tarjeta">
+        <h2>Tarjeta de crédito / débito</h2>
+        <div class="infoTarjeta">
+          <div class="campo1">
+            <p>Numero de la tarjeta</p>
+            <p><?=$cliente->getMetodosPago()[$num]->getNumTarjetaOcult()?></p>
+          </div>
+          <div class="campo2">
+            <label>Fecha de expiración</label>
+            <input type="date" name="FechaExp" value="<?=$cliente->getMetodosPago()[$num]->getFechaExp()?>">
+          </div>
+          <div class="campo3">
+            <label>CVC</label>
+            <input type="text" name="cvc" maxlength="3">
+          </div>
+        </div>
+        <a href="index.php?action=escogerTarjeta">Usar otra tarjeta</a>
+      </div>
+      <?php
     } else {
     ?>
-      <div class="addTarjeta">
+      <div class="tarjeta">
       <h2>Tarjeta de crédito / débito</h2>
         <div class="campo">
           <input type="text" name="numTarjeta" required id="numTarjeta">
@@ -28,13 +52,13 @@
           <input type="checkbox" name="guardar" />
         </div>
       </div>
+    <?php
+    }
+    ?>
       <div class="comprar">
         <div><p>Precio total</p> <p><?=$datos?>€</p></div>
         <button>Pagar</button>
       </div>
-    <?php
-    }
-    ?>
     </form>
   </div>
 </div>

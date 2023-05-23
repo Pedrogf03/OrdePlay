@@ -646,6 +646,19 @@ class Controller {
 
   }
 
+  public function escogerTarjeta(){
+
+    // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
+    if(isset($_SESSION['cliente'])) {
+      return $this->web();
+    } else {
+      // Si no, te lleva a la vista de inicio de sesión.
+      $this->vista = "escogerTarjeta";
+      $this->css = "escogerTarjeta"; 
+    }
+    
+  }
+
 }
 
 ?>
