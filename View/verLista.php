@@ -1,9 +1,11 @@
 <div class="container">
-  <div class="lista">
+  <div class="verLista">
     <?php
     $lista = $controlador->getListaById($_GET['idLista']);
     ?>
     <h1><?=$lista->getNombre()?></h1>
+    <p><?=$lista->getDescripcion()?></p>
+    <a href="index.php?action=editarLista&idLista=<?=$lista->getIdLista()?>"><i class="fa-solid fa-pen"></i></a>
     <hr />
     <div class="juegos"> <!-- Div que almacena todos los juegos. -->
     <?php

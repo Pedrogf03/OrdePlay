@@ -390,6 +390,26 @@ class OrdePlay{
 
   }
 
+  public function editarLista($idLista, $nombre, $descripcion){
+
+    $sql = "SELECT * FROM Lista WHERE nombre = '$nombre' AND idCliente = " . $_SESSION['idCliente'];
+    $result = $this->connection->query($sql);
+    
+    if ($result->num_rows == 0) {
+    
+      $sql = "UPDATE Lista SET nombre = '$nombre', descripcion = '$descripcion' WHERE idLista = $idLista";
+    
+      if ($this->connection->query($sql)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+  }
+
   public function borrarLista($idLista){
 
     $sql = "DELETE FROM Lista WHERE idLista = ". $idLista;

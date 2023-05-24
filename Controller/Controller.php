@@ -127,7 +127,7 @@ class Controller {
       }
     
       // Se comprueban los credenciales de inicio de sesión.
-      if(!$this->OrdePlay->comprobarUser($email, $passwd)){
+      if(!$this->OrdePlay->comprobarUser(strtolower($email), $passwd)){
         // Si son correctos, continúa; si no, devuelve un mensaje de error en formato json.
         $respuesta = array('exito' => false, 'mensaje' => 'Email o contraseña incorrectos.');
         echo json_encode($respuesta);
@@ -197,7 +197,7 @@ class Controller {
       }
       
       // Se inserta el usuario en la base de datos.
-      if(!$this->OrdePlay->insertUser($email, $user, $passwd)){
+      if(!$this->OrdePlay->insertUser(strtolower($email), $user, $passwd)){
         $respuesta = array('exito' => false, 'mensaje' => 'Ese email ya existe.');
         echo json_encode($respuesta);
         exit;
@@ -590,21 +590,28 @@ class Controller {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $nombreLista = trim($_POST['nombreLista']); // Quitar espacios al principio y al final.
-      $descripcion = trim($_POST['descripcion']); // Quitar espacios al principio y al final.
+      
+      if(isset($_POST['descripcion'])) {
+        $descripcion = trim($_POST['descripcion']); // Quitar espacios al principio y al final.
+      } else {
+        $descripcion = null;
+      }
           
       // Validación de los datos mediante expresiones regulares.
-      if (!preg_match("/^[a-zA-Z0-9 ]{1,50}$/", $nombreLista)) {
+      if (!preg_match("/^[a-zA-Z0-9\s.áéíóúÁÉÍÓÚñÑ]{1,50}$/u", $nombreLista)) {
         $respuesta = array('exito' => false, 'mensaje' => 'Nombre de lista inválido.');
         echo json_encode($respuesta);
         exit;
       }
     
-      // Validación de los datos mediante expresiones regulares.
-      if (!preg_match("/^[a-zA-Z0-9 ]{1,100}$/", $descripcion)) {
-        $respuesta = array('exito' => false, 'mensaje' => 'Descripción inválida.');
-        echo json_encode($respuesta);
-        exit;
-      }   
+      if($descripcion != null) {
+        // Validación de los datos mediante expresiones regulares.
+        if (!preg_match("/^[a-zA-Z0-9\s.áéíóúÁÉÍÓÚñÑ]{1,100}$/u", $descripcion)) {
+          $respuesta = array('exito' => false, 'mensaje' => 'Descripción inválida.');
+          echo json_encode($respuesta);
+          exit;
+        }  
+      } 
       
       // Se guarda la lista en base de datos.
       if(!$this->OrdePlay->crearLista($nombreLista, $descripcion)){
@@ -615,6 +622,65 @@ class Controller {
           
       // Respuesta de éxito en formato json.
       $respuesta = array('exito' => true, 'mensaje' => 'Lista creada con éxito.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+  }
+
+  public function editarLista(){
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de login.
+      return $this->logIn();
+    } else {
+      $this->vista = "editarLista";
+      $this->css = "editarLista"; 
+
+      return $this->OrdePlay->getListaById($_GET['idLista']);
+
+    }
+
+  }
+
+  public function doEditarLista(){
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $nombreLista = trim($_POST['nombreLista']); // Quitar espacios al principio y al final.
+      $idLista = $_POST['idLista'];
+      
+      if(isset($_POST['descripcion'])) {
+        $descripcion = trim($_POST['descripcion']); // Quitar espacios al principio y al final.
+      } else {
+        $descripcion = null;
+      }
+          
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^[a-zA-Z0-9\s.áéíóúÁÉÍÓÚñÑ]{1,50}$/u", $nombreLista)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Nombre de lista inválido.');
+        echo json_encode($respuesta);
+        exit;
+      }
+    
+      if($descripcion != null) {
+        // Validación de los datos mediante expresiones regulares.
+        if (!preg_match("/^[a-zA-Z0-9\s.áéíóúÁÉÍÓÚñÑ]{1,100}$/u", $descripcion)) {
+          $respuesta = array('exito' => false, 'mensaje' => 'Descripción inválida.');
+          echo json_encode($respuesta);
+          exit;
+        }  
+      } 
+      
+      // Se guarda la lista en base de datos.
+      if(!$this->OrdePlay->editarLista($idLista, $nombreLista, $descripcion)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Ya tienes una lista con ese nombre.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta de éxito en formato json.
+      $respuesta = array('exito' => true, 'mensaje' => 'Lista editada con éxito.');
       echo json_encode($respuesta);
       exit;
     }
