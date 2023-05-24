@@ -1,0 +1,16 @@
+.container > div {
+  width: 70%;
+  margin: 0 auto;
+  height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.container div div {
+  background-color: var(--color1);
+  padding: 2vh 3vw;
+  border-radius: 10px;
+  text-align: center;
+}

@@ -685,6 +685,56 @@ class Controller {
     
   }
 
+  public function realizarPago(){
+
+    if($_COOKIE['carrito'] != "[]"){
+
+      $carrito = $_COOKIE['carrito'];
+
+      // Decodificar el string JSON en un arreglo de PHP
+      $arrayCarrito = json_decode($carrito, true);
+
+      // Crear un arreglo asociativo para contar las repeticiones de cada idVideojuego
+      $contador = array();
+
+      // Crear una variable que va sumando el precio de cada juego para sacar el total.
+      $precioTotal = 0;
+
+      // Recorrer el arreglo y realizar una acción para cada idVideojuego
+      foreach ($arrayCarrito as $idVideojuego) {
+        // Incrementar el contador para el idVideojuego actual
+        if (isset($contador[$idVideojuego])) {
+            $contador[$idVideojuego]++;
+        } else {
+            $contador[$idVideojuego] = 1;
+        }
+
+        $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
+        $precioTotal += $juego->getPrecio();
+        $this->OrdePlay->addToBiblioteca($juego->getIdVideojuego());
+        
+
+      }
+
+      $idPed = $this->OrdePlay->crearPedido($precioTotal, $_SESSION['idCliente']);
+
+      // Mostrar los idVideojuegos y el recuento, mostrando solo uno cuando se repiten varias veces
+      foreach ($contador as $idVideojuego => $cantidad) {
+
+        $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
+        $this->OrdePlay->crearLineaPed($juego->getIdVideojuego(), $idPed, $cantidad, $juego->getPrecio());
+
+      }
+
+      $this->vista = "compraRealizada";
+      $this->css = "compraRealizada";
+
+    } else {
+      return $this->verCarrito();
+    }
+
+  }
+
 }
 
 ?>

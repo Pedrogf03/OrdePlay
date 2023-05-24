@@ -444,6 +444,98 @@ class OrdePlay{
 
   }
 
+  // Función que genera de forma aleatoria un código de 16 caracteres alfanuméricos separado cada 4 por un gión.
+  public function generarCodigo() {
+    $longitud = 16; // Longitud total del código
+    $codigo = '';
+    
+    for ($i = 0; $i < $longitud; $i++) {
+        // Generar un caracter aleatorio
+        $caracter = chr(mt_rand(48, 57)); // Números: 0-9
+        $caracter .= chr(mt_rand(65, 90)); // Letras mayúsculas: A-Z
+        
+        // Agregar el caracter al código
+        $codigo .= $caracter[mt_rand(0, 1)];
+        
+        // Insertar guion cada 4 caracteres
+        if (($i + 1) % 4 == 0 && $i != $longitud - 1) {
+            $codigo .= '-';
+        }
+    }
+    
+    return $codigo;
+
+  }
+
+  // Función que añade a la biblioteca un juego y envía un mail al usuario con el código del juego que ha comprado.
+  public function addToBiblioteca($idJuego){
+
+    // Se genera un código y se hace una consulta para saber si ese código ya existe previamente.
+    do {
+      $code = $this->generarCodigo();
+      $sql = "SELECT * FROM Biblioteca WHERE codigo = '$code'";
+      $result = $this->connection->query($sql);
+      // Si ya existe (es decir, si la consulta devuelve algún resultado), se va a repetir este proceso.
+    } while ($result->num_rows != 0);
+
+    // Se inserta en la tabla biblioteca un registro con el código, el id del juego al que pertenece y el id del usuario que lo ha comprado.
+    $sql = "INSERT INTO Biblioteca (codigo, idVideojuego, idCliente) VALUES ('$code', '$idJuego', " . $_SESSION['idCliente'] . ")";
+    if ($this->connection->query($sql)) {
+  
+      $juego = $this->getVideojuegoById($idJuego);
+  
+      switch ($juego->getIdPlataforma()) {
+        case 1:
+          $plataforma = "PlayStation";
+          break;
+        case 2:
+          $plataforma = "Xbox";
+          break;
+        case 3:
+          $plataforma = "PC";
+          break;
+        case 4:
+          $plataforma = "Nintendo Switch";
+          break;
+      }
+  
+      // Se envía un mail al usuario con el código del juego que ha comprado.
+      $destinatario = $_SESSION['email'];
+      $asunto = "Código de activación de OrdePlay.";
+      $cuerpo = '
+      <html>
+        <head>
+          <title>Contraseña nueva</title>
+        </head>
+          <body>
+            <p>Aquí tiene su código para activar ' . $juego->getNombre() . ' en ' . $plataforma . '</p>
+            <h1> ' . $code . ' </h1>
+            <p>Gracias por su compra.</p>
+          </body>
+      </html>
+      ';
+  
+      // Para el envío en formato HTML
+      $headers = "MIME-Version: 1.0\r\n";
+      $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+  
+      // Dirección del remitente
+      $headers .= "From: OrdePlay <noreply@OrdePlay.com>\r\n";
+  
+      mail($destinatario, $asunto, $cuerpo, $headers);
+
+      setcookie('carrito', '[]', time() + (365 * 24 * 60 * 60), '/'); // Se borra el carrito.
+
+      return true;
+
+    } else {
+
+      return false;
+
+    }
+    
+  }
+
 }
 
 ?>

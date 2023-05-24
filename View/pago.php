@@ -82,7 +82,7 @@
     // Trabajo con la respuesta que da el servidor.
     .then(function(datos) {
       if(datos.exito){
-        window.location.href = "https://ordeplay.cifpceuta.com";
+        window.location.href = "https://ordeplay.cifpceuta.com/index.php?action=realizarPago";
       } else {
         if(!document.getElementById('mensaje')){
           let msg = document.createElement('p');
