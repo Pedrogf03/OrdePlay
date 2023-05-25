@@ -9,6 +9,7 @@ class Cliente {
   private $picture;
   private $metodosPago;
   private $listas;
+  private $reviews;
   private $connection;
 
   public function __construct($idCliente, $usuario, $email, $password, $picture = NULL){
@@ -21,6 +22,7 @@ class Cliente {
 
     $this->metodosPago = array();
     $this->listas = array();
+    $this->reviews = array();
 
     $dbObj = new Db(); // Crea un objeto Base de datos.
 		$this->connection = $dbObj->connection; // Almacena el objeto en una propiedad de este objeto.
@@ -78,6 +80,56 @@ class Cliente {
         $i++;
       }
       return $this->listas;
+    }
+
+  }
+
+  public function getPedidos(){
+
+    $sql = "SELECT * FROM Videojuego v JOIN Biblioteca b ON v.idVideojuego = b.idVideojuego WHERE b.idCliente = ". $this->idCliente;
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows > 0) {
+      
+      $codigoJuego = array();
+
+      while($row = $result->fetch_assoc()){
+
+        $codigo = $row['codigo'];
+        $idVideojuego = $row['idVideojuego'];
+
+        $codigoJuego[$codigo] = $idVideojuego;
+
+      }
+
+      return $codigoJuego;
+
+    } else {
+      return false;
+    }
+
+  }
+
+  public function getReviews(){
+
+    $sql = "SELECT * FROM Review WHERE idCliente = ". $this->idCliente;
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows > 0) {
+      
+      $i = 0;
+
+      while($row = $result->fetch_assoc()){
+
+        $this->reviews[$i] = new Review($row['idCliente'], $row['idVideojuego'], $row['nota'], $row['opinion']);
+        $i++;
+
+      }
+
+      return $this->reviews;
+
+    } else {
+      return false;
     }
 
   }

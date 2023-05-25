@@ -69,7 +69,7 @@
           </a>
         </div>
         <div class="lista">
-          <a href="">
+          <a href="index.php?action=verBiblioteca">
             <p>Biblioteca</p>
           </a>
         </div>

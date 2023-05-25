@@ -801,6 +801,76 @@ class Controller {
 
   }
 
+  public function verBiblioteca(){
+
+    $this->vista = 'verBiblioteca';
+    $this->css = 'verBiblioteca';
+
+    return $this->OrdePlay->getJuegosFromBiblioteca($_SESSION['idCliente']);
+
+  }
+
+  public function getJuegoById($idJuego) {
+
+    return $this->OrdePlay->getVideojuegoById($idJuego);
+
+  }
+
+  public function addReview() {
+
+    // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
+    if(isset($_SESSION['cliente'])) {
+      return $this->web();
+    } else {
+      // Si no, te lleva a la vista de inicio de sesión.
+      $this->vista = "addReview";
+      $this->css = "addReview"; 
+    }
+
+  }
+
+  public function doAddReview(){
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $nota = $_POST['nota']; // Quitar espacios al principio y al final.
+      
+      if(isset($_POST['opinion'])) {
+        $opinion = trim($_POST['opinion']); // Quitar espacios al principio y al final.
+      } else {
+        $opinion = null;
+      }
+          
+      // Validación de los datos mediante expresiones regulares.
+      if (!preg_match("/^[0-5]$/u", $nota)) {
+        $respuesta = array('exito' => false, 'mensaje' => 'Nota inválida.');
+        echo json_encode($respuesta);
+        exit;
+      }
+    
+      if($opinion != null) {
+        // Validación de los datos mediante expresiones regulares.
+        if (!preg_match("/^[a-zA-Z0-9\s.áéíóúÁÉÍÓÚñÑ]{1,100}$/u", $opinion)) {
+          $respuesta = array('exito' => false, 'mensaje' => 'Opinión inválida.');
+          echo json_encode($respuesta);
+          exit;
+        }  
+      } 
+      
+      // Se guarda la lista en base de datos.
+      if(!$this->OrdePlay->addReview($_SESSION['idCliente'], $_GET['idJuego'], $nota, $opinion)){
+        $respuesta = array('exito' => false, 'mensaje' => 'Ya has añadido una reseña a este juego.');
+        echo json_encode($respuesta);
+        exit;
+      }
+          
+      // Respuesta de éxito en formato json.
+      $respuesta = array('exito' => true, 'mensaje' => 'Reseña añadida con éxito.');
+      echo json_encode($respuesta);
+      exit;
+    }
+
+  }
+
 }
 
 ?>

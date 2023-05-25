@@ -392,7 +392,11 @@ class OrdePlay{
 
   public function editarLista($idLista, $nombre, $descripcion){
 
-    $sql = "SELECT * FROM Lista WHERE nombre = '$nombre' AND idCliente = " . $_SESSION['idCliente'];
+    $sql = "SELECT nombre FROM Lista WHERE idLista = $idLista";
+    $result = $this->connection->query($sql);
+    $row = $result->fetch_assoc();
+
+    $sql = "SELECT * FROM Lista WHERE nombre = '$nombre' AND nombre <> '" . $row['nombre'] . "' AND idCliente = " . $_SESSION['idCliente'];
     $result = $this->connection->query($sql);
     
     if ($result->num_rows == 0) {
@@ -554,6 +558,46 @@ class OrdePlay{
 
     }
     
+  }
+
+  public function getJuegosFromBiblioteca($idCliente) {
+
+    $sql = "SELECT * FROM Videojuego v JOIN Biblioteca b ON v.idVideojuego = b.idVideojuego WHERE b.idCliente = $idCliente";
+    $result = $this->connection->query($sql);
+
+    if($result->num_rows > 0) {
+      
+      $codigoJuego = array();
+
+      while($row = $result->fetch_assoc()){
+
+        $codigo = $row['codigo'];
+        $idVideojuego = $row['idVideojuego'];
+
+        $codigoJuego[$codigo] = $idVideojuego;
+
+      }
+
+      return $codigoJuego;
+
+    } else {
+      return false;
+    }
+
+  }
+
+  public function addReview($idCliente, $idJuego, $nota, $opinion) {
+
+    $sql = "INSERT INTO Review (idCliente, idVideojuego, nota, opinion) VALUES ('$idCliente', '$idJuego', '$nota', '$opinion')";
+
+    try{
+      if($this->connection->query($sql)){
+        return true;
+      }
+    } catch (Exception $e) {
+      return false;
+    }
+
   }
 
 }

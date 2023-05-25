@@ -6,25 +6,15 @@
   border-radius: 20px;
   position: relative;
 }
-.verLista h1 {
+.verLista > h1 {
   text-align: center;
   font-family: 'Press Start 2P', cursive;
   color: #fff;
   text-shadow: 3px 3px 3px var(--color2), -3px 3px 3px var(--color2), -3px 3px 3px var(--color2), -3px -3px 3px var(--color2);
 }
-.verLista p {
+.verLista > p {
   margin-top: 2vh;
   text-align: center;
-}
-.verLista > a i {
-  position: absolute;
-  right: 4%;
-  top: 10%;
-  color: black;
-  transition: all 0.5s;
-}
-.verLista > a i:hover {
-  transform: scale(1.2);
 }
 .verLista hr {
   border: 2px solid var(--color2);
@@ -63,20 +53,22 @@
   flex-direction: column;
   gap: 0.5vh;
   width: 70%;
+  text-align: justify;
+}
+.verLista .juegos .juego .info span {
+  font-weight: 600;
 }
 .verLista .juegos .juego .info img.nintendoIcon {
   width: 20px;
   transform: translateY(4px);
 }
-.verLista .juegos .juego .borrar {
-  color: var(--color3);
-  transform: translateY(50px);
-  opacity: 0;
+.verLista .juegos .addReview {
+  width: 15%;
+  margin: 0 auto;
+  text-align: center;
+  color: black;
   transition: all 0.5s;
 }
-.verLista .juegos .juego:hover .borrar {
-  opacity: 1;
-}
-.verLista .juegos .juego .borrar:hover {
-  transform: scale(1.5) translateY(45px);
+.verLista .juegos .addReview:hover {
+  transform: scale(1.1);
 }

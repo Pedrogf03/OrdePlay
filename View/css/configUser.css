@@ -103,21 +103,21 @@ section.lienzoPerfil > div {
   display: flex;
   flex-direction: row;
 }
-.form {
+section.lienzoPerfil .form {
   width: 400px;
   padding: 40px;
   background: var(--color1);
   border-radius: 10px;
 }
-.form h2 {
+section.lienzoPerfil .form h2 {
   margin: 0 0 30px;
   padding: 0;
   text-align: center;
 }
-.form .campo {
+section.lienzoPerfil .form .campo {
   position: relative;
 }
-.form .campo input {
+section.lienzoPerfil .form .campo input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -128,7 +128,7 @@ section.lienzoPerfil > div {
   outline: none;
   background: transparent;
 }
-.form .campo label {
+section.lienzoPerfil .form .campo label {
   position: absolute;
   top: 0;
   left: 0;
@@ -138,17 +138,17 @@ section.lienzoPerfil > div {
   pointer-events: none;
   transition: 0.5s;
 }
-.form .campo input:focus ~ label,
-.form .campo input:valid ~ label {
+section.lienzoPerfil .form .campo input:focus ~ label,
+section.lienzoPerfil .form .campo input:valid ~ label {
   top: -20px;
   left: 0;
   color: #fff;
   font-size: 12px;
 }
-.loginButton {
+section.lienzoPerfil .loginButton {
   text-align: center;
 }
-.loginButton button {
+section.lienzoPerfil .loginButton button {
   background-color: var(--color2);
   padding: 1vh 2vw;
   border-radius: 10px;
@@ -156,35 +156,35 @@ section.lienzoPerfil > div {
   color: #fff;
   transition: 0.5s;
 }
-.loginButton button:hover {
+section.lienzoPerfil .loginButton button:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-.loginButton button:focus {
+section.lienzoPerfil .loginButton button:focus {
   box-shadow: 2px 2px 2px var(--color2);
 }
 
-.loginButton a {
+section.lienzoPerfil .loginButton a {
   color: var(--color2);
   transition: 0.5s;
 }
-.loginButton a:hover {
+section.lienzoPerfil .loginButton a:hover {
   letter-spacing: 1px;
   cursor: pointer;
 }
 
-.form .campo i {
+section.lienzoPerfil .form .campo i {
   position: absolute;
   top: 1vh;
   right: 0.3vw;
   transition: all 0.5s;
 }
-.form .campo i:hover {
+section.lienzoPerfil .form .campo i:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.formUser form {
+section.lienzoPerfil .formUser form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -219,5 +219,135 @@ section.lienzoPagos button {
   transition: all 0.5s;
 }
 section.lienzoPagos button:hover {
+  transform: scale(1.1);
+}
+
+section.lienzoPedidos .verLista {
+  width: 60%;
+  margin: 2vh auto;
+  background-color: var(--color1);
+  padding: 2vh 2vw;
+  border-radius: 20px;
+  position: relative;
+}
+section.lienzoPedidos .verLista hr {
+  border: 2px solid var(--color2);
+  margin: 2vh 0 2vh 0;
+}
+section.lienzoPedidos .verLista .juegos {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+section.lienzoPedidos .verLista .juegos .juego a {
+  text-decoration: none;
+  color: black;
+}
+section.lienzoPedidos .verLista .juegos .juego a {
+  display: flex;
+  justify-content: space-between;
+}
+section.lienzoPedidos .verLista .juegos .juego {
+  display: flex;
+  justify-content: space-between;
+}
+section.lienzoPedidos .verLista .juegos .juego:hover img {
+  transform: scale(1.1);
+}
+section.lienzoPedidos .verLista .juegos .juego:hover h3 {
+  text-decoration: underline;
+}
+section.lienzoPedidos .verLista .juegos .juego img.portada {
+  width: 20%;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+section.lienzoPedidos .verLista .juegos .juego .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  width: 70%;
+  text-align: justify;
+}
+section.lienzoPedidos .verLista .juegos .juego .info span {
+  font-weight: 600;
+}
+section.lienzoPedidos .verLista .juegos .juego .info img.nintendoIcon {
+  width: 20px;
+  transform: translateY(4px);
+}
+section.lienzoPedidos .verLista .juegos .addReview {
+  width: 15%;
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  transition: all 0.5s;
+}
+section.lienzoPedidos .verLista .juegos .addReview:hover {
+  transform: scale(1.1);
+}
+
+section.lienzoReviews .verLista {
+  width: 60%;
+  margin: 2vh auto;
+  background-color: var(--color1);
+  padding: 2vh 2vw;
+  border-radius: 20px;
+  position: relative;
+}
+section.lienzoReviews .verLista hr {
+  border: 2px solid var(--color2);
+  margin: 2vh 0 2vh 0;
+}
+section.lienzoReviews .verLista .juegos {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+section.lienzoReviews .verLista .juegos .juego a {
+  text-decoration: none;
+  color: black;
+}
+section.lienzoReviews .verLista .juegos .juego a {
+  display: flex;
+  justify-content: space-between;
+}
+section.lienzoReviews .verLista .juegos .juego {
+  display: flex;
+  justify-content: space-between;
+}
+section.lienzoReviews .verLista .juegos .juego:hover img {
+  transform: scale(1.1);
+}
+section.lienzoReviews .verLista .juegos .juego:hover h3 {
+  text-decoration: underline;
+}
+section.lienzoReviews .verLista .juegos .juego img.portada {
+  width: 20%;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+section.lienzoReviews .verLista .juegos .juego .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  width: 70%;
+  text-align: justify;
+}
+section.lienzoReviews .verLista .juegos .juego .info span {
+  font-weight: 600;
+}
+section.lienzoReviews .verLista .juegos .juego .info img.nintendoIcon {
+  width: 20px;
+  transform: translateY(4px);
+}
+section.lienzoReviews .verLista .juegos .addReview {
+  width: 15%;
+  margin: 0 auto;
+  text-align: center;
+  color: black;
+  transition: all 0.5s;
+}
+section.lienzoReviews .verLista .juegos .addReview:hover {
   transform: scale(1.1);
 }

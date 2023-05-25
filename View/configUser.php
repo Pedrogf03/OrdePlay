@@ -83,7 +83,6 @@
     <div>
       <table>
         <?php
-        $cliente = new Cliente($_SESSION['idCliente'], $_SESSION['usuario'], $_SESSION['email'], null, $_SESSION['picture']);
         if($cliente->getMetodosPago() == 0){
         ?>
         <tr>
@@ -118,6 +117,94 @@
           <td colspan="4"><a href="index.php?action=addTarjeta"><button>Añadir tarjeta</button></a></td>
         </tr>
       </table>
+    </div>
+  </section>
+  <section class="lienzoPedidos invisible">
+    <div class="verLista">
+      <div class="juegos">
+      <?php
+      $codigos = $cliente->getPedidos();
+      foreach($codigos as $codigo => $idJuego){ // Por cada juego.
+        $juego = $controlador->getJuegoById($idJuego);
+        switch ($juego->getIdPlataforma()){ // Dependiendo del idPlataforma del juego, se muestra un icono u otro.
+          case 1:
+            $plataforma = '<i class="fa-brands fa-playstation"></i>';
+            break;
+          case 2:
+            $plataforma = '<i class="fa-brands fa-xbox"></i>';
+            break;
+          case 3:
+            $plataforma = '<i class="fa-solid fa-desktop"></i>';
+            break;
+          case 4:
+            $plataforma = '<img class="nintendoIcon" src="img/icons/nintendo.svg">';
+            break;
+        }
+      ?>
+        <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
+          <a href="index.php?action=verJuego&idJuego=<?=$juego->getIdVideojuego()?>">
+            <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego" id="imgJuego"/> 
+            <div class="info">
+              <h3><?=$juego->getNombre()?>&nbsp;<?=$plataforma?></h3>
+              <p><?=$juego->getDescripcion()?>&nbsp;<span><?=$codigo?></span></p>
+            </div>
+            <div>
+              <p><?=$juego->getPrecio()?>€</p>
+            </div>
+          </a>
+        </div>
+        <a href="index.php?action=addReview&idJuego=<?=$idJuego?>" class="addReview">Añadir reseña</a>
+      <?php
+      }
+      ?>
+      </div>
+    </div>
+  </section>
+  <section class="lienzoReviews invisible">
+    <div class="verLista">
+      <div class="juegos">
+      <?php
+      $reviews = $cliente->getReviews();
+      foreach($reviews as $review){ // Por cada review.
+        $juego = $controlador->getJuegoById($review->getIdVideojuego());
+        switch ($review->getNota()){ // Dependiendo de la nota del juego, se muestran unos iconos u otros.
+          case 0:
+            $nota = '<i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
+            break;
+          case 1:
+            $nota = '<i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
+            break;
+          case 2:
+            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
+            break;
+          case 3:
+            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
+            break;
+          case 4:
+            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>';
+            break;
+          case 5:
+            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
+            break;
+        }
+      ?>
+        <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
+          <a href="index.php?action=verJuego&idJuego=<?=$juego->getIdVideojuego()?>">
+            <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego" id="imgJuego"/> 
+            <div class="info">
+              <h3><?=$juego->getNombre()?>&nbsp;<?=$plataforma?>&nbsp;<?=$nota?></h3>
+              <p><?=$review->getOpinion()?></p>
+            </div>
+            <div>
+              <p><?=$juego->getPrecio()?>€</p>
+            </div>
+          </a>
+        </div>
+        <a href="index.php?action=addReview&idJuego=<?=$idJuego?>" class="addReview">Añadir reseña</a>
+      <?php
+      }
+      ?>
+      </div>
     </div>
   </section>
 </div>

@@ -1,23 +1,31 @@
 <div class="container">
   <div class="form">
-    <h2>Editar lista</h2>
-    <form action="https://ordeplay.cifpceuta.com/index.php?action=doEditarLista" method="post" id="miFormulario">
+    <h2>Añadir reseña</h2>
+    <form action="https://ordeplay.cifpceuta.com/index.php?action=doAddReview&idJuego=<?=$_GET['idJuego']?>" method="post" id="miFormulario">
       <div class="campo">
-        <input type="text" name="nombreLista" required id="email" value="<?=$datos->getNombre()?>">
-        <label>Nombre</label>
+        <input type="number" min="0" max="5" name="nota" required id="nota">
+        <label>Nota</label>
       </div>
       <div class="campo" id="lastCampo">
-        <label>Descripción</label>
-        <textarea name="descripcion"><?=$datos->getDescripcion()?></textarea>
-        <input type="hidden" name="idLista" value="<?=$datos->getIdLista()?>">
+        <label>Opinión</label>
+        <textarea name="opinion"></textarea>
       </div>
       <div class="loginButton">
-        <button id="enviar">Actualizar</button>
+        <button id="enviar">Añadir</button>
       </div>
     </form>
   </div>
 </div>
 <script>
+
+  document.getElementById('nota').addEventListener('focus', function(){
+    document.getElementById('nota').setAttribute('placeholder', 'De 0 a 5');
+  });
+
+  document.getElementById('nota').addEventListener('blur', function(){
+    document.getElementById('nota').removeAttribute('placeholder');
+  });
+
   // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {
@@ -53,4 +61,5 @@
       console.log(error);
     });
   });
+
 </script>
