@@ -121,7 +121,7 @@ class Cliente {
 
       while($row = $result->fetch_assoc()){
 
-        $this->reviews[$i] = new Review($row['idCliente'], $row['idVideojuego'], $row['nota'], $row['opinion']);
+        $this->reviews[$i] = new Review($this, $row['idVideojuego'], $row['nota'], $row['opinion']);
         $i++;
 
       }

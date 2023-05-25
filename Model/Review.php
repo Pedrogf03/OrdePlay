@@ -4,14 +4,14 @@ require_once "Cliente.php";
 
 class Review {
 
-  private $idCliente;
+  private Cliente $cliente;
   private $idVideojuego;
   private $nota;
   private $opinion;
 
-  public function __construct($idCliente, $idVideojuego, $nota, $opinion){
+  public function __construct($cliente, $idVideojuego, $nota, $opinion){
 
-    $this->idCliente = $idCliente;
+    $this->cliente = $cliente;
     $this->idVideojuego = $idVideojuego;
     $this->nota = $nota;
     $this->opinion = $opinion;
@@ -19,8 +19,8 @@ class Review {
   }
 
   // Getters
-  public function getIdCliente(){
-    return $this->idCliente;
+  public function getCliente(){
+    return $this->cliente;
   }
   public function getIdVideojuego(){
     return $this->idVideojuego;
