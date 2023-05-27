@@ -69,10 +69,12 @@
 
   });
 
-  document.getElementById('eyeIcon').addEventListener("mousedown", function() {
-    document.getElementById('passwd').setAttribute('type', "text");
-  })
-  document.getElementById('eyeIcon').addEventListener("mouseup", function() {
-    document.getElementById('passwd').setAttribute('type', "password");
+  // Ver contraseña
+  document.getElementById('eyeIcon').addEventListener("click", function() {
+      if (document.getElementById('passwd').type === 'password') {
+        document.getElementById('passwd').type = 'text';
+    } else {
+      document.getElementById('passwd').type = 'password';
+    }
   })
 </script>

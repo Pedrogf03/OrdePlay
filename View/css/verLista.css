@@ -80,3 +80,29 @@
 .verLista .juegos .juego .borrar:hover {
   transform: scale(1.5) translateY(45px);
 }
+
+@media screen and (max-width: 1200px) {
+  .verLista {
+    width: 90%;
+  }
+  .verLista h1 {
+    font-size: 1.4em;
+  }
+  .verLista .juegos .juego .info p {
+    display: none;
+  }
+  .verLista .juegos .juego .info h3 {
+    text-align: center;
+    margin: 0 2vw;
+    font-size: 1em;
+  }
+  .verLista .juegos .juego img {
+    width: 30%;
+    border-radius: 10px;
+    transition: all 0.5s;
+  }
+  .verLista .juegos .juego .borrar {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

@@ -96,6 +96,8 @@
         }
         ?>
       </div>
-      <div class="closeSession"><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
-      <div class="config"><a href="index.php?action=configUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>
+      <div class="bottom">
+        <div><a href="index.php?action=cerrarSesion"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Cerrar sesión</a></div>
+        <div><a href="index.php?action=configUser"><i class="fa-solid fa-gear"></i>&nbsp;Configuración</a></div>
+      </div>
     </div>

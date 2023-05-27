@@ -94,3 +94,10 @@
   margin-bottom: 2vh;
   font-weight: 600;
 }
+
+@media screen and (max-width: 1200px) {
+  .form {
+    width: 300px;
+    padding: 40px;
+  }
+}

@@ -88,3 +88,10 @@
   letter-spacing: 1px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1200px) {
+  .form {
+    width: 300px;
+    padding: 40px;
+  }
+}

@@ -154,12 +154,15 @@ header div a {
 /* Menú desplegable */
 div.desplegable {
   position: fixed;
-  top: 0vh;
+  top: 10vh;
+  height: 84vh;
   width: 20vw;
-  height: 100vh;
   background-color: var(--color1);
-  padding: 10vh 1vw 0 1vw;
+  padding: 0 1vw 0 1vw;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Clases que muestran u ocultan el menú desplegable */
@@ -217,30 +220,15 @@ div.listas .lista:hover p {
   font-weight: 600;
 }
 
-div.closeSession {
+div.bottom {
   font-size: 1.3em;
-  position: absolute;
-  bottom: 10vh;
 }
-div.closeSession a {
+div.bottom a {
   color: #000;
   text-decoration: none;
   transition: all 0.5s;
 }
-div.closeSession a:hover {
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-div.config a {
-  font-size: 1.3em;
-  position: absolute;
-  bottom: 6vh;
-  color: #000;
-  text-decoration: none;
-  transition: all 0.5s;
-}
-div.config a:hover {
+div.bottom a:hover {
   letter-spacing: 1px;
   font-weight: 600;
 }
@@ -299,7 +287,7 @@ footer a:hover {
 
 @media screen and (max-width: 1200px) {
   header div:nth-child(1) img {
-    display: none;
+    width: 40px;
   }
   header div:nth-child(2) nav ul li p {
     display: none;
@@ -310,17 +298,11 @@ footer a:hover {
 
   /* Menú desplegable */
   div.desplegable {
-    position: fixed;
-    top: 0vh;
     width: 50vw;
-    height: 100vh;
-    background-color: var(--color1);
-    padding: 10vh 1vw 0 10px;
-    z-index: 2;
+    padding: 0 1vw 7vh 10px;
   }
   .off {
     transform: translateX(-200px);
-    transition: all 0.5s;
   }
 
   footer {
@@ -337,5 +319,9 @@ footer a:hover {
   }
   footer a {
     font-size: 0.8em;
+  }
+  .container {
+    padding: 13vh 0vw 13vh 0vw;
+    width: 100vw;
   }
 }
