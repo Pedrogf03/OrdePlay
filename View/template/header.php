@@ -39,10 +39,10 @@
       <div>
         <nav>
           <ul>
-            <a href="index.php?action=webPC"><li class="pc"><i class="fa-solid fa-desktop"></i>&nbsp;PC</li></a>
-            <a href="index.php?action=webPlay"><li class="ps"><i class="fa-brands fa-playstation"></i>&nbsp;PlayStation</li></a>
-            <a href="index.php?action=webXbox"><li class="xbox"><i class="fa-brands fa-xbox"></i>&nbsp;Xbox</li></a>
-            <a href="index.php?action=webNintendo"><li class="nintendo"><img class="nintendoIcon" src="img/icons/nintendo.svg">&nbsp;Nintendo</li></a>
+            <a href="index.php?action=webPC"><li class="pc"><i class="fa-solid fa-desktop"></i><p>PC</p></li></a>
+            <a href="index.php?action=webPlay"><li class="ps"><i class="fa-brands fa-playstation"></i><p>PlayStation</p></li></a>
+            <a href="index.php?action=webXbox"><li class="xbox"><i class="fa-brands fa-xbox"></i><p>Xbox</p></li></a>
+            <a href="index.php?action=webNintendo"><li class="nintendo"><img class="nintendoIcon" src="img/icons/nintendo.svg"><p>Nintendo</p></li></a>
           </ul>
         </nav>
       </div>

@@ -104,8 +104,11 @@ header div:nth-child(2) nav ul {
   gap: 20px;
   font-weight: 700;
   font-size: 1.4em;
+  align-items: center;
 }
 header div:nth-child(2) nav ul li {
+  display: flex;
+  gap: 5px;
   transition: all 0.5s;
 }
 header div:nth-child(2) nav ul li:hover {
@@ -119,7 +122,7 @@ header div:nth-child(2) nav ul li:hover {
   align-items: center;
 }
 .nintendoIcon {
-  width: 19px;
+  width: 25px;
 }
 
 /* Tercera sección de la cabecera */
@@ -161,7 +164,7 @@ div.desplegable {
 
 /* Clases que muestran u ocultan el menú desplegable */
 .off {
-  transform: translateX(-20vw);
+  transform: translateX(-500px);
   transition: all 0.5s;
 }
 .on {
@@ -292,4 +295,47 @@ footer a {
 }
 footer a:hover {
   letter-spacing: 0.5px;
+}
+
+@media screen and (max-width: 1200px) {
+  header div:nth-child(1) img {
+    display: none;
+  }
+  header div:nth-child(2) nav ul li p {
+    display: none;
+  }
+  header div:nth-child(3) a:nth-child(2) {
+    display: none;
+  }
+
+  /* Menú desplegable */
+  div.desplegable {
+    position: fixed;
+    top: 0vh;
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--color1);
+    padding: 10vh 1vw 0 10px;
+    z-index: 2;
+  }
+  .off {
+    transform: translateX(-200px);
+    transition: all 0.5s;
+  }
+
+  footer {
+    padding: 5px;
+  }
+  footer div {
+    left: 5px;
+  }
+  footer div img {
+    width: 20px;
+  }
+  footer div p {
+    display: none;
+  }
+  footer a {
+    font-size: 0.8em;
+  }
 }
