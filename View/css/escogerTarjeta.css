@@ -41,3 +41,15 @@ div.tarjetas .elegir:hover {
   transform: scale(1.03);
   box-shadow: 2px 2px 2px #fff;
 }
+
+@media screen and (max-width: 1200px) {
+  div.tarjetas {
+    width: 90%;
+  }
+  div.tarjetas .tarjeta {
+    font-size: 0.8em;
+  }
+  div.tarjetas .tarjeta input {
+    width: 5vw;
+  }
+}

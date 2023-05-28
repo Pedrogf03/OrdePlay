@@ -66,7 +66,7 @@
               <div class="borrar">
                 <i class="fa-solid fa-xmark" onclick="eliminarDelCarrito('<?=$juego->getIdVideojuego()?>')"></i>
                 <p>|</p>
-                <a href="">Añadir a deseados</a>
+                <a href="index.php?action=addJuegoToDeseados&idJuego=<?=$juego->getIdVideojuego()?>">Añadir a deseados</a>
               </div>
             </div>
             <div class="precioCantidad">

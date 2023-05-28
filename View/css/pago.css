@@ -201,3 +201,20 @@ div.infoTarjeta input {
 div.tarjeta a {
   color: var(--color2);
 }
+
+@media screen and (max-width: 1200px) {
+  .form {
+    width: 95%;
+    padding: 0;
+    height: 75vh;
+  }
+  .form form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+  }
+  .form .comprar {
+    width: 100%;
+  }
+}

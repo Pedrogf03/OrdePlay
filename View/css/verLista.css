@@ -64,6 +64,9 @@
   gap: 0.5vh;
   width: 70%;
 }
+.verLista .juegos .juego .info p {
+  text-align: justify;
+}
 .verLista .juegos .juego .info img.nintendoIcon {
   width: 20px;
   transform: translateY(4px);

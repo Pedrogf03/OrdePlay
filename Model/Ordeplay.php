@@ -600,6 +600,32 @@ class OrdePlay{
 
   }
 
+  public function addJuegoToDeseados($idJuego) {
+
+    $sql = "SELECT idLista FROM Lista WHERE idCliente = '". $_SESSION['idCliente'] ."' AND nombre = 'Deseados'";
+    $result = $this->connection->query($sql);
+
+    if ($result->num_rows == 1) {
+          
+      $row = $result->fetch_assoc();
+      $sql = "INSERT INTO ListaJuego (idVideojuego, idLista) VALUES ('$idJuego', '". $row['idLista'] ."')";
+
+    } else {
+      return false;
+    }
+
+    try{
+      if ($this->connection->query($sql)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(Exception $e) {
+      return false;
+    }
+
+  }
+
 }
 
 ?>

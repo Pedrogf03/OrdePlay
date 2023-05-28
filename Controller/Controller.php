@@ -536,6 +536,19 @@ class Controller {
     }
     
   }
+  
+  public function addJuegoToDeseados() {
+
+    // Se comprueba si hay una sesión iniciada.
+    if(!isset($_SESSION['idCliente'])) {
+      // Si no, te lleva a la vista de login.
+      return $this->logIn();
+    } else {
+      $this->OrdePlay->addJuegoToDeseados($_GET['idJuego']);
+      return $this->verCarrito();
+    }
+    
+  }
 
   public function removeJuegoFromLista() {
 
@@ -741,8 +754,8 @@ class Controller {
   public function escogerTarjeta(){
 
     // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
-    if(isset($_SESSION['idCliente'])) {
-      return $this->web();
+    if(!isset($_SESSION['idCliente'])) {
+      return $this->logIn();
     } else {
       // Si no, te lleva a la vista de inicio de sesión.
       $this->vista = "escogerTarjeta";

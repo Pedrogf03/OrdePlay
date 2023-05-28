@@ -5,7 +5,13 @@
     ?>
     <h1><?=$lista->getNombre()?></h1>
     <p><?=$lista->getDescripcion()?></p>
+    <?php
+    if($lista->getNombre() != "Favoritos" && $lista->getNombre() != "Deseados"){
+    ?>
     <a href="index.php?action=editarLista&idLista=<?=$lista->getIdLista()?>"><i class="fa-solid fa-pen"></i></a>
+    <?php
+    }
+    ?>
     <hr />
     <div class="juegos"> <!-- Div que almacena todos los juegos. -->
     <?php
