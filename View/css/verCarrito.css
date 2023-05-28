@@ -23,7 +23,7 @@
 }
 .infoCarrito .carrito .juego .infoJuego {
   display: grid;
-  grid-template-columns: 1.3vw auto;
+  grid-template-columns: 1fr 10fr;
   grid-template-areas:
     'uno dos'
     'tres tres';
@@ -45,10 +45,10 @@
 .infoCarrito .carrito .juego .infoJuego > div {
   grid-area: tres;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
-  gap: 0.2vw;
-  width: 11vw;
+  gap: 0.5vw;
+  width: 100%;
 }
 .infoCarrito .carrito .juego .infoJuego > div a {
   color: black;
@@ -122,4 +122,35 @@
 .infoCarrito .comprar a:hover {
   text-decoration: none;
   letter-spacing: 1px;
+}
+
+@media screen and (max-width: 1200px) {
+  .infoCarrito {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+  .infoCarrito .carrito {
+    margin-bottom: 2vh;
+  }
+  .infoCarrito .carrito .juego > img {
+    width: 25%;
+  }
+  .infoCarrito .carrito .juego .infoJuego {
+    width: 100%;
+    padding-left: 2vw;
+  }
+  .infoCarrito .carrito .juego .infoJuego > p {
+    font-size: 1em;
+  }
+  .infoCarrito .carrito .juego .infoJuego > div {
+    justify-content: center;
+  }
+
+  .infoCarrito .comprar {
+    width: 100%;
+    position: sticky;
+    bottom: 8vh;
+    border-top: 2px solid var(--color2);
+  }
 }

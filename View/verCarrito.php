@@ -38,6 +38,7 @@
           <div class="juego">
             <img src="<?=$juego->getImg()?>" />
             <div class="infoJuego">
+              <p><?=$juego->getNombre()?></p>
               <?php
               switch ($juego->getIdPlataforma()){ // Dependiendo del idPlataforma del juego, se muestra un icono u otro.
                 case 1:
@@ -62,7 +63,6 @@
                   break;
               }
               ?>
-              <p><?=$juego->getNombre()?></p>
               <div class="borrar">
                 <i class="fa-solid fa-xmark" onclick="eliminarDelCarrito('<?=$juego->getIdVideojuego()?>')"></i>
                 <p>|</p>

@@ -90,7 +90,7 @@ class Controller {
   public function logIn(){
 
     // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
-    if(isset($_SESSION['cliente'])) {
+    if(isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
       // Si no, te lleva a la vista de inicio de sesión.
@@ -741,7 +741,7 @@ class Controller {
   public function escogerTarjeta(){
 
     // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
-    if(isset($_SESSION['cliente'])) {
+    if(isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
       // Si no, te lleva a la vista de inicio de sesión.
@@ -803,10 +803,16 @@ class Controller {
 
   public function verBiblioteca(){
 
-    $this->vista = 'verBiblioteca';
-    $this->css = 'verBiblioteca';
+    if(!isset($_SESSION['idCliente'])) {
+      return $this->logIn();
+    } else {
 
-    return $this->OrdePlay->getJuegosFromBiblioteca($_SESSION['idCliente']);
+      $this->vista = 'verBiblioteca';
+      $this->css = 'verBiblioteca';
+  
+      return $this->OrdePlay->getJuegosFromBiblioteca($_SESSION['idCliente']);
+
+    }
 
   }
 
@@ -819,10 +825,10 @@ class Controller {
   public function addReview() {
 
     // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
-    if(isset($_SESSION['cliente'])) {
+    if(isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
-      // Si no, te lleva a la vista de inicio de sesión.
+      
       $this->vista = "addReview";
       $this->css = "addReview"; 
     }
