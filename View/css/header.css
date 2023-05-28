@@ -167,12 +167,12 @@ div.desplegable {
 
 /* Clases que muestran u ocultan el menú desplegable */
 .off {
-  transform: translateX(-500px);
-  transition: all 0.5s;
+  transform: translateX(-1200px);
+  transition: all 1s;
 }
 .on {
   transform: translateX(0vw);
-  transition: all 0.5s;
+  transition: all 1s;
 }
 
 div.listas {
@@ -300,9 +300,6 @@ footer a:hover {
   div.desplegable {
     width: 50vw;
     padding: 0 1vw 7vh 10px;
-  }
-  .off {
-    transform: translateX(-200px);
   }
 
   footer {

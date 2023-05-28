@@ -102,7 +102,6 @@
           <img src="<?=$datos->getReviews()[$i]->getCliente()->getPicture()?>" />
           <h3><?=$datos->getReviews()[$i]->getCliente()->getUsuario()?></h3>
           <p><?=$datos->getReviews()[$i]->getOpinion()?></p>
-          
         </div>
         <?php
       }

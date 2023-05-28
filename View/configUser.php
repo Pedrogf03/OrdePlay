@@ -1,6 +1,6 @@
 <div class="container">
   <div class="info">
-    <div class='img'>
+    <div class="img">
       <img src="<?= $_SESSION['picture'] ?>" />
       <form action="index.php?action=cambiarFoto" method="post" id="miFormularioFoto">
         <input type="file" id="picture" name="picture" accept=".jpg, .jpeg, .png" style="display: none;" />
@@ -161,50 +161,56 @@
     </div>
   </section>
   <section class="lienzoReviews invisible">
-    <div class="verLista">
-      <div class="juegos">
+    <div class="reviews">
       <?php
-      $reviews = $cliente->getReviews();
-      foreach($reviews as $review){ // Por cada review.
-        $juego = $controlador->getJuegoById($review->getIdVideojuego());
-        switch ($review->getNota()){ // Dependiendo de la nota del juego, se muestran unos iconos u otros.
-          case 0:
-            $nota = '<i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
-            break;
-          case 1:
-            $nota = '<i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
-            break;
-          case 2:
-            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
-            break;
-          case 3:
-            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>';
-            break;
-          case 4:
-            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>';
-            break;
-          case 5:
-            $nota = '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>';
-            break;
+      if($cliente->getReviews()) {
+        for($i = 0; $i < count($cliente->getReviews()); $i++) {
+          $juego = $controlador->getJuegoById($cliente->getReviews()[$i]->getIdVideojuego());
+          ?>
+          <div class="review">
+            <img src="<?=$juego->getImg()?>" />
+            <div class="nota">
+            <?php
+              switch ($cliente->getReviews()[$i]->getNota()){ // Dependiendo de la nota del juego, se muestran unos iconos u otros.
+                case 0:
+                  ?>
+                  <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                  <?php
+                  break;
+                case 1:
+                  ?>
+                  <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                  <?php
+                  break;
+                case 2:
+                  ?>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                  <?php
+                  break;
+                case 3:
+                  ?>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                  <?php
+                  break;
+                case 4:
+                  ?>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                  <?php
+                  break;
+                case 5:
+                  ?>
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <?php
+                  break;
+              }
+              ?>
+            </div>
+            <p><?=$cliente->getReviews()[$i]->getOpinion()?></p>
+          </div>
+          <?php
         }
-      ?>
-        <div class="juego"> <!-- Div que contiene toda la información de un juego. -->
-          <a href="index.php?action=verJuego&idJuego=<?=$juego->getIdVideojuego()?>">
-            <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego" id="imgJuego"/> 
-            <div class="info">
-              <h3><?=$juego->getNombre()?>&nbsp;<?=$plataforma?>&nbsp;<?=$nota?></h3>
-              <p><?=$review->getOpinion()?></p>
-            </div>
-            <div>
-              <p><?=$juego->getPrecio()?>€</p>
-            </div>
-          </a>
-        </div>
-        <a href="index.php?action=addReview&idJuego=<?=$idJuego?>" class="addReview">Añadir reseña</a>
-      <?php
       }
       ?>
-      </div>
     </div>
   </section>
 </div>

@@ -94,7 +94,6 @@
 }
 .container .reviews .review p {
   text-align: justify;
-  display: block;
 }
 .container .reviews .review .nota {
   margin-left: auto;
@@ -139,10 +138,10 @@
   .container .juego .infoJuego h1 {
     text-align: center;
   }
-}
-.container .reviews {
-  margin-top: 5vh;
-}
-.container .review p {
-  margin-top: 3vh;
+  .container .reviews {
+    margin-top: 5vh;
+  }
+  .container .review p {
+    margin-top: 3vh;
+  }
 }

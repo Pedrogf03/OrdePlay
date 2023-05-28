@@ -838,7 +838,7 @@ class Controller {
   public function addReview() {
 
     // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
-    if(isset($_SESSION['idCliente'])) {
+    if(!isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
       
