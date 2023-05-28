@@ -1,5 +1,5 @@
 .container .juego {
-  width: 70%;
+  width: 80%;
   margin: 2vh auto;
   background-color: var(--color1);
   padding: 3vh 2vw;
@@ -59,7 +59,7 @@
 }
 
 .container .reviews {
-  width: 70%;
+  width: 80%;
   margin: 2vh auto;
   background-color: var(--color1);
   padding: 3vh 2vw;
@@ -75,24 +75,31 @@
   box-shadow: 2px 2px 2px var(--color2);
   padding: 3vh 2vw;
   border-radius: 20px;
-  display: flex;
+}
+/* Hacer que la altura del div se adapte a elementos con float */
+.container .reviews .review::after {
+  content: '.';
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
 }
 .container .reviews .review img {
   width: 10vw;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 2px solid var(--color2);
   margin-right: 2vw;
+  float: left;
 }
-.container .reviews .review .infoReview {
+.container .reviews .review p {
   text-align: justify;
-  width: 65%;
-}
-.container .reviews .review .infoReview p {
-  text-align: justify;
-  margin-top: 1vh;
+  display: block;
 }
 .container .reviews .review .nota {
   margin-left: auto;
+  display: flex;
+  float: right;
 }
 
 .addToLista {
@@ -115,4 +122,27 @@
 .addToLista a:hover {
   color: var(--color1);
   text-decoration: underline;
+}
+
+@media screen and (max-width: 1200px) {
+  .container .juego {
+    flex-direction: column;
+    padding: 5vw;
+  }
+  .container .juego div.juegoImg {
+    width: 100%;
+  }
+  .container .juego .infoJuego {
+    width: 100%;
+    gap: 5px;
+  }
+  .container .juego .infoJuego h1 {
+    text-align: center;
+  }
+}
+.container .reviews {
+  margin-top: 5vh;
+}
+.container .review p {
+  margin-top: 3vh;
 }

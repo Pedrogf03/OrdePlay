@@ -63,11 +63,6 @@
       for($i = 0; $i < count($datos->getReviews()); $i++){
         ?>
         <div class="review">
-          <img src="<?=$datos->getReviews()[$i]->getCliente()->getPicture()?>" />
-          <div class="infoReview">
-            <h3><?=$datos->getReviews()[$i]->getCliente()->getUsuario()?></h3>
-            <p><?=$datos->getReviews()[$i]->getOpinion()?></p>
-          </div>
           <div class="nota">
             <?php
             switch ($datos->getReviews()[$i]->getNota()){ // Dependiendo de la nota del juego, se muestran unos iconos u otros.
@@ -104,6 +99,10 @@
             }
             ?>
           </div>
+          <img src="<?=$datos->getReviews()[$i]->getCliente()->getPicture()?>" />
+          <h3><?=$datos->getReviews()[$i]->getCliente()->getUsuario()?></h3>
+          <p><?=$datos->getReviews()[$i]->getOpinion()?></p>
+          
         </div>
         <?php
       }
