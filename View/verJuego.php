@@ -132,10 +132,6 @@ for($i = 0; $i < count($cliente->getListas()); $i++){
 ?>
 <script>
 
-  function addDiv(){
-
-  }
-
   document.getElementById('addToLista').addEventListener('click', function(ev){
     coordenadas = document.getElementById('addToLista').getBoundingClientRect();
 

@@ -416,10 +416,16 @@ class OrdePlay{
 
   public function borrarLista($idLista){
 
-    $sql = "DELETE FROM Lista WHERE idLista = ". $idLista;
+    $sql = "DELETE FROM ListaJuego WHERE idLista = ". $idLista;
 
     if($this->connection->query($sql)){
-      return true;
+      $sql = "DELETE FROM Lista WHERE idLista = ". $idLista;
+
+      if($this->connection->query($sql)){
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
