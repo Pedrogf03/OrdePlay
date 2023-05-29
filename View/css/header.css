@@ -321,4 +321,7 @@ footer a:hover {
     padding: 13vh 0vw 13vh 0vw;
     width: 100vw;
   }
+  div.listas .lista i {
+    opacity: 1;
+  }
 }
