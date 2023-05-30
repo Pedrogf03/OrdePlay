@@ -551,7 +551,7 @@ class OrdePlay{
       $headers = "MIME-Version: 1.0\r\n";
       $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
   
-      // Dirección del remitente
+      // Dirección del addjuego
       $headers .= "From: OrdePlay <noreply@OrdePlay.com>\r\n";
   
       mail($destinatario, $asunto, $cuerpo, $headers);

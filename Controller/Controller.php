@@ -389,13 +389,14 @@ class Controller {
     // Actualiza la base de datos.
     $this->OrdePlay->cambiarFoto($archivo);
 
-    // Respuesta de conformación.
+    // Respuesta de confirmación.
     $respuesta = array('exito' => true, 'mensaje' => 'Foto cambiada con éxito.');
     echo json_encode($respuesta);
     exit;
 
   }
 
+  // Función que borra una tarjeta de la base de datos.
   public function borrarTarjeta() {
 
     $this->OrdePlay->borrarTarjeta($_GET['idTarjeta']);
@@ -404,6 +405,7 @@ class Controller {
 
   }
 
+  // Función que lleva a la vista de añadir tarjeta.
   public function addTarjeta(){
 
     // Se comprueba si hay una sesión iniciada.
@@ -418,6 +420,7 @@ class Controller {
 
   }
 
+  // Función que valida los datos de una tarjeta y da una respuesta.
   public function saveTarjeta(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -425,11 +428,13 @@ class Controller {
       $fechaExp = trim($_POST['fechaExp']); // Quitar espacios al principio y al final.
       $cvc = trim($_POST['cvc']); // Quitar espacios al principio y al final.
       $nombreTit = trim($_POST['nombreTit']); // Quitar espacios al principio y al final.
+
+      // Se comprueba si el usuario quiere guardar o no la tarjeta en la base de datos.
       if($_POST['guardar'] == "on"){
         $guardar = true;
       }
           
-      // Validación de los datos mediante expresiones regulares.
+      // Validación del número mediante expresiones regulares. (La tarjeta tiene que tener 4 conjuntos de numeros, separados por '-', espacios o sin separar)
       if (!preg_match("/^\d{4}-\d{4}-\d{4}-\d{4}$/", $numTarjeta)) {
         if (!preg_match("/^\d{4} \d{4} \d{4} \d{4}$/", $numTarjeta)) {
           if (!preg_match("/^\d{16}$/", $numTarjeta)) {
@@ -444,28 +449,28 @@ class Controller {
         $numTarjeta = str_replace('-', '', $numTarjeta);
       }
     
-      // Validación de los datos mediante expresiones regulares.
+      // Validación de la fecha de expiración datos mediante expresiones regulares.
       if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $fechaExp)) {
         $respuesta = array('exito' => false, 'mensaje' => 'La fecha no es válida.');
         echo json_encode($respuesta);
         exit;
       }
 
-      // Validación de los datos mediante expresiones regulares.
+      // Validación del cvc mediante expresiones regulares.
       if (!preg_match("/^\d{3,4}$/", $cvc)) {
         $respuesta = array('exito' => false, 'mensaje' => 'CVC no válido.');
         echo json_encode($respuesta);
         exit;
       }  
       
-      // Validación de los datos mediante expresiones regulares.
+      // Validación del titular mediante expresiones regulares.
       if (!preg_match("/^[a-zA-Zá-úÁ-Úä-üÄ-Ü]+(?:\s[a-zA-Zá-úÁ-Úä-üÄ-Ü]+)+$/u", $nombreTit)) {
         $respuesta = array('exito' => false, 'mensaje' => 'Titualar no válido.');
         echo json_encode($respuesta);
         exit;
       }     
       
-      // Si la variable es true, es decir, el usuario quiere guardar la tarjeta, se guarda en base de datos.
+      // Si la variable es true, es decir, si el usuario quiere guardar la tarjeta, se guarda en base de datos.
       if($guardar) {
         // Se guarda la tarjeta en base de datos.
         if(!$this->OrdePlay->guardarTarjeta($_SESSION['idCliente'], $numTarjeta, $fechaExp, $cvc, $nombreTit)){
@@ -483,6 +488,7 @@ class Controller {
 
   }
 
+  // Función que comprueba si el cvc dado corresponde a la tarjeta o no.
   public function comprobarCVC(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -519,6 +525,7 @@ class Controller {
 
   }
 
+  // Función que añade un juego a una lista
   public function addJuegoToLista() {
 
     // Se comprueba si hay una sesión iniciada.
@@ -526,6 +533,7 @@ class Controller {
       // Si no, te lleva a la vista de loggin.
       return $this->logIn();
     } else {
+      // Si no se da un idLista, se da solo el id del juego.
       if(!isset($_GET['idLista'])){
         $this->OrdePlay->addJuegoToLista($_GET['idJuego']);
         return $this->verJuego();
@@ -537,6 +545,7 @@ class Controller {
     
   }
   
+  // Función que añade un juego a deseados.
   public function addJuegoToDeseados() {
 
     // Se comprueba si hay una sesión iniciada.
@@ -550,8 +559,10 @@ class Controller {
     
   }
 
+  // Funcion que borra un juego de una lista
   public function removeJuegoFromLista() {
 
+    // Si no se da un idLista, se da solo el id del juego.
     if(!isset($_GET['idLista'])){
 
       $this->OrdePlay->removeJuegoFromLista($_GET['idJuego']);
@@ -566,6 +577,7 @@ class Controller {
     
   }
 
+  // Funcion que muestra la vista para ver la lista
   public function verLista(){
 
     // Se comprueba si hay una sesión iniciada.
@@ -580,12 +592,14 @@ class Controller {
 
   }
 
+  // Funcion que devuelve una lista dado un id
   public function getListaById($idLista){
 
     return $this->OrdePlay->getListaById($idLista);
 
   }
 
+  // Funcion que muestra la vista de crear una lista
   public function crearLista(){
 
     // Se comprueba si hay una sesión iniciada.
@@ -599,11 +613,13 @@ class Controller {
 
   }
 
+  // Funcion que valida los datos de una lista y la guarda en la abse de datos.
   public function doCrearLista(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $nombreLista = trim($_POST['nombreLista']); // Quitar espacios al principio y al final.
       
+      // Se comprueba si la descripcion esta vacia
       if(isset($_POST['descripcion'])) {
         $descripcion = trim($_POST['descripcion']); // Quitar espacios al principio y al final.
       } else {
@@ -641,6 +657,7 @@ class Controller {
 
   }
 
+  // Funcion que lleva a la vista de editar una lista
   public function editarLista(){
 
     // Se comprueba si hay una sesión iniciada.
@@ -657,6 +674,7 @@ class Controller {
 
   }
 
+  // Funcion que valida los datos dados de editar una lista y actualiza la base de datos.
   public function doEditarLista(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -685,7 +703,7 @@ class Controller {
         }  
       } 
       
-      // Se guarda la lista en base de datos.
+      // Se actualiza la lista en base de datos.
       if(!$this->OrdePlay->editarLista($idLista, $nombreLista, $descripcion)){
         $respuesta = array('exito' => false, 'mensaje' => 'Ya tienes una lista con ese nombre.');
         echo json_encode($respuesta);
@@ -700,6 +718,7 @@ class Controller {
 
   }
 
+  // Funcion que borra una lista de la base de datos
   public function borrarLista(){
 
     $this->OrdePlay->borrarLista($_GET['idLista']);
@@ -707,6 +726,7 @@ class Controller {
 
   }
 
+  // Funcion que lleva a la vista de ver el carrito.
   public function verCarrito(){
 
     $this->vista = "verCarrito";
@@ -714,15 +734,18 @@ class Controller {
 
   }
 
+  // Funcion que permite 'pagar' el carrito
   public function pagarCarrito(){
 
+    // Se comprueba si se ha iniciado sesion
     if(isset($_SESSION['idCliente'])) {
 
+      // Se comprueba que el carrito no este vacio
       if($_COOKIE['carrito'] != "[]") {
 
         $carrito = $_COOKIE['carrito'];
 
-        // Decodificar el string JSON en un arreglo de PHP
+        // Decodificar el string JSON en un array de PHP
         $arrayCarrito = json_decode($carrito, true);
 
         // Crear una variable que va sumando el precio de cada juego para sacar el total.
@@ -738,50 +761,57 @@ class Controller {
 
         }
 
+        // Se muestra la vista de pago
         $this->vista = "pago";
         $this->css = "pago";
 
+        // Se devuelve el precio total
         return $precioTotal;
 
       } else {
+        // Si no hay carrito te dirige a la pagina principañ
         return $this->web();
       }
   
     } else {
+      // Si no se ha iniciado, te lleva al login
       return $this->login();
     }
 
   }
 
+  // Funcion que lleva a la vista para escoger tarjeta
   public function escogerTarjeta(){
 
-    // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
+    // Si nop hay iniciada una sesión, te lleva a la página principal.
     if(!isset($_SESSION['idCliente'])) {
       return $this->logIn();
     } else {
-      // Si no, te lleva a la vista de inicio de sesión.
+      // Si no, te lleva a la vista de escoger tarjeta
       $this->vista = "escogerTarjeta";
       $this->css = "escogerTarjeta"; 
     }
     
   }
 
+  // Funcion que realza el pago del carrito.
   public function realizarPago(){
 
+    // Comprueba que el carrito no este vacio
     if($_COOKIE['carrito'] != "[]"){
 
       $carrito = $_COOKIE['carrito'];
 
-      // Decodificar el string JSON en un arreglo de PHP
+      // Decodificar el string JSON en un array de PHP
       $arrayCarrito = json_decode($carrito, true);
 
-      // Crear un arreglo asociativo para contar las repeticiones de cada idVideojuego
+      // Crear un array asociativo para contar las repeticiones de cada idVideojuego
       $contador = array();
 
       // Crear una variable que va sumando el precio de cada juego para sacar el total.
       $precioTotal = 0;
 
-      // Recorrer el arreglo y realizar una acción para cada idVideojuego
+      // Recorrer el array
       foreach ($arrayCarrito as $idVideojuego) {
         // Incrementar el contador para el idVideojuego actual
         if (isset($contador[$idVideojuego])) {
@@ -790,55 +820,64 @@ class Controller {
             $contador[$idVideojuego] = 1;
         }
 
-        $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
-        $precioTotal += $juego->getPrecio();
-        $this->OrdePlay->addToBiblioteca($juego);        
+        $juego = $this->OrdePlay->getVideojuegoById($idVideojuego); // Por cada id, se crea un objeto juego.
+        $precioTotal += $juego->getPrecio(); // Se va sumando el precio total.
+        $this->OrdePlay->addToBiblioteca($juego); // Se añade a la biblioteca del usuario el juego que ha comprado.
 
       }
 
-      $idPed = $this->OrdePlay->crearPedido($precioTotal, $_SESSION['idCliente']);
+      $idPed = $this->OrdePlay->crearPedido($precioTotal, $_SESSION['idCliente']); // Se crea un pedido asociado al usuario.
 
       // Mostrar los idVideojuegos y el recuento, mostrando solo uno cuando se repiten varias veces
       foreach ($contador as $idVideojuego => $cantidad) {
 
+        // Se crea una linea de pedido por cada juego, siendo $cantidad las veces que se repite dicho juego.
         $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
         $this->OrdePlay->crearLineaPed($juego->getIdVideojuego(), $idPed, $cantidad, $juego->getPrecio());
 
       }
 
+      // Lleva a la vista de compra realizada.
       $this->vista = "compraRealizada";
       $this->css = "compraRealizada";
 
     } else {
+      // Si el carrito esta vacio vuelve a la vista del carrito.
       return $this->verCarrito();
     }
 
   }
 
+  // Funcion que lleva a la vista que muestra la biblioteca del usuario
   public function verBiblioteca(){
 
+    // Si no hay iniciada una sesion, te lleva al login.
     if(!isset($_SESSION['idCliente'])) {
       return $this->logIn();
     } else {
 
+      // Si si la hay, te lleva a la biblioteca
       $this->vista = 'verBiblioteca';
       $this->css = 'verBiblioteca';
   
+      // Devuelve todos los juegos de la biblioteca del usuario.
       return $this->OrdePlay->getJuegosFromBiblioteca($_SESSION['idCliente']);
 
     }
 
   }
 
+  // Funcion que, dado un idJuego, devuelve un objeto videojuego.
   public function getJuegoById($idJuego) {
 
     return $this->OrdePlay->getVideojuegoById($idJuego);
 
   }
 
+  // Funcion que lleva a la vista de añadir reseña
   public function addReview() {
 
-    // Se comprueba si ya hay iniciada una sesión, te lleva a la página principal.
+    // Si no hay iniciada una sesión, te lleva a la página principal.
     if(!isset($_SESSION['idCliente'])) {
       return $this->web();
     } else {
@@ -849,11 +888,13 @@ class Controller {
 
   }
 
+  // Funcion que valida los datos de la review
   public function doAddReview(){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $nota = $_POST['nota']; // Quitar espacios al principio y al final.
       
+      // Se comprueba si la opinion esta vacia.
       if(isset($_POST['opinion'])) {
         $opinion = trim($_POST['opinion']); // Quitar espacios al principio y al final.
       } else {

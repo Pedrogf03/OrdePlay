@@ -4,10 +4,10 @@ include_once "Cliente.php";
 
 class Pedido {
 
-  private int $idPedido;
-  private string $fechaPedido;
-  private float $precioTotal;
-  private Cliente $cliente;
+  private $idPedido;
+  private $fechaPedido;
+  private $precioTotal;
+  private $cliente;
 
   public function __construct($idPedido, $fechaPedido, $precioTotal, $cliente){
 

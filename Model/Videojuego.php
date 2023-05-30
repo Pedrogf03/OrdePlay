@@ -64,12 +64,16 @@ class Videojuego{
     return $this->img;
   }
 
+  // Funcion que devuelve las reseñas que hay sobre un juego concreto
   public function getReviews(){
+    // Consulta
     $sql = "SELECT * FROM Review WHERE idVideojuego = " . $this->getIdVideojuego();
-    $result = $this->connection->query($sql);
+    $result = $this->connection->query($sql); // Ejecucion
   
+    // Si devuelve algo
     if ($result->num_rows > 0) {
       $i = 0;
+      // Se va rellenando un array con todas las reseñas
       while ($row = $result->fetch_assoc()) {
         $sql2 = "SELECT * FROM Cliente WHERE idCliente = " . $row['idCliente'];
         $result2 = $this->connection->query($sql2);
@@ -86,6 +90,7 @@ class Videojuego{
     }
   }
 
+  // Funcion que comprueba si un juego esta en una lista
   public function isInLista($nombreLista){
 
     $sql = "SELECT * FROM ListaJuego lj JOIN Lista l ON lj.idLista = l.idLista WHERE lj.idVideojuego = '". $this->getIdVideojuego() ."' AND l.nombre = '$nombreLista' AND l.idCliente = '". $_SESSION['idCliente'] ."'";

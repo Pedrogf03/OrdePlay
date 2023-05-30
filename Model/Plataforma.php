@@ -2,9 +2,9 @@
 
 class Plataforma{
 
-  private int $idPlataforma;
-  private string $nombre;
-  private string $desarrollador;
+  private $idPlataforma;
+  private $nombre;
+  private $desarrollador;
 
   public function __construct($idPlataforma, $nombre, $desarrollador){
     
