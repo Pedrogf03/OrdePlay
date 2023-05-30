@@ -743,6 +743,8 @@ class Controller {
 
         return $precioTotal;
 
+      } else {
+        return $this->web();
       }
   
     } else {

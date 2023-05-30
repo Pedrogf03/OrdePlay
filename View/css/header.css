@@ -108,8 +108,13 @@ header div:nth-child(2) nav ul {
 }
 header div:nth-child(2) nav ul li {
   display: flex;
+  align-items: center;
   gap: 5px;
   transition: all 0.5s;
+}
+header div:nth-child(2) nav ul li p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.5em;
 }
 header div:nth-child(2) nav ul li:hover {
   text-decoration: underline;
@@ -195,7 +200,10 @@ div.listas .lista {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin: 0.6vh 0;
   padding: 1vh 1vw 0 0;
+  align-items: center;
+  height: 3vh;
 }
 div.listas .lista i {
   opacity: 0;
@@ -214,6 +222,8 @@ div.listas a {
 }
 div.listas a p {
   transition: all 0.5s;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7em;
 }
 div.listas .lista:hover p {
   letter-spacing: 1px;
@@ -227,6 +237,8 @@ div.bottom a {
   color: #000;
   text-decoration: none;
   transition: all 0.5s;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7em;
 }
 div.bottom a:hover {
   letter-spacing: 1px;
@@ -301,6 +313,11 @@ footer a:hover {
     width: 50vw;
     padding: 0 1vw 7vh 10px;
   }
+  div.listas a p {
+    transition: all 0.5s;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.5em;
+  }
 
   footer {
     padding: 5px;
@@ -323,5 +340,9 @@ footer a:hover {
   }
   div.listas .lista i {
     opacity: 1;
+    font-size: 0.5em;
+  }
+  div.bottom a {
+    font-size: 0.5em;
   }
 }
