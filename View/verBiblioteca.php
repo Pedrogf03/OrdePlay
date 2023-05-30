@@ -27,7 +27,7 @@
           <img class="portada" src="<?=$juego->getImg()?>" alt="Portada del juego" id="imgJuego"/> 
           <div class="info">
             <h3><?=$juego->getNombre()?>&nbsp;<?=$plataforma?></h3>
-            <p><?=$juego->getDescripcion()?>&nbsp;<span><?=$codigo?></span></p>
+            <p><?=$juego->getDescripcion()?></span></p>
           </div>
           <div>
             <p><?=$juego->getPrecio()?>€</p>

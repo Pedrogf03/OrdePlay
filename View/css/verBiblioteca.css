@@ -56,9 +56,6 @@
   text-align: justify;
   align-content: center;
 }
-.verLista .juegos .juego .info span {
-  font-weight: 600;
-}
 .verLista .juegos .juego .info img.nintendoIcon {
   width: 20px;
   transform: translateY(4px);

@@ -790,8 +790,7 @@ class Controller {
 
         $juego = $this->OrdePlay->getVideojuegoById($idVideojuego);
         $precioTotal += $juego->getPrecio();
-        $this->OrdePlay->addToBiblioteca($juego->getIdVideojuego());
-        
+        $this->OrdePlay->addToBiblioteca($juego);        
 
       }
 

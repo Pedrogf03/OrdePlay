@@ -498,7 +498,9 @@ class OrdePlay{
   }
 
   // Función que añade a la biblioteca un juego y envía un mail al usuario con el código del juego que ha comprado.
-  public function addToBiblioteca($idJuego){
+  public function addToBiblioteca($juego){
+
+    $idJuego = $juego->getIdVideojuego();
 
     // Se genera un código y se hace una consulta para saber si ese código ya existe previamente.
     do {
@@ -512,8 +514,8 @@ class OrdePlay{
     $sql = "INSERT INTO Biblioteca (codigo, idVideojuego, idCliente) VALUES ('$code', '$idJuego', " . $_SESSION['idCliente'] . ")";
     if ($this->connection->query($sql)) {
   
-      $juego = $this->getVideojuegoById($idJuego);
-  
+      // Si los datos son insertados correctamente en la base de datos, se envía un email al usuario con el código del juego.
+
       switch ($juego->getIdPlataforma()) {
         case 1:
           $plataforma = "PlayStation";
