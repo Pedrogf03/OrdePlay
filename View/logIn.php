@@ -22,6 +22,7 @@
 </div>
 <script>
 
+  // Mostrar placeholders al tener el foco y quitarlo al perderlo.
   document.getElementById('email').addEventListener('focus', function(){
     document.getElementById('email').setAttribute('placeholder', 'example@notmail.es');
   });

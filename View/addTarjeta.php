@@ -25,6 +25,29 @@
   </div>
 </div>
 <script>
+
+  // Mostrar placeholders al tener el foco y quitarlo al perderlo.
+  document.getElementById('numTarjeta').addEventListener('focus', function(){
+    document.getElementById('numTarjeta').setAttribute('placeholder', '1234-5678-9012-3456');
+  });
+  document.getElementById('numTarjeta').addEventListener('blur', function(){
+    document.getElementById('numTarjeta').removeAttribute('placeholder');
+  });
+
+  document.getElementById('nombreTit').addEventListener('focus', function(){
+    document.getElementById('nombreTit').setAttribute('placeholder', 'Pedro González Fernández');
+  });
+  document.getElementById('nombreTit').addEventListener('blur', function(){
+    document.getElementById('nombreTit').removeAttribute('placeholder');
+  });
+
+  document.getElementById('cvc').addEventListener('focus', function(){
+    document.getElementById('cvc').setAttribute('placeholder', '123');
+  });
+  document.getElementById('cvc').addEventListener('blur', function(){
+    document.getElementById('cvc').removeAttribute('placeholder');
+  });
+
   // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {

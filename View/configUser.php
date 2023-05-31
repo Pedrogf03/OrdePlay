@@ -356,19 +356,29 @@
   });
 
   // Ver contraseña
-  document.getElementById('eyeIcon1').addEventListener("mousedown", function() {
-  document.getElementById('oldPasswd').setAttribute('type', "text");
-  })
-  document.getElementById('eyeIcon1').addEventListener("mouseup", function() {
-    document.getElementById('oldPasswd').setAttribute('type', "password");
+  document.getElementById('eyeIcon1').addEventListener("click", function() {
+      if (document.getElementById('passwd').type === 'password') {
+        document.getElementById('passwd').type = 'text';
+        document.getElementById('eyeIcon').classList.remove('fa-regular');
+        document.getElementById('eyeIcon').classList.add('fa-solid');
+    } else {
+      document.getElementById('passwd').type = 'password';
+        document.getElementById('eyeIcon').classList.remove('fa-solid');
+        document.getElementById('eyeIcon').classList.add('fa-regular');
+    }
   })
 
   // Ver contraseña
-  document.getElementById('eyeIcon2').addEventListener("mousedown", function() {
-  document.getElementById('newPasswd').setAttribute('type', "text");
-  })
-  document.getElementById('eyeIcon2').addEventListener("mouseup", function() {
-    document.getElementById('newPasswd').setAttribute('type', "password");
+  document.getElementById('eyeIcon2').addEventListener("click", function() {
+      if (document.getElementById('passwd').type === 'password') {
+        document.getElementById('passwd').type = 'text';
+        document.getElementById('eyeIcon').classList.remove('fa-regular');
+        document.getElementById('eyeIcon').classList.add('fa-solid');
+    } else {
+      document.getElementById('passwd').type = 'password';
+        document.getElementById('eyeIcon').classList.remove('fa-solid');
+        document.getElementById('eyeIcon').classList.add('fa-regular');
+    }
   })
 
   $(document).ready(function () {

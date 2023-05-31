@@ -17,6 +17,15 @@
   </div>
 </div>
 <script>
+
+  // Mostrar placeholders al tener el foco y quitarlo al perderlo.
+  document.getElementById('nombreLista').addEventListener('focus', function(){
+    document.getElementById('nombreLista').setAttribute('placeholder', 'Jugados');
+  });
+  document.getElementById('nombreLista').addEventListener('blur', function(){
+    document.getElementById('nombreLista').removeAttribute('placeholder');
+  });
+
   // Validación y envío de datos del formulario con respuesta del servidor.
   var miFormulario = document.getElementById('miFormulario');
   miFormulario.addEventListener('submit', function(ev) {

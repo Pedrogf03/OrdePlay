@@ -30,6 +30,20 @@
   </div>
 </div>
 <script>
+  // Mostrar placeholders al tener el foco y quitarlo al perderlo.
+  document.getElementById('email').addEventListener('focus', function(){
+    document.getElementById('email').setAttribute('placeholder', 'example@notemail.es');
+  });
+  document.getElementById('email').addEventListener('blur', function(){
+    document.getElementById('email').removeAttribute('placeholder');
+  });
+
+  document.getElementById('user').addEventListener('focus', function(){
+    document.getElementById('user').setAttribute('placeholder', 'P@ssw0rd!2023');
+  });
+  document.getElementById('passwd').addEventListener('blur', function(){
+    document.getElementById('passwd').removeAttribute('placeholder');
+  });
 
   var miFormulario = document.getElementById('miFormulario');
 
@@ -73,8 +87,12 @@
   document.getElementById('eyeIcon').addEventListener("click", function() {
       if (document.getElementById('passwd').type === 'password') {
         document.getElementById('passwd').type = 'text';
+        document.getElementById('eyeIcon').classList.remove('fa-regular');
+        document.getElementById('eyeIcon').classList.add('fa-solid');
     } else {
       document.getElementById('passwd').type = 'password';
+        document.getElementById('eyeIcon').classList.remove('fa-solid');
+        document.getElementById('eyeIcon').classList.add('fa-regular');
     }
   })
 </script>
