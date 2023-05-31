@@ -22,6 +22,22 @@
 </div>
 <script>
 
+  document.getElementById('email').addEventListener('focus', function(){
+    document.getElementById('email').setAttribute('placeholder', 'example@notmail.es');
+  });
+
+  document.getElementById('email').addEventListener('blur', function(){
+    document.getElementById('email').removeAttribute('placeholder');
+  });
+
+  document.getElementById('passwd').addEventListener('focus', function(){
+    document.getElementById('passwd').setAttribute('placeholder', 'P@ssw0rd!2023');
+  });
+
+  document.getElementById('passwd').addEventListener('blur', function(){
+    document.getElementById('passwd').removeAttribute('placeholder');
+  });
+
   // Mostrar valor de las cookies en los inputs
   var valorCookie1 = document.cookie
     .split(";")
@@ -89,8 +105,12 @@
   document.getElementById('eyeIcon').addEventListener("click", function() {
       if (document.getElementById('passwd').type === 'password') {
         document.getElementById('passwd').type = 'text';
+        document.getElementById('eyeIcon').classList.remove('fa-regular');
+        document.getElementById('eyeIcon').classList.add('fa-solid');
     } else {
       document.getElementById('passwd').type = 'password';
+        document.getElementById('eyeIcon').classList.remove('fa-solid');
+        document.getElementById('eyeIcon').classList.add('fa-regular');
     }
   })
 
