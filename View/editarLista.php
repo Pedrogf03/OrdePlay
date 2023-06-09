@@ -3,7 +3,7 @@
     <h2>Editar lista</h2>
     <form action="https://ordeplay.cifpceuta.com/index.php?action=doEditarLista" method="post" id="miFormulario">
       <div class="campo">
-        <input type="text" name="nombreLista" required id="email" value="<?=$datos->getNombre()?>">
+        <input type="text" name="nombreLista" required id="nombreLista" value="<?=$datos->getNombre()?>">
         <label>Nombre</label>
       </div>
       <div class="campo" id="lastCampo">

@@ -3,7 +3,7 @@
     <h2>Crear lista nueva</h2>
     <form action="https://ordeplay.cifpceuta.com/index.php?action=doCrearLista" method="post" id="miFormulario">
       <div class="campo">
-        <input type="text" name="nombreLista" required id="email">
+        <input type="text" name="nombreLista" required id="nombreLista">
         <label>Nombre</label>
       </div>
       <div class="campo" id="lastCampo">
