@@ -1,0 +1,28 @@
+services:
+  # Servicio de Base de Datos
+  postgre:
+    image: postgres:15-alpine
+    container_name: postgre
+    restart: always
+    environment:
+      POSTGRES_USER: pedro
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: ordeplay
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgre
+
+volumes:
+  db_data:
