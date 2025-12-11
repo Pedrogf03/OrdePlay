@@ -1,13 +1,13 @@
 services:
-  # Servicio de Base de Datos
+
   postgre:
     image: postgres:15-alpine
     container_name: postgre
     restart: always
     environment:
-      POSTGRES_USER: pedro
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: ordeplay
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:

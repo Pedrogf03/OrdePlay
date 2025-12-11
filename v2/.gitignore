@@ -1,0 +1,22 @@
+# --- Secretos y Configuración Local (¡MUY IMPORTANTE!) ---
+.env
+.env.local
+*.env
+.vscode/
+.idea/
+*.log
+
+# --- Archivos de Compilación de Java/Maven ---
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# --- Archivos temporales del sistema ---
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+# Si generas archivos temporales de docker, ponlos aquí.
+# (El docker-compose.yml SÍ se suele subir, pero sin claves escritas a fuego)
