@@ -1,0 +1,75 @@
+<app-navbar 
+  (onSearch)="handleSearch($event)" 
+  (onMenuToggle)="toggleSidebar()">
+</app-navbar>
+
+<div class="sidebar" [class.open]="isSidebarOpen">
+  <ul>
+    <li>🏠 Inicio</li>
+    <li>🔥 Populares</li>
+    <li>📂 Mis Listas</li>
+    <li>⚙️ Configuración</li>
+  </ul>
+</div>
+
+<main class="main-content" [class.shifted]="isSidebarOpen">
+  
+  <h2>🎮 Últimos Lanzamientos</h2>
+  
+  @if (isLoading && games.length === 0) {
+    <div class="games-grid">
+      @for (item of skeletons; track $index) {
+        <div class="game-card skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="card-info">
+            <div class="skeleton-text title"></div>
+            <div class="skeleton-text date"></div>
+          </div>
+        </div>
+      }
+    </div>
+  } 
+  
+  @else {
+    <div class="games-grid">
+      @for (game of games; track game.id) {
+        <div class="game-card">
+          
+          <div class="image-wrapper">
+             @if (game.cover) {
+               <img 
+                 [src]="getCoverUrl(game.cover.url)" 
+                 [alt]="game.name" 
+                 loading="lazy"
+               >
+             } @else {
+               <img src="https://via.placeholder.com/264x352?text=Sin+Imagen" alt="No cover">
+             }
+          </div>
+          
+          <div class="card-info">
+            <h3>{{ game.name }}</h3>
+            @if (game.first_release_date) {
+               <p class="date">
+                 {{ game.first_release_date * 1000 | date:'mediumDate' }}
+               </p>
+            }
+          </div>
+
+        </div>
+      }
+    </div>
+
+    @if (!isLoading && games.length === 0) {
+       <p style="text-align: center; color: #666; margin-top: 50px;">No se encontraron juegos.</p>
+    }
+
+    @if (games.length > 0) {
+      <button class="load-more-btn" (click)="loadMoreGames()" [disabled]="isLoading">
+        {{ isLoading ? 'Cargando...' : 'Cargar más juegos 👇' }}
+      </button>
+    }
+  }
+</main>
+
+<app-footer></app-footer>
