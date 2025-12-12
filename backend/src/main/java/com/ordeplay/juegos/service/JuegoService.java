@@ -14,10 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class JuegoService {
   private final ListaRepository listaRepo;
   private final ItemListaRepository itemRepo;
   private final UsuarioRepository usuarioRepo;
+  private final RestTemplate restTemplate; // Usamos una instancia compartida
 
   @Value("${igdb.client.id}")
   private String clientId;
@@ -46,7 +48,12 @@ public class JuegoService {
     this.listaRepo = listaRepo;
     this.itemRepo = itemRepo;
     this.usuarioRepo = usuarioRepo;
+    this.restTemplate = new RestTemplate();
   }
+
+  // ==========================================
+  // PARTE 1: GESTIÓN DE BASE DE DATOS LOCAL
+  // ==========================================
 
   public Lista crearLista(String nombreLista, Long usuarioId) {
     Usuario usuario = usuarioRepo.findById(usuarioId)
@@ -76,19 +83,19 @@ public class JuegoService {
     return itemRepo.save(item);
   }
 
+  // ==========================================
+  // PARTE 2: COMUNICACIÓN CON IGDB (API EXTERNA)
+  // ==========================================
+
   private String getAccessToken() {
     if (accessToken != null)
       return accessToken;
-
-    RestTemplate restTemplate = new RestTemplate();
 
     String url = authUrl + "?client_id=" + clientId + "&client_secret=" + clientSecret
         + "&grant_type=client_credentials";
 
     try {
-
       ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
-
       accessToken = (String) response.getBody().get("access_token");
       System.out.println("🔑 Nuevo Token de Twitch obtenido con éxito.");
       return accessToken;
@@ -98,101 +105,79 @@ public class JuegoService {
     }
   }
 
+  // Método auxiliar para generar cabeceras (SOLUCIÓN AL CONNECTION RESET)
+  private HttpHeaders createHeaders() {
+    String token = getAccessToken();
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Client-ID", clientId);
+    headers.set("Authorization", "Bearer " + token);
+    headers.setContentType(MediaType.TEXT_PLAIN);
+    // IMPORTANTE: IGDB a veces bloquea peticiones sin User-Agent o Accept definidos
+    headers.set("User-Agent", "OrdePlay-App/1.0");
+    headers.set("Accept", "application/json");
+    return headers;
+  }
+
+  // 1. OBTENER JUEGOS DE UNA LISTA (BATCH OPTIMIZADO)
   @Transactional(readOnly = true)
   public List<Object> obtenerJuegosDeLista(Long listaId) {
-
     Lista lista = listaRepo.findById(listaId)
         .orElseThrow(() -> new RuntimeException("Lista no encontrada"));
 
-    List<Object> juegosDetallados = new ArrayList<>();
-    RestTemplate restTemplate = new RestTemplate();
-
-    String token = getAccessToken();
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Client-ID", clientId);
-    headers.set("Authorization", "Bearer " + token);
-    headers.setContentType(MediaType.TEXT_PLAIN);
-
-    for (ItemLista item : lista.getItems()) {
-      try {
-        String queryBody = "fields name, cover.url, total_rating; where id = " + item.getRawgGameId() + ";";
-
-        HttpEntity<String> request = new HttpEntity<>(queryBody, headers);
-
-        ResponseEntity<JsonNode> response = restTemplate.postForEntity(apiUrl, request, JsonNode.class);
-
-        if (response.getBody() != null && response.getBody().isArray() && !response.getBody().isEmpty()) {
-          juegosDetallados.add(response.getBody().get(0));
-        }
-
-      } catch (Exception e) {
-        System.err.println("Error buscando juego ID " + item.getRawgGameId() + ": " + e.getMessage());
-        this.accessToken = null;
-      }
+    if (lista.getItems().isEmpty()) {
+      return new ArrayList<>();
     }
-    return juegosDetallados;
+
+    List<Long> ids = lista.getItems().stream()
+        .map(ItemLista::getRawgGameId)
+        .toList();
+
+    String idsString = ids.toString().replace("[", "(").replace("]", ")");
+
+    String queryBody = "fields name, cover.url, total_rating, first_release_date; " +
+        "where id = " + idsString + "; " +
+        "limit 100;";
+
+    return callIgdbApi(queryBody);
   }
 
+  // 2. BUSCADOR DE JUEGOS
   public List<Object> buscarJuegos(String consulta) {
-    RestTemplate restTemplate = new RestTemplate();
-    String token = getAccessToken();
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Client-ID", clientId);
-    headers.set("Authorization", "Bearer " + token);
-    headers.setContentType(MediaType.TEXT_PLAIN);
-
-    // Limpiamos comillas para evitar errores de sintaxis en IGDB
     String cleanQuery = consulta.replace("\"", "");
-
-    // Construimos la query solo con SEARCH y FIELDS
-    // Nota: Quitamos el 'where total_rating...'
     String queryBody = "search \"" + cleanQuery + "\"; " +
         "fields name, cover.url, total_rating, first_release_date, platforms.name; " +
         "limit 10;";
 
-    try {
-      HttpEntity<String> request = new HttpEntity<>(queryBody, headers);
-      ResponseEntity<JsonNode> response = restTemplate.postForEntity(apiUrl, request, JsonNode.class);
-
-      List<Object> resultados = new ArrayList<>();
-      if (response.getBody() != null && response.getBody().isArray()) {
-        for (JsonNode nodo : response.getBody()) {
-          resultados.add(nodo);
-        }
-      }
-      return resultados;
-
-    } catch (Exception e) {
-      this.accessToken = null; // Reseteamos token por si acaso
-      throw new RuntimeException("Error en la búsqueda: " + e.getMessage());
-    }
+    return callIgdbApi(queryBody);
   }
 
-  @Cacheable(value = "novedades", key = "#offset")
+  // 3. NOVEDADES (CACHÉ ACTIVADA)
+  // Usamos key #a0 para evitar problemas con nombres de variables
+  @Cacheable(value = "novedades", key = "#a0")
   public List<Object> obtenerUltimosLanzamientos(int offset) {
-    RestTemplate restTemplate = new RestTemplate();
-    String token = getAccessToken();
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Client-ID", clientId);
-    headers.set("Authorization", "Bearer " + token);
-    headers.setContentType(MediaType.TEXT_PLAIN);
+    // Chivato temporal para ver si entra (Solo debería salir la primera vez)
+    System.out.println("⚠️ API CALL REAL a IGDB (Offset: " + offset + ")");
 
-    // Obtenemos el timestamp actual para no mostrar juegos del futuro que aun no han salido
     long unixTime = System.currentTimeMillis() / 1000L;
 
-    // Query: campos básicos, fecha menor a hoy, ordenados por fecha descendente
     String queryBody = "fields name, cover.url, total_rating, first_release_date; " +
         "where first_release_date < " + unixTime + " & cover != null; " +
         "sort first_release_date desc; " +
         "limit 12; " +
         "offset " + offset + ";";
 
-    HttpEntity<String> request = new HttpEntity<>(queryBody, headers);
+    return callIgdbApi(queryBody);
+  }
 
+  // --- MÉTODO CENTRALIZADO PARA LLAMAR A LA API ---
+  private List<Object> callIgdbApi(String queryBody) {
     try {
+      HttpHeaders headers = createHeaders();
+      HttpEntity<String> request = new HttpEntity<>(queryBody, headers);
+
       ResponseEntity<JsonNode> response = restTemplate.postForEntity(apiUrl, request, JsonNode.class);
+
       List<Object> resultados = new ArrayList<>();
       if (response.getBody() != null && response.getBody().isArray()) {
         for (JsonNode nodo : response.getBody()) {
@@ -200,10 +185,13 @@ public class JuegoService {
         }
       }
       return resultados;
+
     } catch (Exception e) {
+      // Si falla, reseteamos el token por si ha caducado
       this.accessToken = null;
-      throw new RuntimeException("Error fetching latest games: " + e.getMessage());
+      // Imprimimos el error pero no rompemos la app completamente si es posible evitarlo
+      System.err.println("❌ Error llamando a IGDB: " + e.getMessage());
+      throw new RuntimeException("Error fetching games from IGDB: " + e.getMessage());
     }
   }
-
 }
