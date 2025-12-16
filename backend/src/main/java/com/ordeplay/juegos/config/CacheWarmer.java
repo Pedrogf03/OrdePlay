@@ -16,13 +16,13 @@ public class CacheWarmer {
 
   @EventListener(ApplicationReadyEvent.class)
   public void calentarCache() {
-    System.out.println("🔥 Calentando motores... Descargando juegos de IGDB en segundo plano...");
+    System.out.println("Calentando motores... Descargando juegos de IGDB en segundo plano...");
 
     try {
       juegoService.obtenerUltimosLanzamientos(0);
-      System.out.println("✅ ¡Caché lista! La primera visita será instantánea.");
+      System.out.println("¡Caché lista! La primera visita será instantánea.");
     } catch (Exception e) {
-      System.out.println("⚠️ No se pudo calentar la caché (¿Sin internet?): " + e.getMessage());
+      System.out.println("No se pudo calentar la caché (¿Sin internet?): " + e.getMessage());
     }
   }
 }

@@ -1,6 +1,7 @@
 <app-navbar 
   (onSearch)="handleSearch($event)" 
-  (onMenuToggle)="toggleSidebar()">
+  (onMenuToggle)="toggleSidebar()"
+  (onLoginClick)="openLoginModal()"> 
 </app-navbar>
 
 <div class="sidebar" [class.open]="isSidebarOpen">
@@ -73,3 +74,7 @@
 </main>
 
 <app-footer></app-footer>
+
+@if (showLoginModal) {
+  <app-auth-modal (close)="showLoginModal = false"></app-auth-modal>
+}

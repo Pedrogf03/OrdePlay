@@ -23,24 +23,32 @@
     </div>
 
     <div class="filters-row">
+      
       <select [(ngModel)]="selectedGenre" (change)="triggerSearch()" class="filter-chip">
-        <option value="">Todos los Géneros</option>
-        @for (g of genres; track g.id) { <option [value]="g.id">{{ g.name }}</option> }
+        <option value="0">📂 Todos los Géneros</option>
+        @for (g of genres; track g.id) { 
+          <option [value]="g.id">{{ g.name }}</option> 
+        }
       </select>
 
       <select [(ngModel)]="selectedPlatform" (change)="triggerSearch()" class="filter-chip">
-        <option value="">Cualquier Plataforma</option>
-        @for (p of platforms; track p.id) { <option [value]="p.id">{{ p.name }}</option> }
+        <option value="0">🎮 Cualquier Plataforma</option>
+        @for (p of platforms; track p.id) { 
+          <option [value]="p.id">{{ p.name }}</option> 
+        }
       </select>
-    </div>
 
+    </div>
   </div>
 
-  <div class="nav-right">
+<div class="nav-right">
     @if (isLoggedIn) {
-      <img [src]="userProfileImage" class="profile-pic" alt="Perfil">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: white; font-size: 0.9rem;">Hola, {{ username }}</span>
+        <img [src]="userProfileImage" class="profile-pic" alt="Perfil" (click)="logout()" title="Cerrar sesión">
+      </div>
     } @else {
-      <button class="login-btn">Iniciar Sesión | Registrarse</button>
+      <button class="login-btn" (click)="handleLoginClick()">Acceder</button>
     }
   </div>
 </nav>

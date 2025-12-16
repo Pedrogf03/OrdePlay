@@ -11,8 +11,13 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  searchGames(query: string): Observable<Game[]> {
-    return this.http.get<Game[]>(`${this.apiUrl}/buscar?q=${query}`);
+  searchGames(query: string, platform: string, genre: string, offset: number = 0): Observable<Game[]> {
+    let params = `?offset=${offset}`;
+    if (query) params += `&q=${query}`;
+    if (platform && platform !== '0') params += `&plataforma=${platform}`;
+    if (genre && genre !== '0') params += `&genero=${genre}`;
+
+    return this.http.get<Game[]>(`${this.apiUrl}/buscar${params}`);
   }
 
   getLatestGames(offset: number = 0): Observable<Game[]> {

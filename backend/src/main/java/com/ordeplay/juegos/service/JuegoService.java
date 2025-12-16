@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public class JuegoService {
   private final ListaRepository listaRepo;
   private final ItemListaRepository itemRepo;
   private final UsuarioRepository usuarioRepo;
-  private final RestTemplate restTemplate; // Usamos una instancia compartida
+  private final RestTemplate restTemplate;
 
   @Value("${igdb.client.id}")
   private String clientId;
@@ -105,14 +104,12 @@ public class JuegoService {
     }
   }
 
-  // Método auxiliar para generar cabeceras (SOLUCIÓN AL CONNECTION RESET)
   private HttpHeaders createHeaders() {
     String token = getAccessToken();
     HttpHeaders headers = new HttpHeaders();
     headers.set("Client-ID", clientId);
     headers.set("Authorization", "Bearer " + token);
     headers.setContentType(MediaType.TEXT_PLAIN);
-    // IMPORTANTE: IGDB a veces bloquea peticiones sin User-Agent o Accept definidos
     headers.set("User-Agent", "OrdePlay-App/1.0");
     headers.set("Accept", "application/json");
     return headers;
@@ -142,22 +139,41 @@ public class JuegoService {
   }
 
   // 2. BUSCADOR DE JUEGOS
-  public List<Object> buscarJuegos(String consulta) {
-    String cleanQuery = consulta.replace("\"", "");
-    String queryBody = "search \"" + cleanQuery + "\"; " +
-        "fields name, cover.url, total_rating, first_release_date, platforms.name; " +
-        "limit 10;";
+  public List<Object> descubrirJuegos(String consulta, String plataforma, String genero, int offset) {
 
-    return callIgdbApi(queryBody);
+    StringBuilder query = new StringBuilder();
+
+    if (consulta != null && !consulta.isEmpty()) {
+      query.append("search \"").append(consulta.replace("\"", "")).append("\"; ");
+    }
+
+    query.append("fields name, cover.url, total_rating, first_release_date, platforms.name, genres.name; ");
+
+    StringBuilder whereClause = new StringBuilder();
+    whereClause.append("where cover != null");
+
+    if (plataforma != null && !plataforma.isEmpty() && !plataforma.equals("0")) {
+      whereClause.append(" & platforms = ").append(plataforma);
+    }
+
+    if (genero != null && !genero.isEmpty() && !genero.equals("0")) {
+      whereClause.append(" & genres = ").append(genero);
+    }
+
+    query.append(whereClause).append("; ");
+
+    if (consulta == null || consulta.isEmpty()) {
+      query.append("sort first_release_date desc; ");
+    }
+
+    query.append("limit 12; offset ").append(offset).append(";");
+
+    return callIgdbApi(query.toString());
   }
 
   // 3. NOVEDADES (CACHÉ ACTIVADA)
-  // Usamos key #a0 para evitar problemas con nombres de variables
   @Cacheable(value = "novedades", key = "#a0")
   public List<Object> obtenerUltimosLanzamientos(int offset) {
-
-    // Chivato temporal para ver si entra (Solo debería salir la primera vez)
-    System.out.println("⚠️ API CALL REAL a IGDB (Offset: " + offset + ")");
 
     long unixTime = System.currentTimeMillis() / 1000L;
 
@@ -187,9 +203,7 @@ public class JuegoService {
       return resultados;
 
     } catch (Exception e) {
-      // Si falla, reseteamos el token por si ha caducado
       this.accessToken = null;
-      // Imprimimos el error pero no rompemos la app completamente si es posible evitarlo
       System.err.println("❌ Error llamando a IGDB: " + e.getMessage());
       throw new RuntimeException("Error fetching games from IGDB: " + e.getMessage());
     }

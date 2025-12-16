@@ -1,0 +1,60 @@
+<div class="modal-backdrop" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <button class="close-btn" (click)="closeModal()">✖</button>
+
+    <h2>{{ isLoginMode ? 'INICIAR SESIÓN' : 'CREAR CUENTA' }}</h2>
+
+    <div class="social-login">
+      <a href="http://localhost:8080/oauth2/authorization/google" class="social-btn google">
+        <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google">
+        Google
+      </a>
+      <a href="http://localhost:8080/oauth2/authorization/discord" class="social-btn discord">
+        <img src="https://img.icons8.com/color/48/discord-logo.png" alt="Discord">
+        Discord
+      </a>
+    </div>
+
+    <div class="divider">
+      <span>O usa tu email</span>
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-msg">{{ errorMessage }}</div>
+    }
+
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="input-group">
+        <label>Usuario</label>
+        <input type="text" [(ngModel)]="formData.username" name="username" required autocomplete="off">
+      </div>
+
+      @if (!isLoginMode) {
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="formData.email" name="email" required>
+        </div>
+      }
+
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="formData.password" name="password" required>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        {{ isLoading ? 'Cargando...' : (isLoginMode ? 'ENTRAR' : 'REGISTRARSE') }}
+      </button>
+
+    </form>
+
+    <p class="switch-mode">
+      {{ isLoginMode ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?' }}
+      <span (click)="toggleMode()">
+        {{ isLoginMode ? 'Regístrate gratis' : 'Inicia sesión' }}
+      </span>
+    </p>
+
+  </div>
+</div>

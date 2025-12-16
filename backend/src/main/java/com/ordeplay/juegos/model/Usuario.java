@@ -1,40 +1,36 @@
 package com.ordeplay.juegos.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 @Entity
-@Table(name = "usuario")
-@Data // Genera Getters, Setters, toString, etc.
-@NoArgsConstructor // Constructor vacío (obligatorio para JPA)
-@AllArgsConstructor // Constructor con todo (útil)
-@Builder // Patrón Builder (para crear objetos fácilmente)
+@Table(name = "usuarios")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Usuario {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false)
+  private String username;
+
+  @Column(unique = true, nullable = false)
   private String email;
 
-  private String nombre;
+  @Column(nullable = false)
+  private String password;
 
-  private String fotoPerfilUrl; // Url de la foto de Google/Discord
+  private String avatarUrl;
 
-  // OAUTH2: Identificadores del proveedor
-  @Enumerated(EnumType.STRING)
-  private AuthProvider proveedor; // GOOGLE, DISCORD, LOCAL
+  private String googleId;
+  private String discordId;
 
-  private String providerId; // El ID único que te da Google (ej: "sub_12345")
-
-  @CreationTimestamp
-  @Column(updatable = false)
-  private LocalDateTime fechaRegistro;
+  private String provider;
 }

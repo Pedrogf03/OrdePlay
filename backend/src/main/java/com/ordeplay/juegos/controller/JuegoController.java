@@ -3,6 +3,8 @@ package com.ordeplay.juegos.controller;
 import com.ordeplay.juegos.model.ItemLista;
 import com.ordeplay.juegos.model.Lista;
 import com.ordeplay.juegos.service.JuegoService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +36,13 @@ public class JuegoController {
   }
 
   @GetMapping("/buscar")
-  public List<Object> buscar(@RequestParam("q") String consulta) {
-    return juegoService.buscarJuegos(consulta);
+  public ResponseEntity<List<Object>> buscar(
+      @RequestParam(required = false) String q,
+      @RequestParam(required = false) String plataforma,
+      @RequestParam(required = false) String genero,
+      @RequestParam(defaultValue = "0") int offset) {
+
+    return ResponseEntity.ok(juegoService.descubrirJuegos(q, plataforma, genero, offset));
   }
 
   @GetMapping("/novedades")
